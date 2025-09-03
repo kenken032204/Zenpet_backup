@@ -1,0 +1,239 @@
+[gd_scene load_steps=8 format=3 uid="uid://nhcvm7odhvjw"]
+
+[ext_resource type="Texture2D" uid="uid://vu45py5axrg4" path="res://Sprite/cat-clipart-icon-flat-design-on-transparent-background-animal-isolated-clipping-path-element-png.png" id="1_s26jd"]
+[ext_resource type="Texture2D" uid="uid://8revhcpkl6gj" path="res://Sprite/closed-golden-padlock-game-icon-block-and-security-png.png" id="2_7xpjk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0bl00"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.0745098, 0.0745098, 0.0705882, 1)
+corner_radius_top_left = 55
+corner_radius_top_right = 55
+shadow_color = Color(0.0745098, 0.0745098, 0.0705882, 1)
+shadow_size = 1
+shadow_offset = Vector2(4.065, 6.71)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5wvl7"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w66lt"]
+bg_color = Color(0.992157, 0.584314, 0.278431, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.0745098, 0.0745098, 0.0705882, 1)
+corner_radius_bottom_right = 9
+corner_radius_bottom_left = 9
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 1
+shadow_offset = Vector2(1.28, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n7wxk"]
+bg_color = Color(0.992157, 0.359829, 0.278431, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.0745098, 0.0745098, 0.0705882, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 1
+shadow_offset = Vector2(2.76, 2.535)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tbg6u"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 27.0
+offset_top = 273.0
+offset_right = -27.0
+offset_bottom = -273.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(163, -21.545)
+scale = Vector2(0.365, 0.365)
+texture = ExtResource("1_s26jd")
+
+[node name="ColorRect" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0bl00")
+
+[node name="GridContainer" type="GridContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 42.0
+offset_top = -79.0
+offset_right = 146.0
+offset_bottom = 79.0
+grow_vertical = 2
+columns = 2
+
+[node name="Button" type="Button" parent="ColorRect/GridContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_5wvl7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ColorRect/GridContainer/Button"]
+position = Vector2(46, 45)
+rotation = -0.127827
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_7xpjk")
+
+[node name="Button2" type="Button" parent="ColorRect/GridContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_5wvl7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ColorRect/GridContainer/Button2"]
+position = Vector2(46, 45)
+rotation = -0.127827
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_7xpjk")
+
+[node name="Button3" type="Button" parent="ColorRect/GridContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_5wvl7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ColorRect/GridContainer/Button3"]
+position = Vector2(46, 45)
+rotation = -0.127827
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_7xpjk")
+
+[node name="Button4" type="Button" parent="ColorRect/GridContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_5wvl7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ColorRect/GridContainer/Button4"]
+position = Vector2(46, 45)
+rotation = -0.127827
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_7xpjk")
+
+[node name="Button5" type="Button" parent="ColorRect/GridContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_5wvl7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ColorRect/GridContainer/Button5"]
+position = Vector2(46, 45)
+rotation = -0.127827
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_7xpjk")
+
+[node name="Button6" type="Button" parent="ColorRect/GridContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_5wvl7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ColorRect/GridContainer/Button6"]
+position = Vector2(46, 45)
+rotation = -0.127827
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_7xpjk")
+
+[node name="Label" type="Label" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -75.0
+offset_top = -5.0
+offset_right = 75.0
+offset_bottom = 36.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_styles/normal = SubResource("StyleBoxFlat_w66lt")
+text = "Daily Rewards"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="ColorRect"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
+offset_left = 286.0
+offset_top = -10.0
+offset_right = 336.0
+offset_bottom = 40.0
+rotation = 0.264872
+pivot_offset = Vector2(27, 26)
+theme_override_styles/normal = SubResource("StyleBoxFlat_n7wxk")
+text = "X"
+
+[node name="Button3" type="Button" parent="ColorRect"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -73.0
+offset_top = -35.0
+offset_right = 73.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 26
+theme_override_styles/focus = SubResource("StyleBoxEmpty_tbg6u")
+theme_override_styles/normal = SubResource("StyleBoxFlat_n7wxk")
+text = "CLAIM"
+
+[node name="Button2" type="Button" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.0
+offset_top = -87.0
+offset_right = 131.0
+offset_bottom = 89.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_5wvl7")

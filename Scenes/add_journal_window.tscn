@@ -1,0 +1,194 @@
+[gd_scene load_steps=15 format=3 uid="uid://bnbtl16rulqgx"]
+
+[ext_resource type="Texture2D" uid="uid://b5ice2x4m76dg" path="res://Sprite/GUI/back-svgrepo-com.svg" id="1_b7m1i"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5h6ls"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+anti_aliasing_size = 10.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_78bd0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ccnec"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f4pem"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5h6ls"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ccnec"]
+bg_color = Color(0.72549, 0.831373, 0.396078, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.388235, 0.45098, 0.164706, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uvkn8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r7gum"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ixxyp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sx68p"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gp04c"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f4pem"]
+bg_color = Color(0.722133, 0.928389, 0.388165, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.388235, 0.45098, 0.164706, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_78bd0"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.839216, 0.54902, 0.168627, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Add_Journal_window" type="Panel"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -176.0
+offset_top = -208.0
+offset_right = 176.0
+offset_bottom = 303.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5h6ls")
+
+[node name="back_zendiary" type="Button" parent="."]
+z_index = 100
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -155.0
+offset_top = -235.5
+offset_right = -91.0
+offset_bottom = -171.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.355, 0.355)
+theme_override_colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 56
+theme_override_styles/focus = SubResource("StyleBoxEmpty_78bd0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ccnec")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_f4pem")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_5h6ls")
+icon = ExtResource("1_b7m1i")
+icon_alignment = 1
+
+[node name="journal-id" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 347.0
+offset_bottom = 511.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ccnec")
+
+[node name="journal-title" type="LineEdit" parent="journal-id"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 23.0
+offset_top = 73.0
+offset_right = -23.0
+offset_bottom = 103.0
+grow_horizontal = 2
+theme_override_colors/font_placeholder_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 21
+theme_override_styles/focus = SubResource("StyleBoxEmpty_uvkn8")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_r7gum")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ixxyp")
+placeholder_text = "Your title..."
+
+[node name="ScrollContainer" type="ScrollContainer" parent="journal-id"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 108.0
+offset_right = 324.0
+offset_bottom = 429.0
+horizontal_scroll_mode = 0
+
+[node name="journal-text" type="TextEdit" parent="journal-id/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_placeholder_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_sx68p")
+placeholder_text = "Type something..."
+wrap_mode = 1
+
+[node name="journal-settings" type="HBoxContainer" parent="."]
+layout_mode = 2
+offset_left = 17.0
+offset_top = 446.0
+offset_right = 334.0
+offset_bottom = 488.0
+size_flags_horizontal = 3
+size_flags_vertical = 8
+
+[node name="save-btn" type="Button" parent="journal-settings"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gp04c")
+theme_override_styles/normal = SubResource("StyleBoxFlat_f4pem")
+text = "Save"
+
+[node name="edit-btn" type="Button" parent="journal-settings"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gp04c")
+theme_override_styles/normal = SubResource("StyleBoxFlat_78bd0")
+text = "Cancel"

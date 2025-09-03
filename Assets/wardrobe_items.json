@@ -1,0 +1,66 @@
+[
+	{
+		"category": "Hat",
+		"equipped": false,
+		"id": 0.0,
+		"name": "Default",
+		"sprite": "",
+		"unlocked": true
+	},
+	{
+		"category": "Hat",
+		"equipped": false,
+		"id": 0.0,
+		"name": "Cool Hat",
+		"sprite": "res://Sprite/Outifts/Hat_TopHat.png",
+		"unlocked": true
+	},
+	{
+		"category": "Hat",
+		"equipped": false,
+		"id": 0.0,
+		"name": "Shank",
+		"sprite": "res://Sprite/Outifts/Hat_Hair.png",
+		"unlocked": true
+	},
+	{
+		"category": "Hat",
+		"equipped": false,
+		"id": 1.0,
+		"name": "Sun Hat",
+		"sprite": "res://Sprite/Outifts/Hat_Straw.png",
+		"unlocked": false
+	},
+	{
+		"category": "Hat",
+		"equipped": true,
+		"id": 2.0,
+		"name": "Red Cap",
+		"sprite": "res://Sprite/Outifts/Hat_Cap.png",
+		"unlocked": false
+	},
+	{
+		"category": "Dress",
+		"equipped": false,
+		"id": 3.0,
+		"name": "Default",
+		"sprite": "res://Sprite/Cat/Asset 4.png",
+		"unlocked": false
+	},
+	{
+		"category": "Dress",
+		"equipped": false,
+		"id": 3.0,
+		"name": "Red Dress",
+		"sprite": "res://Sprite/Outifts/test.png",
+		"unlocked": false
+	},
+	{
+		"category": "Boots",
+		"equipped": false,
+		"id": 6.0,
+		"name": "Leather Boots",
+		"sprite": "res://Sprite/Outifts/cap-clipart-design-illustration-free-png.png",
+		"unlocked": false
+	},
+]

@@ -1,0 +1,226 @@
+[gd_scene load_steps=17 format=3 uid="uid://csgjkfsuh7dpu"]
+
+[ext_resource type="Texture2D" uid="uid://cxge6pknpl6gx" path="res://Sprite/GUI/dog.png" id="1_4geyq"]
+[ext_resource type="Script" uid="uid://bro8xq41ggo85" path="res://Scripts/settings.gd" id="1_lhmql"]
+[ext_resource type="Texture2D" uid="uid://b5ice2x4m76dg" path="res://Sprite/GUI/back-svgrepo-com.svg" id="2_i44u3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i44u3"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4geyq"]
+bg_color = Color(0, 0, 0, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i44u3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bismi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rgw85"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l7vst"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lhmql"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aaqfp"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.498814, 0.305125, 0.236477, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j2dne"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(1, 0.298039, 0.141176, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.498814, 0.305125, 0.236477, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aaqfp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6vr2p"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j2dne"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6kysc"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lhmql")
+
+[node name="Panel" type="Panel" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_i44u3")
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel"]
+modulate = Color(1, 0.694118, 0.647059, 0.0470588)
+self_modulate = Color(1, 0.813727, 0.780998, 0.411765)
+position = Vector2(210, 631)
+texture = ExtResource("1_4geyq")
+
+[node name="CanvasLayer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.0
+offset_top = -169.5
+offset_right = 140.0
+offset_bottom = 169.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Label2" type="Label" parent="CanvasLayer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 26
+text = "Settings"
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4geyq")
+
+[node name="Label4" type="Label" parent="CanvasLayer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.578316, 0.507134, 0.507685, 1)
+text = "General Questions"
+
+[node name="LinkButton" type="LinkButton" parent="CanvasLayer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 26
+text = "How to play?"
+underline = 2
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.578316, 0.507134, 0.507685, 1)
+text = "Accessibility"
+
+[node name="CheckButton" type="CheckButton" parent="CanvasLayer"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 26
+theme_override_styles/focus = SubResource("StyleBoxEmpty_i44u3")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_bismi")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_rgw85")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_l7vst")
+text = "Music"
+
+[node name="CheckButton2" type="CheckButton" parent="CanvasLayer"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 26
+theme_override_styles/focus = SubResource("StyleBoxEmpty_i44u3")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_bismi")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_rgw85")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_l7vst")
+text = "Sound"
+
+[node name="Label3" type="Label" parent="CanvasLayer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.578316, 0.507134, 0.507685, 1)
+text = "Account Settings"
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_lhmql")
+theme_override_styles/normal = SubResource("StyleBoxFlat_aaqfp")
+text = "Change Pet Name"
+
+[node name="Button2" type="Button" parent="CanvasLayer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_lhmql")
+theme_override_styles/normal = SubResource("StyleBoxFlat_j2dne")
+text = "Logout"
+
+[node name="back_button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -164.0
+offset_top = -395.0
+offset_right = -92.0
+offset_bottom = -323.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.68, 0.68)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 56
+theme_override_styles/focus = SubResource("StyleBoxEmpty_aaqfp")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_6vr2p")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_j2dne")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_6kysc")
+icon = ExtResource("2_i44u3")
+icon_alignment = 1

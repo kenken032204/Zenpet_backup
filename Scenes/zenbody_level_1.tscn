@@ -1,0 +1,209 @@
+[gd_scene load_steps=12 format=3 uid="uid://cqou840dqir01"]
+
+[ext_resource type="Texture2D" uid="uid://b5ice2x4m76dg" path="res://Sprite/GUI/back-svgrepo-com.svg" id="1_ctyiq"]
+[ext_resource type="Texture2D" uid="uid://cxge6pknpl6gx" path="res://Sprite/GUI/dog.png" id="1_yd4af"]
+[ext_resource type="Texture2D" uid="uid://cw1k432863fv1" path="res://Sprite/2917805.png" id="3_xc7yd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sxhtv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yd4af"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xc7yd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lnkm6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yd4af"]
+bg_color = Color(0.994447, 0.8078, 0.701716, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xc7yd"]
+bg_color = Color(0.983056, 0.638986, 0.431712, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xotda"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hk0ch"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.646296, 0.437752, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 640.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0.686275, 0, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="ColorRect2"]
+modulate = Color(1, 0.698039, 0.65098, 0.0941176)
+self_modulate = Color(1, 0.813727, 0.780998, 0.411765)
+position = Vector2(299, 84)
+scale = Vector2(0.68, 0.68)
+texture = ExtResource("1_yd4af")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -175.0
+offset_top = -274.0
+offset_right = 175.0
+offset_bottom = -251.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Level 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label4" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -175.0
+offset_top = -243.0
+offset_right = 175.0
+offset_bottom = -220.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "- Yoga Title -"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -92.0
+offset_top = 160.0
+offset_right = 92.0
+offset_bottom = 183.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "00.00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -151.5
+offset_top = 17.0
+offset_right = 151.5
+offset_bottom = 144.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
+text = "Welcome!
+Find a comfortable seated position—cross-legged if it feels good. Gently place your hands on your knees or in your lap..."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="back_button" type="Button" parent="."]
+offset_left = 23.0
+offset_top = 22.0
+offset_right = 95.0
+offset_bottom = 94.0
+scale = Vector2(0.68, 0.68)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 56
+theme_override_styles/focus = SubResource("StyleBoxEmpty_sxhtv")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_yd4af")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_xc7yd")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_lnkm6")
+icon = ExtResource("1_ctyiq")
+icon_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(184, 296)
+scale = Vector2(0.304688, 0.304688)
+texture = ExtResource("3_xc7yd")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -115.0
+offset_top = -18.0
+offset_right = 115.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_yd4af")
+theme_override_styles/fill = SubResource("StyleBoxFlat_xc7yd")
+value = 23.39
+show_percentage = false
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -74.0
+offset_top = 252.0
+offset_right = 74.0
+offset_bottom = 297.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xotda")
+theme_override_styles/normal = SubResource("StyleBoxFlat_hk0ch")
+text = "Start"

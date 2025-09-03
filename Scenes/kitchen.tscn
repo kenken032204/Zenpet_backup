@@ -1,0 +1,97 @@
+[gd_scene load_steps=11 format=3 uid="uid://dqot3uoq0l20e"]
+
+[ext_resource type="Script" uid="uid://4jp24uleim5u" path="res://Scripts/kitchen.gd" id="1_7u47w"]
+[ext_resource type="Texture2D" uid="uid://dmj4aji7cen4x" path="res://Sprite/empty-kitchen-room-background-illustration-with-cartoon-interior-design_474905-167.png" id="2_23qos"]
+[ext_resource type="StyleBox" uid="uid://de8tfguaqm7oi" path="res://Styles/wardrobe_button.tres" id="3_cetdd"]
+[ext_resource type="Texture2D" uid="uid://upffexwred8f" path="res://Sprite/wooden-round-table-object-free-png.png" id="3_lvc4q"]
+[ext_resource type="Texture2D" uid="uid://b5ice2x4m76dg" path="res://Sprite/GUI/back-svgrepo-com.svg" id="4_o8uib"]
+[ext_resource type="Texture2D" uid="uid://shfb101g07ka" path="res://Sprite/plate-teller-dish-vector-graphic-pixabay-2.png" id="4_pb1w8"]
+[ext_resource type="Texture2D" uid="uid://b022ylbef1e7a" path="res://Sprite/burger-fast-food-cartoon-png.png" id="5_jbuf1"]
+[ext_resource type="Script" uid="uid://d1s0yacygkj44" path="res://Scripts/food.gd" id="7_o8uib"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kr0tx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cetdd"]
+radius = 44.1814
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_7u47w")
+metadata/_edit_horizontal_guides_ = [612.0]
+metadata/_edit_vertical_guides_ = [200.0]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -431.0
+offset_right = 431.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_23qos")
+
+[node name="back_button" type="Button" parent="."]
+layout_mode = 1
+offset_left = 23.0
+offset_top = 23.0
+offset_right = 95.0
+offset_bottom = 95.0
+scale = Vector2(0.68, 0.68)
+theme_override_font_sizes/font_size = 56
+theme_override_styles/focus = SubResource("StyleBoxEmpty_kr0tx")
+theme_override_styles/hover = ExtResource("3_cetdd")
+theme_override_styles/pressed = ExtResource("3_cetdd")
+theme_override_styles/normal = ExtResource("3_cetdd")
+icon = ExtResource("4_o8uib")
+icon_alignment = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Table" type="Sprite2D" parent="CanvasLayer"]
+z_index = 20
+position = Vector2(201, 747)
+scale = Vector2(0.486468, 0.486468)
+texture = ExtResource("3_lvc4q")
+
+[node name="Plate_front" type="Sprite2D" parent="CanvasLayer"]
+z_index = 30
+position = Vector2(196, 652)
+scale = Vector2(0.222857, 0.266667)
+texture = ExtResource("4_pb1w8")
+
+[node name="Plate_left" type="Sprite2D" parent="CanvasLayer"]
+z_index = 30
+position = Vector2(66, 592)
+scale = Vector2(0.118393, 0.141667)
+texture = ExtResource("4_pb1w8")
+
+[node name="Plate_right" type="Sprite2D" parent="CanvasLayer"]
+z_index = 30
+position = Vector2(326, 592)
+scale = Vector2(0.118393, 0.141667)
+texture = ExtResource("4_pb1w8")
+
+[node name="Area2D" type="Area2D" parent="CanvasLayer"]
+z_index = 32
+position = Vector2(198, 619)
+script = ExtResource("7_o8uib")
+
+[node name="Food" type="Sprite2D" parent="CanvasLayer/Area2D"]
+position = Vector2(0, -1)
+scale = Vector2(0.36, 0.290833)
+texture = ExtResource("5_jbuf1")
+offset = Vector2(-2.77777, -41.2607)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Area2D"]
+scale = Vector2(1.09, 0.94)
+shape = SubResource("CircleShape2D_cetdd")
+
+[connection signal="input_event" from="CanvasLayer/Area2D" to="CanvasLayer/Area2D" method="_on_input_event"]

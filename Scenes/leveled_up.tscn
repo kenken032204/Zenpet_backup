@@ -1,0 +1,306 @@
+[gd_scene load_steps=10 format=3 uid="uid://c4xkm47vbsvqb"]
+
+[ext_resource type="Script" uid="uid://kif8jd41prdr" path="res://Scripts/leveled_up.gd" id="1_toxjh"]
+[ext_resource type="Texture2D" uid="uid://v7etvxb5qbli" path="res://Sprite/GUI/502375681699003dea428f4d3383c03a-group-of-stars-flat.png" id="2_iq17m"]
+[ext_resource type="Texture2D" uid="uid://cxge6pknpl6gx" path="res://Sprite/GUI/dog.png" id="2_kkqii"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_khsmy"]
+bg_color = Color(0.999999, 0.561742, 0.0306685, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iq17m"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vsr18"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.809977, 0.447556, 3.85046e-07, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Animation" id="Animation_kkqii"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel/Label:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Panel/level:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Panel/confirm_btn:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Panel/confirm_btn:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_toxjh"]
+resource_name = "leveled_up"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 0.133333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.211765), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel/Label:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.366667, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.215, 1.215), Vector2(0.87, 0.87), Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Panel/level:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.366667, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.725, 1.725), Vector2(0.795, 0.795), Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Panel/confirm_btn:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.0333333, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Panel/confirm_btn:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.366667, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1.2, 1.2), Vector2(0.805, 0.805), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iq17m"]
+_data = {
+&"RESET": SubResource("Animation_kkqii"),
+&"leveled_up": SubResource("Animation_toxjh")
+}
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_toxjh")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_khsmy")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Panel"]
+position = Vector2(-120, 377)
+amount = 3
+texture = ExtResource("2_iq17m")
+lifetime = 1.01
+preprocess = 2.13
+speed_scale = 0.5
+explosiveness = 0.22
+emission_shape = 1
+emission_sphere_radius = 41.42
+gravity = Vector2(500, 0)
+initial_velocity_min = 308.07
+initial_velocity_max = 334.39
+angular_velocity_min = -113.68
+angular_velocity_max = 56.85
+angle_max = 170.5
+scale_amount_min = 0.3
+scale_amount_max = 0.3
+color = Color(1, 0.560784, 0.0313726, 0.215686)
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="Panel"]
+position = Vector2(11, 919)
+amount = 3
+texture = ExtResource("2_iq17m")
+lifetime = 1.01
+preprocess = 2.13
+speed_scale = 0.5
+explosiveness = 0.22
+emission_shape = 1
+emission_sphere_radius = 41.42
+gravity = Vector2(500, 0)
+initial_velocity_min = 308.07
+initial_velocity_max = 334.39
+angular_velocity_min = -113.68
+angular_velocity_max = 56.85
+angle_max = 170.5
+scale_amount_min = 0.3
+scale_amount_max = 0.3
+color = Color(1, 0.560784, 0.0313726, 0.215686)
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel"]
+modulate = Color(1, 0.698039, 0.65098, 0.176471)
+self_modulate = Color(1, 0.813727, 0.780998, 0.411765)
+position = Vector2(262, 711)
+texture = ExtResource("2_kkqii")
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -135.0
+offset_top = -161.0
+offset_right = 135.0
+offset_bottom = -70.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(138, 74)
+theme_override_colors/font_outline_color = Color(0.418713, 0.21939, 1.92523e-07, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 31
+text = "Congratulations
+You've leveled up!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="confirm_btn" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -105.0
+offset_top = 69.0
+offset_right = 105.0
+offset_bottom = 135.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(111, 41)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 26
+theme_override_styles/focus = SubResource("StyleBoxEmpty_iq17m")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_vsr18")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_vsr18")
+theme_override_styles/hover = SubResource("StyleBoxFlat_vsr18")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_vsr18")
+theme_override_styles/normal = SubResource("StyleBoxFlat_vsr18")
+text = "Confirm"
+
+[node name="level" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -74.0
+offset_top = -69.0
+offset_right = 74.0
+offset_bottom = 69.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(77, 69)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.290196)
+theme_override_colors/font_outline_color = Color(0.811765, 0.447059, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/outline_size = 9
+theme_override_font_sizes/font_size = 101
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_iq17m")
+}

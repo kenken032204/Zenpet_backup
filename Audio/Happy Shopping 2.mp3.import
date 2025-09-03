@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bxjy1mwastnv0"
+path="res://.godot/imported/Happy Shopping 2.mp3-47ad5dcb5f5faa1a800ff723835e3de8.mp3str"
+
+[deps]
+
+source_file="res://Audio/Happy Shopping 2.mp3"
+dest_files=["res://.godot/imported/Happy Shopping 2.mp3-47ad5dcb5f5faa1a800ff723835e3de8.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

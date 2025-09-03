@@ -1,0 +1,147 @@
+[gd_scene load_steps=5 format=3 uid="uid://bxew4jfnbdkni"]
+
+[ext_resource type="Texture2D" uid="uid://blersput1g3jq" path="res://Sprite/cartoon-illustration-empty-room-with-window-dresser-generative-ai_958108-56141.png" id="1_6b8cd"]
+[ext_resource type="Script" uid="uid://pe0x6smapvqy" path="res://Scenes/wardrobe.gd" id="1_flhbc"]
+[ext_resource type="StyleBox" uid="uid://de8tfguaqm7oi" path="res://Styles/wardrobe_button.tres" id="3_b1x2a"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g5gow"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.0445578, 0.0445579, 0.0445578, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_flhbc")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_6b8cd")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="hat_button" type="Button" parent="UI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 22.0
+offset_top = -295.0
+offset_right = 134.0
+offset_bottom = -182.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.68, 0.68)
+theme_override_font_sizes/font_size = 56
+theme_override_styles/normal = ExtResource("3_b1x2a")
+text = "🎩"
+
+[node name="dress_button" type="Button" parent="UI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -218.0
+offset_right = -64.0
+offset_bottom = -105.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.68, 0.68)
+theme_override_font_sizes/font_size = 56
+theme_override_styles/normal = ExtResource("3_b1x2a")
+text = "👗"
+
+[node name="boots_button" type="Button" parent="UI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 87.0
+offset_top = -178.0
+offset_right = 199.0
+offset_bottom = -65.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.68, 0.68)
+theme_override_font_sizes/font_size = 56
+theme_override_styles/normal = ExtResource("3_b1x2a")
+text = "👞"
+
+[node name="back_button" type="Button" parent="UI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -141.0
+offset_top = -351.0
+offset_right = -29.0
+offset_bottom = -238.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.68, 0.68)
+theme_override_font_sizes/font_size = 56
+theme_override_styles/normal = ExtResource("3_b1x2a")
+text = "🏠"
+
+[node name="Menu" type="Panel" parent="UI"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -163.0
+offset_top = -212.0
+offset_right = 168.0
+offset_bottom = -140.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_g5gow")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Menu"]
+layout_mode = 2
+offset_right = 331.0
+offset_bottom = 72.0
+theme_override_constants/separation = 25
+
+[node name="Button" type="Button" parent="UI/Menu/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 46
+text = "🔙"
+flat = true
+
+[node name="Label" type="Label" parent="UI/Menu/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 31
+text = "TOP HAT "
+
+[node name="Button2" type="Button" parent="UI/Menu/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 46
+text = "🔜"
+flat = true

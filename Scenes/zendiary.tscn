@@ -1,0 +1,495 @@
+[gd_scene load_steps=32 format=3 uid="uid://nrcxwgy5gygy"]
+
+[ext_resource type="Texture2D" uid="uid://vu45py5axrg4" path="res://Sprite/cat-clipart-icon-flat-design-on-transparent-background-animal-isolated-clipping-path-element-png.png" id="1_c3due"]
+[ext_resource type="Texture2D" uid="uid://cxge6pknpl6gx" path="res://Sprite/GUI/dog.png" id="1_cg3dd"]
+[ext_resource type="Script" uid="uid://d5ilmyaeytnf" path="res://Scripts/zendiary.gd" id="1_crga8"]
+[ext_resource type="Texture2D" uid="uid://b5ice2x4m76dg" path="res://Sprite/GUI/back-svgrepo-com.svg" id="2_wj2ap"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c3due"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+anti_aliasing_size = 10.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1y5rp"]
+
+[sub_resource type="Theme" id="Theme_c3due"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5h6ls"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+anti_aliasing_size = 10.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_78bd0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ccnec"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f4pem"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5h6ls"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ccnec"]
+bg_color = Color(0.72549, 0.831373, 0.396078, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.388235, 0.45098, 0.164706, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uvkn8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r7gum"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ixxyp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sx68p"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gp04c"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f4pem"]
+bg_color = Color(0.722133, 0.928389, 0.388165, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.388235, 0.45098, 0.164706, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_78bd0"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.839216, 0.54902, 0.168627, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_crga8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gp04c"]
+bg_color = Color(0.727783, 0.833195, 0.396126, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.387133, 0.450441, 0.164571, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sx68p"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_agj1l"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vw4nv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ef0gy"]
+
+[sub_resource type="Animation" id="Animation_gp04c"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Add_Journal_window:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("whiteScreen:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("no_notes_indicator:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_crga8"]
+resource_name = "fade-in"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Add_Journal_window:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_78bd0"]
+resource_name = "intro_fade"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("whiteScreen:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 8.28212),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ccnec"]
+resource_name = "no_notes_shake"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("no_notes_indicator:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.366667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-0.0610865, 0.0523599, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_78bd0"]
+_data = {
+&"RESET": SubResource("Animation_gp04c"),
+&"fade-in": SubResource("Animation_crga8"),
+&"intro_fade": SubResource("Animation_78bd0"),
+&"no_notes_shake": SubResource("Animation_ccnec")
+}
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_crga8")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+modulate = Color(1, 0.698039, 0.65098, 0.0941176)
+self_modulate = Color(1, 0.813727, 0.780998, 0.411765)
+position = Vector2(299, 724)
+scale = Vector2(0.68, 0.68)
+texture = ExtResource("1_cg3dd")
+
+[node name="Journal_window" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -173.0
+offset_top = -211.0
+offset_right = 180.0
+offset_bottom = 332.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.990776, 1.00687)
+theme_override_styles/panel = SubResource("StyleBoxFlat_c3due")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_1y5rp")
+follow_focus = true
+draw_focus_border = true
+
+[node name="GridContainer" type="GridContainer" parent="Journal_window"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+theme = SubResource("Theme_c3due")
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 10
+columns = 2
+
+[node name="no_notes_indicator" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -105.0
+offset_top = -15.0
+offset_right = 105.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(105, 14)
+theme_override_colors/font_color = Color(1, 0.53086, 0.416957, 1)
+theme_override_font_sizes/font_size = 21
+text = "You have no notes :<"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Add_Journal_window" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -176.0
+offset_top = -205.0
+offset_right = 176.0
+offset_bottom = 335.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5h6ls")
+
+[node name="back_zendiary" type="Button" parent="Add_Journal_window"]
+z_index = 100
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -154.0
+offset_top = -243.0
+offset_right = -90.0
+offset_bottom = -179.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.355, 0.355)
+theme_override_colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 56
+theme_override_styles/focus = SubResource("StyleBoxEmpty_78bd0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ccnec")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_f4pem")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_5h6ls")
+icon = ExtResource("2_wj2ap")
+icon_alignment = 1
+
+[node name="journal-id" type="Panel" parent="Add_Journal_window"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ccnec")
+
+[node name="journal-title" type="LineEdit" parent="Add_Journal_window/journal-id"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 23.0
+offset_top = 73.0
+offset_right = -23.0
+offset_bottom = 103.0
+grow_horizontal = 2
+theme_override_colors/font_placeholder_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 21
+theme_override_styles/focus = SubResource("StyleBoxEmpty_uvkn8")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_r7gum")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ixxyp")
+placeholder_text = "Your title..."
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Add_Journal_window/journal-id"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 108.0
+offset_right = 324.0
+offset_bottom = 429.0
+horizontal_scroll_mode = 0
+
+[node name="journal-text" type="TextEdit" parent="Add_Journal_window/journal-id/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_placeholder_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_sx68p")
+placeholder_text = "Type something..."
+wrap_mode = 1
+
+[node name="journal-settings" type="HBoxContainer" parent="Add_Journal_window"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 23.0
+offset_top = -48.0
+offset_right = -23.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 8
+
+[node name="save-btn" type="Button" parent="Add_Journal_window/journal-settings"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gp04c")
+theme_override_styles/normal = SubResource("StyleBoxFlat_f4pem")
+text = "Save"
+
+[node name="cancel-btn" type="Button" parent="Add_Journal_window/journal-settings"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gp04c")
+theme_override_styles/normal = SubResource("StyleBoxFlat_78bd0")
+text = "Cancel"
+
+[node name="add_new_journal_btn" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -168.0
+offset_top = 349.0
+offset_right = 168.0
+offset_bottom = 389.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_crga8")
+theme_override_styles/normal = SubResource("StyleBoxFlat_gp04c")
+text = "Add a new Note"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 41.0
+offset_top = -318.0
+offset_right = -152.0
+offset_bottom = -243.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 26
+text = "What's on your mind?"
+autowrap_mode = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(304, 141)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_c3due")
+
+[node name="back_button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -167.0
+offset_top = -400.0
+offset_right = -95.0
+offset_bottom = -328.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.68, 0.68)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 56
+theme_override_styles/focus = SubResource("StyleBoxEmpty_sx68p")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_agj1l")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_vw4nv")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ef0gy")
+icon = ExtResource("2_wj2ap")
+icon_alignment = 1
+
+[node name="whiteScreen" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_78bd0")
+}

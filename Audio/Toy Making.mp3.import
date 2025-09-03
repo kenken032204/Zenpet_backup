@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://4jjrl5sqnfsa"
+path="res://.godot/imported/Toy Making.mp3-714cd3469a876f4eb39d93bd5804eb0f.mp3str"
+
+[deps]
+
+source_file="res://Audio/Toy Making.mp3"
+dest_files=["res://.godot/imported/Toy Making.mp3-714cd3469a876f4eb39d93bd5804eb0f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
