@@ -64,8 +64,9 @@ func _ready():
 	PetStore.pet_node = $Pet
 	load_equipped_outfits()
 	load_chat_history()
-	Global.play_sound(load("res://Audio/meow-1.mp3"), -30.0)
+	Global.play_sound(load("res://Audio/meow-1.mp3"), -30.0) 
 	Audio.play()
+	Audio.finished.connect(_on_audio_finished)
 	animation.play("idle")
 	var outfit = PetStore.equipped_outfits
 	
@@ -109,6 +110,9 @@ func _ready():
 	back_button.pressed.connect(back_to_main)
 	logout_btn.pressed.connect(back_to_dashboard)
 
+func _on_audio_finished():
+	Audio.play()
+	
 func _on_intro_finished(name):
 	if name == "pet_ready":
 		animation.play("pet")

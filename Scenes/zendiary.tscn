@@ -481,6 +481,7 @@ icon = ExtResource("2_wj2ap")
 icon_alignment = 1
 
 [node name="whiteScreen" type="ColorRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

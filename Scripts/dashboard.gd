@@ -5,16 +5,22 @@ extends Control
 @onready var zendiary_btn = $Panel/VBoxContainer/Zendiary_btn
 @onready var zenai_btn = $Panel/VBoxContainer/Zenai_btn
 @onready var animation = $AnimationPlayer
+@onready var audio = $AudioStreamPlayer2D
 
 func _ready():
 	
 	animation.play("fade_out")
-	
+	audio.stream.loop = true 
+	audio.play()
+	audio.finished.connect(_on_audio_finished)
 	zenpet_btn.pressed.connect(_on_zenpet_pressed)
 	zenbody_btn.pressed.connect(_on_zenbody_pressed)
 	zendiary_btn.pressed.connect(_on_zendiary_pressed)
 	zenai_btn.pressed.connect(_on_zenai_pressed)
 
+func _on_audio_finished():
+	audio.play()
+	
 func _on_zenpet_pressed():
 	var scene = load("res://Scenes/petmain.tscn") as PackedScene
 	get_tree().change_scene_to_packed(scene)

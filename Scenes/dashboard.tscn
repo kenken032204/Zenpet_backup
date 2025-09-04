@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://bqrwlhh53caev"]
+[gd_scene load_steps=13 format=3 uid="uid://bqrwlhh53caev"]
 
 [ext_resource type="Script" uid="uid://35si2vhdcx33" path="res://Scripts/dashboard.gd" id="1_pyu07"]
 [ext_resource type="Texture2D" uid="uid://cxge6pknpl6gx" path="res://Sprite/GUI/dog.png" id="1_w53iw"]
 [ext_resource type="Texture2D" uid="uid://c3nm0o1gl8uh0" path="res://Sprite/GUI/settings-svgrepo-com.svg" id="3_vkjem"]
+[ext_resource type="AudioStream" uid="uid://c1vigm4a7fua0" path="res://Audio/Peaceful_Wait.mp3" id="4_235xf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wytj6"]
 bg_color = Color(1, 1, 1, 1)
@@ -45,6 +46,21 @@ expand_margin_bottom = 5.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_235xf"]
 
+[sub_resource type="Animation" id="Animation_235xf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_vkjem"]
 resource_name = "fade_out"
 length = 0.5
@@ -59,21 +75,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_235xf"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_42qyo"]
@@ -213,3 +214,6 @@ mouse_filter = 2
 libraries = {
 &"": SubResource("AnimationLibrary_42qyo")
 }
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_235xf")
