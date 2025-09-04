@@ -37,6 +37,7 @@ func _on_back_pressed():
 	get_tree().change_scene_to_packed(scene)
 
 func _on_add_new_journal_pressed():
+	Global.play_sound(load("res://Audio/button-press-382713.mp3"))
 	animation.play("fade-in")
 	Add_journal.visible = true
 	journal_window.visible = false
@@ -50,6 +51,7 @@ func _on_save_new_journal_pressed():
 	else:
 		if journal_text.text.length() >= 5:
 			
+			Global.play_sound(load("res://Audio/bmw-bong.mp3"))
 			JournalManager.add_journal(str(journal_title.text), str(journal_text.text))
 			
 			# Clear input fields

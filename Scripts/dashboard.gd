@@ -4,8 +4,12 @@ extends Control
 @onready var zenbody_btn = $Panel/VBoxContainer/Zenbody_btn
 @onready var zendiary_btn = $Panel/VBoxContainer/Zendiary_btn
 @onready var zenai_btn = $Panel/VBoxContainer/Zenai_btn
+@onready var animation = $AnimationPlayer
 
 func _ready():
+	
+	animation.play("fade_out")
+	
 	zenpet_btn.pressed.connect(_on_zenpet_pressed)
 	zenbody_btn.pressed.connect(_on_zenbody_pressed)
 	zendiary_btn.pressed.connect(_on_zendiary_pressed)

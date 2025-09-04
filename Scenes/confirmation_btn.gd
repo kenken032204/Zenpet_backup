@@ -8,6 +8,7 @@ signal canceled
 @onready var animation = $AnimationPlayer
 
 func _ready() -> void:
+	Global.play_sound(load("res://Audio/apple-pay-sound.mp3"))
 	animation.play("shake")
 	confirm_btn.pressed.connect(_on_confirm_pressed)
 	cancel_btn.pressed.connect(_on_cancel_pressed)

@@ -49,6 +49,8 @@ func _on_delete_pressed():
 	)
 
 func _on_delete_confirmed():
+	
+	Global.play_sound(load("res://Audio/paper-ripping.mp3"))
 	# Play the fade out animation first
 	animation.play("fade_out")
 	
