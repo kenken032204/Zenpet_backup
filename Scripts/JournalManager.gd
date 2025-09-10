@@ -9,7 +9,6 @@ func save_journals():
 		file.store_string(JSON.stringify(journals))
 		file.close()
 
-# Load journals from user://
 func load_journals():
 	if FileAccess.file_exists("user://journals.json"):
 		var file = FileAccess.open("user://journals.json", FileAccess.READ)
@@ -17,9 +16,14 @@ func load_journals():
 			var data = JSON.parse_string(file.get_as_text())
 			if typeof(data) == TYPE_ARRAY:
 				journals = data
+				# 🔹 Sort journals right after loading
+				journals.sort_custom(func(a, b):
+					return int(b["id"]) - int(a["id"])
+				)
 		file.close()
 
-func add_journal(title: String, text: String) -> void:
+
+func add_journal(title: String, text: String) -> Dictionary:
 	var now = Time.get_datetime_dict_from_system()
 	var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
 	
@@ -31,7 +35,23 @@ func add_journal(title: String, text: String) -> void:
 				+ " " + str(now.hour) + ":" + str(now.minute).pad_zeros(2)
 	}
 	journals.append(new_journal)
+	
+	# 🔹 Sort by newest first (highest ID first)
+	journals.sort_custom(func(a, b):
+		return int(b["id"]) - int(a["id"])
+	)
+	
 	save_journals()
+	
+	return new_journal   # ✅ return the new journal
+
+func update_journal(updated: Dictionary) -> bool:
+	for i in range(journals.size()):
+		if journals[i]["id"] == updated["id"]:
+			journals[i] = updated
+			save_journals()
+			return true
+	return false
 
 # Get a journal by ID (string-based lookup)
 func get_journal(id: String) -> Dictionary:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://drvxuwtgl0vr6"]
+[gd_scene load_steps=12 format=3 uid="uid://drvxuwtgl0vr6"]
 
 [ext_resource type="Texture2D" uid="uid://bxhq0pmpnx26a" path="res://Assets/question-circle-svgrepo-com.svg" id="1_3aj6q"]
 [ext_resource type="Script" uid="uid://dnv0grp0oqwi3" path="res://Scenes/confirmation_btn.gd" id="1_gosh2"]
@@ -6,26 +6,35 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3aj6q"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ccnec"]
-bg_color = Color(0.72549, 0.831373, 0.396078, 1)
+bg_color = Color(1, 1, 1, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.388235, 0.45098, 0.164706, 1)
+border_color = Color(0.564706, 0.0588235, 0.227451, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gosh2"]
+bg_color = Color(0.858399, 0.151942, 0.373616, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_color = Color(0.565263, 0.0602992, 0.228759, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gp04c"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f4pem"]
-bg_color = Color(0.722133, 0.928389, 0.388165, 1)
+bg_color = Color(0.858824, 0.152941, 0.372549, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.388235, 0.45098, 0.164706, 1)
+border_color = Color(0.565263, 0.0602992, 0.228759, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -159,6 +168,21 @@ size_flags_vertical = 3
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ccnec")
 
+[node name="journal-id2" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -100.0
+offset_bottom = -47.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gosh2")
+
 [node name="journal-settings" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 12
@@ -203,6 +227,7 @@ offset_right = -32.0
 offset_bottom = -83.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_color = Color(0.858824, 0.152941, 0.372549, 1)
 text = "Are you sure you want to delete this?"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -212,10 +237,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 74.0
-offset_top = 7.0
-offset_right = 14.0
-offset_bottom = -141.0
+offset_left = 64.0
+offset_top = 1.0
+offset_right = 4.0
+offset_bottom = -147.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 21
@@ -223,7 +248,7 @@ text = "Confirmation"
 vertical_alignment = 1
 
 [node name="Question-circle-svgrepo-com" type="Sprite2D" parent="."]
-position = Vector2(44, 31)
+position = Vector2(35, 21)
 scale = Vector2(0.0400002, 0.0400002)
 texture = ExtResource("1_3aj6q")
 

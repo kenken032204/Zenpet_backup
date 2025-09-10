@@ -5,6 +5,7 @@ signal delete_requested(journal_id)  # NEW
 
 var journal_id: String
 var journal_data: Dictionary
+var play_new_anim := false
 
 @onready var title_label = $"journal-id/journal-title"
 @onready var date_label = $"journal-id/journal-date"
@@ -14,24 +15,37 @@ var journal_data: Dictionary
 @onready var journal_number = $"journal-id"
 @onready var animation = $AnimationPlayer
 
-func set_journal_data(data: Dictionary) -> void:
-	journal_data = data
+func set_journal_data(data: Dictionary, is_new: bool = false) -> void:
+	await ready  # ✅ ensures @onready vars are initialized
 
+	journal_data = data
+	journal_id = journal_data.get("id", "")
+
+	title_label.text = journal_data.get("title", "Untitled")
+	date_label.text = journal_data.get("date", "--/--/----")
+	text_label.text = journal_data.get("text", "")
+
+	if is_new and animation and animation.has_animation("new_journal"):
+		animation.play("new_journal")
+		
 func _ready():
+
+	# Connect buttons
 	journal_number.pressed.connect(_on_journal_pressed)
 	delete_btn.pressed.connect(_on_delete_pressed)
-	
-	if journal_data:
-		journal_id = journal_data["id"]
-		title_label.text = journal_data["title"]
-		date_label.text = journal_data["date"]
-		text_label.text = journal_data["text"]
-
 	if view_btn:
 		view_btn.pressed.connect(func():
 			emit_signal("view_pressed", journal_id)
 		)
 
+
+# Called when any animation finishes
+func _on_animation_finished_once(anim_name: String) -> void:
+	if anim_name == "new_journal":
+		var callable = Callable(self, "_on_animation_finished_once")
+		if animation.is_connected("animation_finished", callable):
+			animation.disconnect("animation_finished", callable)
+			
 func _on_delete_canceled():
 	print("Delete canceled")
 

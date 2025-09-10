@@ -1,16 +1,16 @@
-[gd_scene load_steps=10 format=3 uid="uid://4qwcdygaha1r"]
+[gd_scene load_steps=11 format=3 uid="uid://4qwcdygaha1r"]
 
 [ext_resource type="Script" uid="uid://cdfibdhemgnwd" path="res://Scenes/journal_card.gd" id="1_eeuyw"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cg3dd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eeuyw"]
-bg_color = Color(0.913086, 0.560144, 0.368273, 1)
+bg_color = Color(0.892532, 0.955669, 0.998289, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
-border_color = Color(0.5264, 0.333592, 0.07261, 1)
+border_color = Color(0.0531894, 0.428, 0.60456, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -36,7 +36,7 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.839216, 0.54902, 0.168627, 1)
+border_color = Color(0.0509804, 0.427451, 0.603922, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -68,6 +68,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_eeuyw"]
 resource_name = "fade_out"
@@ -79,10 +91,10 @@ tracks/0/path = NodePath(".:scale")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.433333, 0.5),
-"transitions": PackedFloat32Array(1, 4.59479, 3.36359, 1),
+"times": PackedFloat32Array(0, 0.2, 0.366667, 0.5),
+"transitions": PackedFloat32Array(1, 4.59479, 0.34151, 0.90125),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(1.44, 0.755), Vector2(0.955, 0.84), Vector2(0.575, 0.56)]
+"values": [Vector2(1, 1), Vector2(1.16, 0.905), Vector2(0.625, 0.89), Vector2(0.52, 0.495)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -91,16 +103,57 @@ tracks/1/path = NodePath(".:modulate")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.2, 0.5),
+"times": PackedFloat32Array(0.266667, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_ryodv"]
+resource_name = "new_journal"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(0.450625, 0.615572, 3.13833),
+"update": 0,
+"values": [0.165806, -0.113446, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.935, 0.915), Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.233333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.0509804), Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_40si3"]
 _data = {
 &"RESET": SubResource("Animation_40si3"),
-&"fade_out": SubResource("Animation_eeuyw")
+&"fade_out": SubResource("Animation_eeuyw"),
+&"new_journal": SubResource("Animation_ryodv")
 }
 
 [node name="journal-card" type="Control"]
@@ -137,6 +190,7 @@ offset_top = 32.0
 offset_right = -12.0
 offset_bottom = 54.0
 grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0.0784314, 1)
 theme_override_font_sizes/font_size = 15
 text = "July 25, 2025"
 vertical_alignment = 1
@@ -152,6 +206,7 @@ offset_top = 9.0
 offset_right = -11.0
 offset_bottom = 27.0
 grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0.0784314, 1)
 theme_override_font_sizes/font_size = 13
 text = "Date"
 horizontal_alignment = 2
@@ -170,6 +225,7 @@ offset_right = 66.0
 offset_bottom = 80.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0.0784314, 1)
 theme_override_font_sizes/font_size = 11
 text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 autowrap_mode = 1
@@ -182,9 +238,9 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 9.0
-offset_top = -34.0
+offset_top = -40.0
 offset_right = -9.0
-offset_bottom = -12.0
+offset_bottom = -18.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 2
@@ -213,7 +269,7 @@ offset_left = 15.0
 offset_top = 64.0
 offset_right = 149.0
 offset_bottom = 66.0
-color = Color(0.824194, 0.458918, 0.250797, 1)
+color = Color(0.356863, 0.356863, 0.407843, 1)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
