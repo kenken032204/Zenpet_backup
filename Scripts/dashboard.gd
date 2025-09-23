@@ -6,9 +6,8 @@ extends Control
 @onready var zenai_btn = $Panel/VBoxContainer/Zenai_btn
 @onready var animation = $AnimationPlayer
 @onready var audio = $AudioStreamPlayer2D
-
+@onready var label = $Label
 func _ready():
-	
 	animation.play("fade_out")
 	audio.stream.loop = true 
 	audio.play()
@@ -34,5 +33,5 @@ func _on_zendiary_pressed():
 	get_tree().change_scene_to_packed(scene)
 	
 func _on_zenai_pressed():
-	var scene = load("res://Scenes/petmain.tscn") as PackedScene
+	var scene = load("res://Scenes/zenai.tscn") as PackedScene
 	get_tree().change_scene_to_packed(scene)

@@ -1,7 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://5ph415n6ffj5"]
+[gd_scene load_steps=16 format=3 uid="uid://5ph415n6ffj5"]
 
 [ext_resource type="Texture2D" uid="uid://b5ice2x4m76dg" path="res://Sprite/GUI/back-svgrepo-com.svg" id="1_e68g8"]
+[ext_resource type="Script" uid="uid://bv7qktqjs2vob" path="res://Scenes/zenai.gd" id="1_miorb"]
 [ext_resource type="Texture2D" uid="uid://cbb0008hdy1qd" path="res://Sprite/GUI/check-svgrepo-com.svg" id="2_widxd"]
+[ext_resource type="Texture2D" uid="uid://c483w28pi8ei0" path="res://Sprite/GUI/arrow-path-20-solid (1).svg" id="4_vttb2"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_widxd"]
 
@@ -21,13 +23,11 @@ border_width_left = 5
 border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
-border_color = Color(0.870926, 0.379502, 1.48243e-05, 1)
+border_color = Color(0.292464, 0.517573, 1, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_otbd0"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nu3pb"]
 
@@ -63,6 +63,43 @@ expand_margin_top = 2.0
 expand_margin_right = 5.0
 expand_margin_bottom = 2.0
 
+[sub_resource type="Animation" id="Animation_o3qwk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ScrollContainer:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_vttb2"]
+resource_name = "shake"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ScrollContainer:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0610865, -0.0349066, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nu3pb"]
+_data = {
+&"RESET": SubResource("Animation_o3qwk"),
+&"shake": SubResource("Animation_vttb2")
+}
+
 [node name="Control" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -70,6 +107,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_miorb")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -80,6 +118,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="back_button" type="Button" parent="."]
+layout_mode = 0
 offset_left = 23.0
 offset_top = 22.0
 offset_right = 95.0
@@ -105,11 +144,12 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -164.0
-offset_top = -270.0
+offset_top = -240.0
 offset_right = 168.0
 offset_bottom = 295.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(169, 276)
 theme_override_styles/panel = SubResource("StyleBoxFlat_miorb")
 horizontal_scroll_mode = 0
 
@@ -118,40 +158,21 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 15
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.592157, 0.384314, 1)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_otbd0")
-text = "[Player]: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
-vertical_alignment = 3
-autowrap_mode = 2
-justification_flags = 227
-
-[node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_otbd0")
-text = "[Bot]: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
-horizontal_alignment = 3
-vertical_alignment = 3
-autowrap_mode = 2
-justification_flags = 227
-
 [node name="ChatInput" type="HBoxContainer" parent="."]
-offset_left = 27.0
-offset_top = 751.0
-offset_right = 363.0
-offset_bottom = 782.0
+layout_mode = 0
+offset_left = 41.0
+offset_top = 736.0
+offset_right = 357.0
+offset_bottom = 767.0
 theme_override_constants/separation = 12
 alignment = 1
 
 [node name="message_box" type="LineEdit" parent="ChatInput"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_placeholder_color = Color(1, 1, 1, 1)
-theme_override_colors/font_selected_color = Color(1, 1, 1, 1)
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 1
+theme_override_colors/font_placeholder_color = Color(0, 0, 0, 1)
+theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_styles/focus = SubResource("StyleBoxEmpty_nu3pb")
 theme_override_styles/normal = SubResource("StyleBoxFlat_otbd0")
 placeholder_text = "Type Something..."
@@ -180,3 +201,31 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
 text = "ZenAi"
 horizontal_alignment = 1
+
+[node name="ChatRequest" type="HTTPRequest" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 128.0
+offset_right = 360.0
+offset_bottom = 168.0
+
+[node name="clear_prompt" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_nu3pb")
+theme_override_styles/hover = SubResource("StyleBoxFlat_xv5dn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xv5dn")
+theme_override_styles/normal = SubResource("StyleBoxFlat_xv5dn")
+icon = ExtResource("4_vttb2")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_nu3pb")
+}

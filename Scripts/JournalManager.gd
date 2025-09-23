@@ -1,8 +1,10 @@
 extends Node
 
-var journals: Array = []
 
-# Save journals to user://
+var journals: Array = []
+signal journal_saved(journal_text: String, journal_id: String)
+var last_journal: Dictionary = {}
+
 func save_journals():
 	var file = FileAccess.open("user://journals.json", FileAccess.WRITE)
 	if file:
@@ -16,10 +18,12 @@ func load_journals():
 			var data = JSON.parse_string(file.get_as_text())
 			if typeof(data) == TYPE_ARRAY:
 				journals = data
-				# 🔹 Sort journals right after loading
 				journals.sort_custom(func(a, b):
 					return int(b["id"]) - int(a["id"])
 				)
+				if journals.size() > 0:
+					last_journal = journals[0]  # newest by ID
+					
 		file.close()
 
 
@@ -35,25 +39,34 @@ func add_journal(title: String, text: String) -> Dictionary:
 				+ " " + str(now.hour) + ":" + str(now.minute).pad_zeros(2)
 	}
 	journals.append(new_journal)
-	
-	# 🔹 Sort by newest first (highest ID first)
+
 	journals.sort_custom(func(a, b):
 		return int(b["id"]) - int(a["id"])
 	)
 	
 	save_journals()
 	
-	return new_journal   # ✅ return the new journal
+	# ✅ Make sure last_journal is truly the latest one
+	if journals.size() > 0:
+		last_journal = journals[0]
+
+	emit_signal("journal_saved", new_journal["text"], new_journal["id"])
+	return new_journal
+
 
 func update_journal(updated: Dictionary) -> bool:
 	for i in range(journals.size()):
 		if journals[i]["id"] == updated["id"]:
 			journals[i] = updated
+			journals.sort_custom(func(a, b):
+				return int(b["id"]) - int(a["id"])
+			)
 			save_journals()
+			if journals.size() > 0:
+				last_journal = journals[0]
 			return true
 	return false
 
-# Get a journal by ID (string-based lookup)
 func get_journal(id: String) -> Dictionary:
 	for j in journals:
 		if j["id"] == id:

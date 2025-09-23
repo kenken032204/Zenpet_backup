@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://dk4qmwjcpd15i"]
+
+[ext_resource type="Script" uid="uid://ch6bjv6erjn3x" path="res://quickstart.gd" id="1_q6mws"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_q6mws")
+
+[node name="type" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 91.0
+offset_right = 358.0
+offset_bottom = 122.0
+
+[node name="submit" type="Button" parent="."]
+layout_mode = 0
+offset_left = 38.0
+offset_top = 136.0
+offset_right = 101.0
+offset_bottom = 167.0
+text = "Submit"

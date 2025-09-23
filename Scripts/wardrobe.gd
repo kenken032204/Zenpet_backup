@@ -144,7 +144,7 @@ func _render_single_item():
 				dress_sprite.texture = texture
 				dress_sprite.visible = texture != null
 		"Boots":
-			var boots_sprite = PetStore.pet_node.get_node_or_null("PetArea/BootsSprite")
+			var boots_sprite = PetStore.pet_node.get_node_or_null("PetArea/ArmSprite")
 			if boots_sprite:
 				boots_sprite.texture = texture
 				boots_sprite.visible = texture != null

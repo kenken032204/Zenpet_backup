@@ -84,7 +84,7 @@ func _ready():
 			dress_sprite.texture = load(outfit["Dress"]["sprite"])
 	
 	if outfit["Boots"] and outfit["Boots"].has("sprite"):
-		var boots_sprite = $Pet/PetArea/BootsSprite
+		var boots_sprite = $Pet/PetArea/ArmSprite
 		if boots_sprite:
 			boots_sprite.texture = load(outfit["Boots"]["sprite"])
 					

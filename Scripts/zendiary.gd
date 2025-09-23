@@ -1,5 +1,7 @@
 extends Control
 
+signal journal_saved(journal_text: String, journal_id: String)
+
 @onready var back_button = $back_button
 @onready var cards_container = $"Journal_window/GridContainer"
 @onready var animation = $AnimationPlayer
@@ -74,9 +76,9 @@ func _on_save_new_journal_pressed():
 			journal_text.text = ""
 			
 			show_message("Added New Journal")
+			_refresh_journal_cards()
 			
-			# 🔹 Pass the ID of the new journal so only that card animates
-			_refresh_journal_cards(new_id)
+			emit_signal("journal_saved", new_journal["text"], new_id)
 			
 		else:
 			print("text too short!")
@@ -87,11 +89,13 @@ func _refresh_journal_cards(is_new_id: String = ""):
 	for child in cards_container.get_children():
 		child.queue_free()
 
-	# Rebuild from saved journals
-	for journal in JournalManager.journals:
+	# 🔹 Make a sorted copy (newest first)
+	var sorted = JournalManager.journals.duplicate()
+	sorted.sort_custom(func(a, b): return int(b["id"]) - int(a["id"]))
+
+	# Rebuild from sorted journals
+	for journal in sorted:
 		var card = preload("res://Scenes/journal_card.tscn").instantiate()
-		
-		# Only play animation if this journal is the new one
 		card.set_journal_data(journal, journal["id"] == is_new_id)
 		cards_container.add_child(card)
 
@@ -107,6 +111,7 @@ func _refresh_journal_cards(is_new_id: String = ""):
 	Add_journal.visible = false
 	journal_window.visible = true
 	add_new_journal.visible = true
+
 
 
 func _on_delete_journal_requested(journal_id: String):

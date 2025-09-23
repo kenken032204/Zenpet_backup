@@ -1,0 +1,298 @@
+[gd_scene load_steps=13 format=3 uid="uid://cnurmvpfh7mkf"]
+
+[ext_resource type="Script" uid="uid://ca4qtkmichrbs" path="res://Scenes/registration.gd" id="1_m0h6d"]
+[ext_resource type="Texture2D" uid="uid://0vbyxnb333sj" path="res://Sprite/GUI/loading-svgrepo-com (1).svg" id="2_m0h6d"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8tm2v"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.207843, 0.654902, 0.819608, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bcv41"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m0h6d"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k2c4a"]
+content_margin_left = 10.0
+content_margin_top = 3.0
+content_margin_right = 3.0
+content_margin_bottom = 3.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.207843, 0.654902, 0.819608, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k2c4a"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1jmvk"]
+bg_color = Color(0.442079, 0.890663, 0.550015, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.204493, 0.452663, 0.351853, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="Animation" id="Animation_m0h6d"]
+resource_name = "Pop_up"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Register_Window:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.41, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.335, 0.335), Vector2(1.125, 1.125), Vector2(0.96, 0.96), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Register_Window:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0333333, 0.14),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.109804), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_45hwp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterContainer/Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Register_Window:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Register_Window:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_1jmvk"]
+resource_name = "loading"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterContainer/Sprite2D:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.9, 1),
+"transitions": PackedFloat32Array(1, 0.659753, 1.51572, 1.51572),
+"update": 0,
+"values": [0.0, -6.28319, 0.598648, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v8uky"]
+_data = {
+&"Pop_up": SubResource("Animation_m0h6d"),
+&"RESET": SubResource("Animation_45hwp"),
+&"loading": SubResource("Animation_1jmvk")
+}
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_m0h6d")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Register_Window" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+pivot_offset = Vector2(193, 427)
+
+[node name="register" type="Panel" parent="Register_Window"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 17.0
+offset_top = 320.0
+offset_right = 335.0
+offset_bottom = 502.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8tm2v")
+
+[node name="window_title" type="Label" parent="Register_Window/register"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 9.0
+offset_top = 12.0
+offset_right = -9.0
+offset_bottom = 35.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.207843, 0.654902, 0.819608, 1)
+text = "What is your name?"
+horizontal_alignment = 1
+
+[node name="window_error" type="Label" parent="Register_Window/register"]
+visible = false
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 9.0
+offset_top = 108.0
+offset_right = -9.0
+offset_bottom = 131.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0.374617, 0.306791, 1)
+text = "Username already exist!"
+horizontal_alignment = 1
+
+[node name="window_input" type="LineEdit" parent="Register_Window/register"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 11.0
+offset_top = -42.5
+offset_right = -11.0
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_placeholder_color = Color(0.862745, 0.862745, 0.862745, 1)
+theme_override_colors/font_color = Color(0.447059, 0.760784, 0.87451, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_bcv41")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_m0h6d")
+theme_override_styles/normal = SubResource("StyleBoxFlat_k2c4a")
+placeholder_text = "e.x Cat Owner"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Register_Window/register"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 13.0
+offset_top = -46.0
+offset_right = -13.0
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 3
+
+[node name="cancel_btn" type="Button" parent="Register_Window/register/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Cancel"
+flat = true
+
+[node name="submit_btn" type="Button" parent="Register_Window/register/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_k2c4a")
+theme_override_styles/normal = SubResource("StyleBoxFlat_1jmvk")
+text = "Submit"
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="CenterContainer"]
+scale = Vector2(0.402367, 0.402367)
+texture = ExtResource("2_m0h6d")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_v8uky")
+}
+
+[node name="fun_loading_info" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -115.0
+offset_top = 69.0
+offset_right = 115.0
+offset_bottom = 92.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.846044, 0.846044, 0.846044, 1)
+text = "Putting the pet for adoption..."
+horizontal_alignment = 1

@@ -52,7 +52,23 @@
 		"equipped": false,
 		"id": 3.0,
 		"name": "Red Dress",
-		"sprite": "res://Sprite/Outifts/test.png",
+		"sprite": "res://Sprite/Outifts/red_dress.png",
+		"unlocked": false
+	},
+	{
+		"category": "Dress",
+		"equipped": false,
+		"id": 3.0,
+		"name": "I'm a Fan",
+		"sprite": "res://Sprite/Cat/idolizer.png",
+		"unlocked": false
+	},
+	{
+		"category": "Boots",
+		"equipped": false,
+		"id": 6.0,
+		"name": "Default",
+		"sprite": "res://Sprite/Cat/Arms.png",
 		"unlocked": false
 	},
 	{
@@ -60,7 +76,7 @@
 		"equipped": false,
 		"id": 6.0,
 		"name": "Leather Boots",
-		"sprite": "res://Sprite/Outifts/cap-clipart-design-illustration-free-png.png",
+		"sprite": "res://Sprite/Outifts/black_shoes.png",
 		"unlocked": false
 	},
 ]

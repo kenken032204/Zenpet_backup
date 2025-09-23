@@ -1,14 +1,36 @@
 extends Node
 
+var User = {}
+	
 # Pet Status
 var energy: float = 100.0
 var cleanliness: float = 100.0
+
+var is_clean_done: bool = false
+var is_sleep_done: bool = false
 
 # Flags
 var is_sleepy := false
 var little_sleepy := false
 var little_dirty := false
 var is_dirty := false
+
+# 🔹 Call this to update flags
+func complete_clean():
+	is_clean_done = true
+	_check_status_bonus()
+
+func complete_sleep():
+	is_sleep_done = true
+	_check_status_bonus()
+
+# 🔹 Check if both conditions are met
+func _check_status_bonus():
+	if is_clean_done and is_sleep_done and energy >= 80 and cleanliness >= 80:
+		print("✨ Pet feels amazing! Full energy & cleanliness.")
+		# Reset flags if you only want this once per cycle:
+		is_clean_done = false
+		is_sleep_done = false
 
 # Called every frame if you want
 func decay_stats(delta):
@@ -57,8 +79,3 @@ func load_stats():
 	else:
 		energy = 100
 		cleanliness = 100
-		
-	print("File exists:", FileAccess.file_exists("user://pet_stats.json"))
-
-	print("Current Energy: ", energy)
-	print("Current Cleanliness: ", cleanliness)
