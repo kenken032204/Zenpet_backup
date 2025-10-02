@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ewpjdlykfnqs"
-path="res://.godot/imported/alden-richards-suit-cardboard-cutout.png-4560a12122f4693d618a2b7e9e7cb2c5.ctex"
+uid="uid://chcu2xxeo2v48"
+path="res://.godot/imported/sun-with-sunrays-svgrepo-com.svg-6d167ea73548b0900018893102fa8c0d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprite/alden-richards-suit-cardboard-cutout.png"
-dest_files=["res://.godot/imported/alden-richards-suit-cardboard-cutout.png-4560a12122f4693d618a2b7e9e7cb2c5.ctex"]
+source_file="res://Sprite/sun-with-sunrays-svgrepo-com.svg"
+dest_files=["res://.godot/imported/sun-with-sunrays-svgrepo-com.svg-6d167ea73548b0900018893102fa8c0d.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

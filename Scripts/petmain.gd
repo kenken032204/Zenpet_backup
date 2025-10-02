@@ -1,5 +1,7 @@
 extends Control
 
+var current_request = ""
+var user_id = Global.User.get("id", null)
 #Main Interactions
 @onready var sleep_button = $"UI/HBoxContainer/Sleep_btn"
 @onready var chat_button = $"UI/HBoxContainer/Chat_btn"
@@ -47,6 +49,8 @@ var lamp_toggle = true
 var is_hovering := false
 var is_holding := false
 
+@onready var ExpPopup = preload("res://Scenes/pop_up.tscn")
+
 @onready var Audio = $"AudioStreamPlayer2D"
 var is_sleeping = false
 var is_tweening_sleep := false
@@ -57,8 +61,20 @@ var red_style := preload("res://Styles/button_buttom_pressed_texture.tres").dupl
 var original_style := preload("res://Styles/button_button_original.tres").duplicate() as StyleBoxFlat
 var yellow_style := preload("res://Styles/button_button_yellow.tres").duplicate() as StyleBoxFlat
 
+@onready var http = HTTPRequest.new()
+
+var exp_given_after_sleep := false  # track if EXP has been awarded
+
 func _ready():
+
+	# var user_id = Global.User["id"]  # now it's safe
+
+	if user_id == null:
+		get_tree().change_scene_to_file("res://Scenes/login.tscn")
+		return
 	
+	add_child(http)
+	http.request_completed.connect(_on_HTTPRequest_request_completed)
 	Global.load_stats()
 	
 	PetStore.pet_node = $Pet
@@ -88,8 +104,7 @@ func _ready():
 		if boots_sprite:
 			boots_sprite.texture = load(outfit["Boots"]["sprite"])
 					
-	#Load JSON Data
-	load_pet_data()
+	load_pet_data_from_supabase(user_id)
 	lamp_button.visible = false
 	animation.play("idle")
 	
@@ -109,6 +124,10 @@ func _ready():
 	chat_request.request_completed.connect(_on_request_completed)
 	back_button.pressed.connect(back_to_main)
 	logout_btn.pressed.connect(back_to_dashboard)
+	
+	sleep_button.add_theme_stylebox_override("normal", sleep_button.get_theme_stylebox("normal").duplicate())
+	lamp_button.add_theme_stylebox_override("normal", lamp_button.get_theme_stylebox("normal").duplicate())
+	bath_button.add_theme_stylebox_override("normal", bath_button.get_theme_stylebox("normal").duplicate())
 
 func _on_audio_finished():
 	Audio.play()
@@ -128,7 +147,6 @@ func load_equipped_outfits():
 	file.close()
 
 	var result = JSON.parse_string(text)
-	print(result)
 
 	# Loop through each category and apply the saved outfit
 	for category in result.keys():
@@ -153,28 +171,54 @@ func load_equipped_outfits():
 		# Also update PetStore memory for future reference
 		PetStore.equipped_outfits[category] = item
 
+func play_button_pop(button: Button):
+	var tween = create_tween()
+	tween.tween_property(button, "scale", Vector2(1.2, 1.2), 0.15).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween.tween_property(button, "scale", Vector2(1, 1), 0.15).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
+
 func _process(delta):
-	
 	Global.decay_stats(delta)
-	Global.save_stats()  
+	Global.save_stats()
 	var dirt = $Pet/PetArea/DirtSprite
 
 	if is_sleeping:
 		Global.energy = clamp(Global.energy + delta * 2.0, 0, 100)
 		Global.is_sleepy = Global.energy < 30
 
+		# Award EXP when energy reaches 100 (only once per sleep)
+		if Global.energy >= 99.9 and !exp_given_after_sleep:
+			increase_exp(20.0)
+			play_button_pop(sleep_button)
+			exp_given_after_sleep = true
+			is_sleeping = false  # stop sleeping once fully rested
+
 	update_sleep_button_style()
-	update_bath_button_style(dirt) 
+	update_bath_button_style(dirt)
+	
+func show_exp_gain(amount: float, position: Vector2):
+	var popup = ExpPopup.instantiate()
+	popup.text = "+%d EXP" % int(amount)
+	popup.position = position
+	add_child(popup)
+
+	var tween = create_tween()
+	tween.tween_property(popup, "position", position + Vector2(0, -40), 1.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.tween_property(popup, "modulate:a", 0.0, 1.0).set_trans(Tween.TRANS_LINEAR)
+	tween.tween_callback(popup.queue_free)
 	
 func update_sleep_button_style():
 	if Global.is_sleepy and !is_tweening_sleep:
 		is_tweening_sleep = true
-		is_tweening_little_sleep = false  # Cancel yellow
+		is_tweening_little_sleep = false
+
+		# Duplicate to avoid affecting other buttons
+		var red_style_copy = red_style.duplicate()
+
 		var tween = create_tween()
 		tween.tween_method(
-			func(color): 
-				red_style.bg_color = color
-				sleep_button.add_theme_stylebox_override("normal", red_style),
+			func(color):
+				red_style_copy.bg_color = color
+				sleep_button.add_theme_stylebox_override("normal", red_style_copy),
 			sleep_button.get_theme_stylebox("normal").bg_color,
 			Color.html("#9f1e33"),
 			1.0
@@ -182,12 +226,16 @@ func update_sleep_button_style():
 
 	elif Global.little_sleepy and !Global.is_sleepy and !is_tweening_little_sleep:
 		is_tweening_little_sleep = true
-		is_tweening_sleep = false  # Cancel red
+		is_tweening_sleep = false
+
+		# Duplicate to avoid affecting other buttons
+		var yellow_style_copy = yellow_style.duplicate()
+
 		var tween = create_tween()
 		tween.tween_method(
-			func(color): 
-				yellow_style.bg_color = color
-				sleep_button.add_theme_stylebox_override("normal", yellow_style),
+			func(color):
+				yellow_style_copy.bg_color = color
+				sleep_button.add_theme_stylebox_override("normal", yellow_style_copy),
 			sleep_button.get_theme_stylebox("normal").bg_color,
 			Color.html("#f9ca24"),
 			1.0
@@ -197,11 +245,15 @@ func update_sleep_button_style():
 		if is_tweening_sleep or is_tweening_little_sleep:
 			is_tweening_sleep = false
 			is_tweening_little_sleep = false
+
+			# Duplicate to avoid affecting other buttons
+			var original_copy = original_style.duplicate()
+
 			var tween = create_tween()
 			tween.tween_method(
-				func(color): 
-					original_style.bg_color = color
-					sleep_button.add_theme_stylebox_override("normal", original_style),
+				func(color):
+					original_copy.bg_color = color
+					sleep_button.add_theme_stylebox_override("normal", original_copy),
 				sleep_button.get_theme_stylebox("normal").bg_color,
 				original_style.bg_color,
 				1.0
@@ -213,11 +265,14 @@ func update_bath_button_style(dirt: Sprite2D):
 		head_sprite.texture = load("res://Sprite/Cat/Dirty_cat.png")
 		is_tweening_bath = true
 		is_tweening_little_bath = false
+
+		var red_style_copy = red_style.duplicate()
+
 		var tween = create_tween()
 		tween.tween_method(
 			func(color): 
-				red_style.bg_color = color
-				bath_button.add_theme_stylebox_override("normal", red_style),
+				red_style_copy.bg_color = color
+				bath_button.add_theme_stylebox_override("normal", red_style_copy),
 			bath_button.get_theme_stylebox("normal").bg_color,
 			Color.html("#9f1e33"),
 			1.0
@@ -229,11 +284,14 @@ func update_bath_button_style(dirt: Sprite2D):
 		is_tweening_little_bath = true
 		is_tweening_bath = false
 		head_sprite.texture = load("res://Sprite/Cat/Dirty_cat.png")
+
+		var yellow_style_copy = yellow_style.duplicate()
+
 		var tween = create_tween()
 		tween.tween_method(
 			func(color): 
-				yellow_style.bg_color = color
-				bath_button.add_theme_stylebox_override("normal", yellow_style),
+				yellow_style_copy.bg_color = color
+				bath_button.add_theme_stylebox_override("normal", yellow_style_copy),
 			bath_button.get_theme_stylebox("normal").bg_color,
 			Color.html("#f9ca24"),
 			1.0
@@ -246,11 +304,14 @@ func update_bath_button_style(dirt: Sprite2D):
 		if is_tweening_bath or is_tweening_little_bath:
 			is_tweening_bath = false
 			is_tweening_little_bath = false
+
+			var original_copy = original_style.duplicate()
+
 			var tween = create_tween()
 			tween.tween_method(
 				func(color): 
-					original_style.bg_color = color
-					bath_button.add_theme_stylebox_override("normal", original_style),
+					original_copy.bg_color = color
+					bath_button.add_theme_stylebox_override("normal", original_copy),
 				bath_button.get_theme_stylebox("normal").bg_color,
 				original_style.bg_color,
 				1.0
@@ -403,42 +464,123 @@ func add_message(text: String, is_user: bool = false, save: bool = true):
 	var scroll = $UI/ChatSystem/ChatMessages
 	scroll.scroll_vertical = scroll.get_v_scroll_bar().max_value
 
-func load_pet_data():
-	if FileAccess.file_exists("user://pet_data.json"):
-		var file = FileAccess.open("user://pet_data.json", FileAccess.READ)
-		var data = JSON.parse_string(file.get_as_text())
-		file.close()
+func load_pet_data_from_supabase(user_id: int):
+	current_request = "get_pet"
+	
+	var url = "https://rekmhywernuqjshghyvu.supabase.co/rest/v1/users"
+	url += "?select=level,exp&id=eq." + str(user_id)
+	
+	var headers = [
+		"Prefer: return=representation",
+		"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJla21oeXdlcm51cWpzaGdoeXZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg1MDEwNjEsImV4cCI6MjA3NDA3NzA2MX0.-ljSNpqHZ-Yzv_0eDlCGDSH7m3uM96c5oD2ejxPHhyY",
+		"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJla21oeXdlcm51cWpzaGdoeXZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg1MDEwNjEsImV4cCI6MjA3NDA3NzA2MX0.-ljSNpqHZ-Yzv_0eDlCGDSH7m3uM96c5oD2ejxPHhyY",
+	]
+	http.request(url, headers, HTTPClient.METHOD_GET)
+	
+func _on_HTTPRequest_request_completed(result, response_code, headers, body):
+	var response_text = body.get_string_from_utf8()
 
-		if typeof(data) == TYPE_DICTIONARY:
-			level.text = str(int(data.get("level", 1)))
-			level_bar.value = data.get("exp", 0)
-	else:
-		level.text = "1"
-		level_bar.value = 0
+	if current_request == "get_pet":
+		var data = JSON.parse_string(response_text)
+		if typeof(data) == TYPE_ARRAY and data.size() > 0:
+			var pet = data[0]
+
+			# ✅ Safely parse from Supabase
+			var loaded_level = int(pet["level"]) if pet.has("level") else 1
+			var loaded_exp = float(pet["exp"]) if pet.has("exp") else 0.0
+
+			# ✅ Store in Global.User
+			Global.User["level"] = loaded_level
+			Global.User["exp"] = loaded_exp
+
+			# ✅ Update UI
+			level.text = str(loaded_level)
+			level_bar.value = loaded_exp
+
+		else:
+			current_request = "create_pet"
+
+	elif current_request == "create_pet":
+		if response_code == 201:
+			level.text = "1"
+			level_bar.value = 0
+			
+	elif current_request == "save_pet":
+		if response_code in [200, 201]:
+			var json = JSON.parse_string(body.get_string_from_utf8())
+			if typeof(json) == TYPE_ARRAY and json.size() > 0:
+				var updated_pet = json[0]
+				Global.User["level"] = int(updated_pet["level"])
+				Global.User["exp"] = float(updated_pet["exp"])
 
 func increase_exp(base_amount: float):
-	var current_level = int(level.text)
+	var current_level = int(Global.User.get("level", 1))
+	var current_exp = float(Global.User.get("exp", 0))
+		
 	var scaled_amount = base_amount / current_level
-	level_bar.value += scaled_amount
-	
-	if level_bar.value >= 100:
-		level_bar.value = 0
+	var target_exp = current_exp + scaled_amount
+	var gained_exp = scaled_amount
+
+	# Handle level up
+	var leveled_up := false
+	if target_exp >= 100:
+		target_exp = 0
 		current_level += 1
-		level.text = str(current_level)
+		leveled_up = true
 		
 		var popup = preload("res://Scenes/leveled_up.tscn").instantiate()
 		add_child(popup)
 		popup.show_level_up(current_level)
 
-	save_pet_data()
+	# Show floating text above the bar (optional)
+	show_exp_gain(gained_exp, level_bar.global_position + Vector2(0, -30))
 
+	# Animate EXP bar filling smoothly
+	var tween = create_tween()
+	tween.tween_method(
+		func(value):
+			level_bar.value = value
+			Global.User["exp"] = value,  # keep global in sync
+		current_exp,
+		target_exp,
+		0.8
+	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+
+	# Update level UI
+	Global.User["level"] = current_level
+	level.text = str(current_level)
+
+	# Save to Supabase
+	save_pet_data_to_supabase(current_level, target_exp)
+
+# Send update to Supabase
+func save_pet_data_to_supabase(new_level: int, new_exp: float):
+	current_request = "save_pet"
+	var user_id = int(Global.User["id"])
+	var url = "https://rekmhywernuqjshghyvu.supabase.co/rest/v1/users?id=eq." + str(user_id)
+
+	var body = {
+		"level": new_level,
+		"exp": new_exp
+	}
+
+	var headers = [
+		"Content-Type: application/json",
+		"Prefer: return=representation",
+		"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJla21oeXdlcm51cWpzaGdoeXZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg1MDEwNjEsImV4cCI6MjA3NDA3NzA2MX0.-ljSNpqHZ-Yzv_0eDlCGDSH7m3uM96c5oD2ejxPHhyY",
+		"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJla21oeXdlcm51cWpzaGdoeXZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg1MDEwNjEsImV4cCI6MjA3NDA3NzA2MX0.-ljSNpqHZ-Yzv_0eDlCGDSH7m3uM96c5oD2ejxPHhyY",
+	]
+
+	http.request(url, headers, HTTPClient.METHOD_PATCH, JSON.stringify(body))
+	
 func _on_sleep_pressed():
 	save_chat_history()
-	background.texture = load("res://Sprite/empty-room-interior-design_1308-80588.png")
+	background.texture = preload("res://Sprite/empty-room-interior-design_1308-80588.png")
 	lamp_button.visible = true
 	bath_scene.visible = false
-	Global.play_sound(load("res://Audio/comedy_pop_finger_in_mouth_001.mp3"))
-	increase_exp(10.0)
+	Global.play_sound(preload("res://Audio/comedy_pop_finger_in_mouth_001.mp3"))
+	
+	exp_given_after_sleep = false  # reset tracker
 	
 func _on_lamp_pressed():
 	is_sleeping = !is_sleeping
@@ -484,10 +626,14 @@ func _on_bath_pressed():
 	is_sleeping = false
 	lamp_button.text = "Turn Off Lamp"
 	bath_scene.visible = true
-	increase_exp(10.0)
 	animation.play("idle")
 	Global.play_sound(load("res://Audio/comedy_pop_finger_in_mouth_001.mp3"))
 
+func on_bath_completed():
+	increase_exp(10.0)
+	play_button_pop(bath_button)
+	print("Bath complete! Pet is clean and earned EXP 🎉")
+	
 func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and !is_sleeping:
 		if event.button_index == MOUSE_BUTTON_LEFT:
@@ -506,5 +652,5 @@ func save_pet_data():
 		"exp": level_bar.value
 	}
 	var file = FileAccess.open("user://pet_data.json", FileAccess.WRITE)
-	file.store_string(JSON.stringify(data, "\t"))  # Pretty print
+	file.store_string(JSON.stringify(data, "\t")) 
 	file.close()

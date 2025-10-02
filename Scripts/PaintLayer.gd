@@ -12,6 +12,14 @@ func add_point(global_pos: Vector2):
 	})
 	queue_redraw()
 
+func get_point_count() -> int:
+	return paint_points.size()
+
+func get_point_position(index: int) -> Vector2:
+	if index >= 0 and index < paint_points.size():
+		return paint_points[index]["pos"]
+	return Vector2.ZERO
+
 func _draw():
 	for point_data in paint_points:
 		var pos = point_data["pos"]

@@ -1,7 +1,13 @@
 extends Node
 
 var User = {}
-	
+
+func _ready():
+	if Global.User.is_empty():
+		get_tree().change_scene_to_file("res://Scenes/login.tscn")
+
+var total_exp: int = 0
+
 # Pet Status
 var energy: float = 100.0
 var cleanliness: float = 100.0

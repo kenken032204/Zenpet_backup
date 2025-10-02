@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cnurmvpfh7mkf"]
+[gd_scene load_steps=14 format=3 uid="uid://cnurmvpfh7mkf"]
 
 [ext_resource type="Script" uid="uid://ca4qtkmichrbs" path="res://Scenes/registration.gd" id="1_m0h6d"]
 [ext_resource type="Texture2D" uid="uid://0vbyxnb333sj" path="res://Sprite/GUI/loading-svgrepo-com (1).svg" id="2_m0h6d"]
@@ -13,7 +13,8 @@ border_width_left = 5
 border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
-border_color = Color(0.207843, 0.654902, 0.819608, 1)
+border_color = Color(0.754952, 0.916185, 0.989815, 1)
+border_blend = true
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
@@ -22,6 +23,18 @@ expand_margin_left = 5.0
 expand_margin_top = 5.0
 expand_margin_right = 5.0
 expand_margin_bottom = 5.0
+shadow_color = Color(0.178904, 0.148722, 0.440498, 0.266667)
+shadow_size = 2
+shadow_offset = Vector2(1.665, 2.55)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_45hwp"]
+bg_color = Color(0.646066, 0.862285, 0.9486, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_color = Color(0.154419, 0.59907, 0.755579, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bcv41"]
 
@@ -33,15 +46,9 @@ content_margin_top = 3.0
 content_margin_right = 3.0
 content_margin_bottom = 3.0
 bg_color = Color(1, 1, 1, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
+draw_center = false
+border_width_bottom = 3
 border_color = Color(0.207843, 0.654902, 0.819608, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k2c4a"]
 
@@ -56,34 +63,6 @@ corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
-
-[sub_resource type="Animation" id="Animation_m0h6d"]
-resource_name = "Pop_up"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Register_Window:scale")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.133333, 0.41, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(0.335, 0.335), Vector2(1.125, 1.125), Vector2(0.96, 0.96), Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Register_Window:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.0333333, 0.14),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0.109804), Color(1, 1, 1, 1)]
-}
 
 [sub_resource type="Animation" id="Animation_45hwp"]
 length = 0.001
@@ -142,10 +121,20 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v8uky"]
 _data = {
-&"Pop_up": SubResource("Animation_m0h6d"),
 &"RESET": SubResource("Animation_45hwp"),
 &"loading": SubResource("Animation_1jmvk")
 }
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m0h6d"]
+bg_color = Color(0.6, 0.6, 0.6, 0.596078)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -165,10 +154,16 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Register_Window" type="Control" parent="."]
-visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = 107.0
+offset_right = -17.0
+offset_bottom = -107.0
+grow_horizontal = 2
+grow_vertical = 2
 pivot_offset = Vector2(193, 427)
 
 [node name="register" type="Panel" parent="Register_Window"]
@@ -178,26 +173,65 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 17.0
-offset_top = 320.0
-offset_right = 335.0
-offset_bottom = 502.0
+offset_left = -155.0
+offset_top = -239.0
+offset_right = 163.0
+offset_bottom = 239.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_8tm2v")
+
+[node name="Panel" type="Panel" parent="Register_Window/register"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -5.0
+offset_top = -4.0
+offset_right = 7.0
+offset_bottom = 59.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_45hwp")
 
 [node name="window_title" type="Label" parent="Register_Window/register"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_left = 9.0
-offset_top = 12.0
-offset_right = -9.0
-offset_bottom = 35.0
+offset_left = 92.0
+offset_top = 10.0
+offset_right = -92.0
+offset_bottom = 46.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 26
+text = "Register"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="window_title2" type="Label" parent="Register_Window/register"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 17.0
+offset_top = 75.0
+offset_right = -17.0
+offset_bottom = 98.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0.207843, 0.654902, 0.819608, 1)
-text = "What is your name?"
-horizontal_alignment = 1
+text = "Username"
+
+[node name="window_title3" type="Label" parent="Register_Window/register"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 17.0
+offset_top = 186.0
+offset_right = -17.0
+offset_bottom = 209.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.207843, 0.654902, 0.819608, 1)
+text = "Password"
 
 [node name="window_error" type="Label" parent="Register_Window/register"]
 visible = false
@@ -213,16 +247,16 @@ theme_override_colors/font_color = Color(1, 0.374617, 0.306791, 1)
 text = "Username already exist!"
 horizontal_alignment = 1
 
-[node name="window_input" type="LineEdit" parent="Register_Window/register"]
+[node name="password_input" type="LineEdit" parent="Register_Window/register"]
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = 11.0
-offset_top = -42.5
-offset_right = -11.0
-offset_bottom = 9.5
+offset_left = 28.0
+offset_top = -22.5
+offset_right = -29.0
+offset_bottom = 19.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_placeholder_color = Color(0.862745, 0.862745, 0.862745, 1)
@@ -230,7 +264,74 @@ theme_override_colors/font_color = Color(0.447059, 0.760784, 0.87451, 1)
 theme_override_styles/focus = SubResource("StyleBoxEmpty_bcv41")
 theme_override_styles/read_only = SubResource("StyleBoxEmpty_m0h6d")
 theme_override_styles/normal = SubResource("StyleBoxFlat_k2c4a")
-placeholder_text = "e.x Cat Owner"
+placeholder_text = "..."
+
+[node name="window_title4" type="Label" parent="Register_Window/register"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 17.0
+offset_top = 284.0
+offset_right = -17.0
+offset_bottom = 307.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.207843, 0.654902, 0.819608, 1)
+text = "Confirm Password"
+
+[node name="confirm_pass_input" type="LineEdit" parent="Register_Window/register"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 28.0
+offset_top = 80.5
+offset_right = -29.0
+offset_bottom = 122.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_placeholder_color = Color(0.862745, 0.862745, 0.862745, 1)
+theme_override_colors/font_color = Color(0.447059, 0.760784, 0.87451, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_bcv41")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_m0h6d")
+theme_override_styles/normal = SubResource("StyleBoxFlat_k2c4a")
+placeholder_text = "..."
+
+[node name="username_input" type="LineEdit" parent="Register_Window/register"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 29.0
+offset_top = -127.0
+offset_right = -29.0
+offset_bottom = -82.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_placeholder_color = Color(0.862745, 0.862745, 0.862745, 1)
+theme_override_colors/font_color = Color(0.447059, 0.760784, 0.87451, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_bcv41")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_m0h6d")
+theme_override_styles/normal = SubResource("StyleBoxFlat_k2c4a")
+placeholder_text = "e.x CatOwner22"
+
+[node name="login_btn" type="Button" parent="Register_Window/register"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -103.0
+offset_top = 505.0
+offset_right = 103.0
+offset_bottom = 63.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.207843, 0.654902, 0.819608, 1)
+text = "I already have an account"
+flat = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Register_Window/register"]
 layout_mode = 1
@@ -239,9 +340,9 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 13.0
-offset_top = -46.0
+offset_top = -56.0
 offset_right = -13.0
-offset_bottom = -15.0
+offset_bottom = -22.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_vertical = 3
@@ -262,6 +363,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_1jmvk")
 text = "Submit"
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -281,6 +383,7 @@ libraries = {
 }
 
 [node name="fun_loading_info" type="Label" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -295,4 +398,22 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.846044, 0.846044, 0.846044, 1)
 text = "Putting the pet for adoption..."
+horizontal_alignment = 1
+
+[node name="toast_notification" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -41.0
+offset_top = 289.0
+offset_right = 41.0
+offset_bottom = 312.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_m0h6d")
+text = "Success!"
 horizontal_alignment = 1

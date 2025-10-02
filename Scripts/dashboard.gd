@@ -7,6 +7,7 @@ extends Control
 @onready var animation = $AnimationPlayer
 @onready var audio = $AudioStreamPlayer2D
 @onready var label = $Label
+
 func _ready():
 	animation.play("fade_out")
 	audio.stream.loop = true 

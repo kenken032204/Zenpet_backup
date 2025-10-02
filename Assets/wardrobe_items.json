@@ -21,7 +21,7 @@
 		"id": 0.0,
 		"name": "Shank",
 		"sprite": "res://Sprite/Outifts/Hat_Hair.png",
-		"unlocked": true
+		"unlocked": false
 	},
 	{
 		"category": "Hat",

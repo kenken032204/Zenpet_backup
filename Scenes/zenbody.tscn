@@ -1,15 +1,21 @@
-[gd_scene load_steps=13 format=3 uid="uid://seaaico7nhkr"]
+[gd_scene load_steps=16 format=3 uid="uid://seaaico7nhkr"]
 
 [ext_resource type="Texture2D" uid="uid://b5ice2x4m76dg" path="res://Sprite/GUI/back-svgrepo-com.svg" id="1_7e23w"]
+[ext_resource type="Script" uid="uid://b2t03sivxs71s" path="res://Scenes/zenbody.gd" id="1_pok1w"]
 [ext_resource type="Texture2D" uid="uid://cxge6pknpl6gx" path="res://Sprite/GUI/dog.png" id="2_pok1w"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lojgk"]
-bg_color = Color(1, 0.666333, 0.23, 1)
+bg_color = Color(0.984314, 0.639216, 0.431373, 1)
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o6jlo"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0qeya"]
 bg_color = Color(1, 1, 1, 1)
-border_width_bottom = 5
-border_color = Color(0, 0, 0, 1)
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+shadow_color = Color(0.720404, 0.759802, 0.961924, 1)
+shadow_size = 1
+shadow_offset = Vector2(0, 5.64)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lojgk"]
 
@@ -19,53 +25,210 @@ border_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0qeya"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_il5n6"]
-content_margin_left = 8.0
-content_margin_top = 8.0
-content_margin_right = 8.0
-content_margin_bottom = 8.0
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7e23w"]
-content_margin_left = 2.0
-content_margin_top = 2.0
-content_margin_right = 2.0
-content_margin_bottom = 2.0
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pok1w"]
-bg_color = Color(1.41023e-05, 0.838959, 0.184111, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ocp8v"]
-bg_color = Color(1, 1, 1, 1)
+bg_color = Color(0.0288, 0.0458667, 0.08, 0.831373)
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+
+[sub_resource type="Animation" id="Animation_lojgk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("fade_out_rect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ScrollContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(390, 372)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ScrollContainer:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.698039, 0.65098, 0.0705882)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Control:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("back_button:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_pok1w"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("fade_out_rect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ocp8v"]
+resource_name = "level_pressed"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ScrollContainer:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.266667),
+"transitions": PackedFloat32Array(1, 0.143587),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:size")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(2.82843, 1),
+"update": 0,
+"values": [Vector2(390, 372), Vector2(390, 1000)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ScrollContainer:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.533333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(2.575, 2.575)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.0333333, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0.698039, 0.65098, 0.0705882), Color(1, 0.698039, 0.65098, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Control:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.466667, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("back_button:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ocp8v"]
+_data = {
+&"RESET": SubResource("Animation_lojgk"),
+&"fade_out": SubResource("Animation_pok1w"),
+&"level_pressed": SubResource("Animation_ocp8v")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tvlsw"]
+bg_color = Color(0.177056, 0.465902, 1, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 1
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -74,30 +237,27 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_pok1w")
 
-[node name="Panel2" type="Panel" parent="."]
+[node name="ColorRect2" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -26.0
-offset_right = 26.0
-offset_bottom = 27.0
+offset_bottom = 81.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_lojgk")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="ColorRect" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -26.0
-offset_right = 26.0
-offset_bottom = -508.0
+offset_bottom = -472.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_o6jlo")
+theme_override_styles/panel = SubResource("StyleBoxFlat_0qeya")
 
 [node name="back_button" type="Button" parent="."]
 layout_mode = 1
@@ -125,66 +285,8 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_0qeya")
 icon = ExtResource("1_7e23w")
 icon_alignment = 1
 
-[node name="Panel3" type="ScrollContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 30.0
-offset_top = 156.0
-offset_right = -30.0
-offset_bottom = -569.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_il5n6")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel3"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/separation = 0
-
-[node name="VBoxContainer" type="HBoxContainer" parent="Panel3/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 10
-alignment = 1
-
-[node name="ColorRect" type="ColorRect" parent="Panel3/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-size_flags_stretch_ratio = 0.0
-color = Color(0, 0, 0, 1)
-
-[node name="HBoxContainer" type="VBoxContainer" parent="Panel3/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.56
-theme_override_constants/separation = 0
-alignment = 1
-
-[node name="Label" type="Label" parent="Panel3/HBoxContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 21
-text = "Level 2"
-
-[node name="Label2" type="Label" parent="Panel3/HBoxContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.404667, 0.24, 1)
-text = "One more to level up!"
-
-[node name="ProgressBar" type="ProgressBar" parent="Panel3/HBoxContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(0, 22.565)
-layout_mode = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_7e23w")
-theme_override_styles/fill = SubResource("StyleBoxFlat_pok1w")
-value = 12.38
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(1, 0.696667, 0.65, 0.235294)
+modulate = Color(1, 0.698039, 0.65098, 0.0705882)
 self_modulate = Color(1, 0.813727, 0.780998, 0.411765)
 position = Vector2(250, 789)
 texture = ExtResource("2_pok1w")
@@ -194,99 +296,128 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 14.0
-offset_top = 365.0
-offset_right = -13.0
-offset_bottom = -37.0
+offset_left = 18.0
+offset_top = 407.0
+offset_right = -17.0
+offset_bottom = 3.53754
 grow_horizontal = 2
 grow_vertical = 2
-horizontal_scroll_mode = 2
-vertical_scroll_mode = 0
+pivot_offset = Vector2(167, 184)
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 2
 
-[node name="CanvasLayer" type="GridContainer" parent="ScrollContainer"]
+[node name="CanvasLayer" type="Control" parent="ScrollContainer"]
+custom_minimum_size = Vector2(0, 1000)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/h_separation = 10
-theme_override_constants/v_separation = 10
-columns = 4
 
-[node name="Button" type="Button" parent="ScrollContainer/CanvasLayer"]
+[node name="level_1" type="Button" parent="ScrollContainer/CanvasLayer"]
 custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -149.341
+offset_top = -478.749
+offset_right = -17.3408
+offset_bottom = -349.749
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.244346
+pivot_offset = Vector2(69, 67)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 66
 theme_override_styles/normal = SubResource("StyleBoxFlat_ocp8v")
 text = "1"
 
-[node name="Button2" type="Button" parent="ScrollContainer/CanvasLayer"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 66
-theme_override_styles/normal = SubResource("StyleBoxFlat_ocp8v")
-text = "2"
+[node name="fade_out_rect" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
-[node name="Button3" type="Button" parent="ScrollContainer/CanvasLayer"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 66
-theme_override_styles/normal = SubResource("StyleBoxFlat_ocp8v")
-text = "3"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ocp8v")
+}
 
-[node name="Button4" type="Button" parent="ScrollContainer/CanvasLayer"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 66
-theme_override_styles/normal = SubResource("StyleBoxFlat_ocp8v")
-text = "4"
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+pivot_offset = Vector2(188, 221)
 
-[node name="Button5" type="Button" parent="ScrollContainer/CanvasLayer"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 66
-theme_override_styles/normal = SubResource("StyleBoxFlat_ocp8v")
-text = "5"
+[node name="Button" type="Button" parent="Control"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -57.0
+offset_top = 155.0
+offset_right = 55.0
+offset_bottom = 212.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 41
+theme_override_styles/normal = SubResource("StyleBoxFlat_tvlsw")
+text = "1"
 
-[node name="Button6" type="Button" parent="ScrollContainer/CanvasLayer"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -94.0
+offset_top = 286.0
+offset_right = 92.0
+offset_bottom = 322.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 66
-theme_override_styles/normal = SubResource("StyleBoxFlat_ocp8v")
-text = "6"
+theme_override_font_sizes/font_size = 26
+text = "Level Selection"
+horizontal_alignment = 1
 
-[node name="Button7" type="Button" parent="ScrollContainer/CanvasLayer"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
+[node name="Label2" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -94.0
+offset_top = 104.0
+offset_right = 92.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 66
-theme_override_styles/normal = SubResource("StyleBoxFlat_ocp8v")
-text = "7"
+theme_override_font_sizes/font_size = 26
+text = "ZENBODY"
+horizontal_alignment = 1
 
-[node name="Button8" type="Button" parent="ScrollContainer/CanvasLayer"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 66
-theme_override_styles/normal = SubResource("StyleBoxFlat_ocp8v")
-text = "8"
-
-[node name="Button9" type="Button" parent="ScrollContainer/CanvasLayer"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 66
-theme_override_styles/normal = SubResource("StyleBoxFlat_ocp8v")
-text = "9"
-
-[node name="Button10" type="Button" parent="ScrollContainer/CanvasLayer"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 66
-theme_override_styles/normal = SubResource("StyleBoxFlat_ocp8v")
-text = "10"
+[node name="ProgressBar" type="ProgressBar" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -155.0
+offset_top = 238.0
+offset_right = 153.0
+offset_bottom = 265.0
+grow_horizontal = 2
+grow_vertical = 2

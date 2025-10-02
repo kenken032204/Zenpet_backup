@@ -1,15 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://c4xkm47vbsvqb"]
+[gd_scene load_steps=11 format=3 uid="uid://cljo6y0h7dtun"]
 
-[ext_resource type="Script" uid="uid://kif8jd41prdr" path="res://Scripts/leveled_up.gd" id="1_toxjh"]
-[ext_resource type="Texture2D" uid="uid://v7etvxb5qbli" path="res://Sprite/GUI/502375681699003dea428f4d3383c03a-group-of-stars-flat.png" id="2_iq17m"]
-[ext_resource type="Texture2D" uid="uid://cxge6pknpl6gx" path="res://Sprite/GUI/dog.png" id="2_kkqii"]
+[ext_resource type="Script" uid="uid://owi14mqlajl1" path="res://Scenes/level_complete.gd" id="1_jia4s"]
+[ext_resource type="Texture2D" uid="uid://cxge6pknpl6gx" path="res://Sprite/GUI/dog.png" id="1_sxtul"]
+[ext_resource type="Texture2D" uid="uid://jyf1f2ojpkyw" path="res://Sprite/star-svgrepo-com.svg" id="3_nqaca"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_khsmy"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jia4s"]
 bg_color = Color(0.999999, 0.561742, 0.0306685, 1)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iq17m"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xvwna"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vsr18"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qjgpd"]
 bg_color = Color(1, 1, 1, 1)
 border_width_left = 5
 border_width_top = 5
@@ -21,7 +21,7 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="Animation" id="Animation_kkqii"]
+[sub_resource type="Animation" id="Animation_jia4s"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -38,7 +38,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Panel/Label:scale")
+tracks/1/path = NodePath("Node2D:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -50,43 +50,106 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Panel/level:scale")
+tracks/2/path = NodePath("Node2D/Star-svgrepo-com2:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1)]
+"values": [3.14159]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Panel/confirm_btn:disabled")
+tracks/3/path = NodePath("Node2D/Star-svgrepo-com:rotation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [1.14319]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Panel/confirm_btn:scale")
+tracks/4/path = NodePath("Node2D/Star-svgrepo-com3:rotation")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
+"values": [3.14159]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
 "values": [Vector2(1, 1)]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Panel/Sprite2D:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.315333, 0.21, 0.0784314)]
+}
 
-[sub_resource type="Animation" id="Animation_toxjh"]
-resource_name = "leveled_up"
-length = 0.5
+[sub_resource type="Animation" id="Animation_nqaca"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.433333, 1),
+"transitions": PackedFloat32Array(0.392292, 2.07053, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.07, 1.07), Vector2(0.16, 0.16)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel/Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0333333, 0.666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0.315333, 0.21, 0.0784314), Color(1, 0.313726, 0.211765, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0333333, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_sxtul"]
+resource_name = "level_complete"
+length = 2.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -94,64 +157,65 @@ tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.0333333, 0.133333),
+"times": PackedFloat32Array(0.0333333, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0.211765), Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Panel/Label:scale")
-tracks/1/interp = 2
+tracks/1/path = NodePath("Node2D:scale")
+tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.233333, 0.366667, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.766667, 1.1),
+"transitions": PackedFloat32Array(0.517632, 1, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(1.215, 1.215), Vector2(0.87, 0.87), Vector2(1, 1)]
+"values": [Vector2(0.95, 0.95), Vector2(1.05, 1.05), Vector2(1, 1)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Panel/level:scale")
+tracks/2/path = NodePath("Node2D/Star-svgrepo-com2:rotation")
 tracks/2/interp = 2
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.166667, 0.366667, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.866667),
+"transitions": PackedFloat32Array(0.707107, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(1.725, 1.725), Vector2(0.795, 0.795), Vector2(1, 1)]
+"values": [3.57094, 3.14159]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Panel/confirm_btn:disabled")
+tracks/3/path = NodePath("Node2D/Star-svgrepo-com:rotation")
 tracks/3/interp = 2
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0.0333333, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
+"times": PackedFloat32Array(0, 1.1),
+"transitions": PackedFloat32Array(0.707107, 1),
+"update": 0,
+"values": [2.21657, 1.14319]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Panel/confirm_btn:scale")
+tracks/4/path = NodePath("Node2D/Star-svgrepo-com3:rotation")
 tracks/4/interp = 2
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.366667, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 1.36667),
+"transitions": PackedFloat32Array(0.707107, 1),
 "update": 0,
-"values": [Vector2(1.2, 1.2), Vector2(0.805, 0.805), Vector2(1, 1)]
+"values": [3.78562, 3.14159]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_iq17m"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jia4s"]
 _data = {
-&"RESET": SubResource("Animation_kkqii"),
-&"leveled_up": SubResource("Animation_toxjh")
+&"RESET": SubResource("Animation_jia4s"),
+&"fade_out": SubResource("Animation_nqaca"),
+&"level_complete": SubResource("Animation_sxtul")
 }
 
 [node name="Control" type="Control"]
@@ -161,7 +225,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_toxjh")
+pivot_offset = Vector2(195, 422)
+script = ExtResource("1_jia4s")
+metadata/_edit_horizontal_guides_ = [1.0, 286.0]
+metadata/_edit_vertical_guides_ = [193.0]
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -170,53 +237,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_khsmy")
-
-[node name="CPUParticles2D" type="CPUParticles2D" parent="Panel"]
-position = Vector2(-70, 484)
-amount = 3
-texture = ExtResource("2_iq17m")
-lifetime = 1.01
-preprocess = 2.13
-speed_scale = 0.5
-explosiveness = 0.22
-emission_shape = 1
-emission_sphere_radius = 41.42
-gravity = Vector2(500, 0)
-initial_velocity_min = 308.07
-initial_velocity_max = 334.39
-angular_velocity_min = -113.68
-angular_velocity_max = 56.85
-angle_max = 170.5
-scale_amount_min = 0.3
-scale_amount_max = 0.3
-color = Color(1, 0.560784, 0.0313726, 0.215686)
-
-[node name="CPUParticles2D2" type="CPUParticles2D" parent="Panel"]
-position = Vector2(11, 919)
-amount = 3
-texture = ExtResource("2_iq17m")
-lifetime = 1.01
-preprocess = 2.13
-speed_scale = 0.5
-explosiveness = 0.22
-emission_shape = 1
-emission_sphere_radius = 41.42
-gravity = Vector2(500, 0)
-initial_velocity_min = 308.07
-initial_velocity_max = 334.39
-angular_velocity_min = -113.68
-angular_velocity_max = 56.85
-angle_max = 170.5
-scale_amount_min = 0.3
-scale_amount_max = 0.3
-color = Color(1, 0.560784, 0.0313726, 0.215686)
+theme_override_styles/panel = SubResource("StyleBoxFlat_jia4s")
 
 [node name="Sprite2D" type="Sprite2D" parent="Panel"]
 modulate = Color(1, 0.315333, 0.21, 0.0784314)
 self_modulate = Color(1, 0.813727, 0.780998, 0.411765)
 position = Vector2(262, 711)
-texture = ExtResource("2_kkqii")
+texture = ExtResource("1_sxtul")
 
 [node name="Label" type="Label" parent="Panel"]
 layout_mode = 1
@@ -226,21 +253,21 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -135.0
-offset_top = -161.0
+offset_top = -42.0
 offset_right = 135.0
-offset_bottom = -70.0
+offset_bottom = 49.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(138, 74)
 theme_override_colors/font_outline_color = Color(0.418713, 0.21939, 1.92523e-07, 1)
 theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 31
-text = "Congratulations
-You've leveled up!"
+text = "Level Complete!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Label2" type="Label" parent="Panel"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -262,6 +289,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Label3" type="Label" parent="Panel"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -283,16 +311,17 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="confirm_btn" type="Button" parent="Panel"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -105.0
-offset_top = 92.0
-offset_right = 105.0
-offset_bottom = 158.0
+offset_left = -123.0
+offset_top = 57.0
+offset_right = 123.0
+offset_bottom = 123.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(111, 41)
@@ -310,15 +339,16 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 26
-theme_override_styles/focus = SubResource("StyleBoxEmpty_iq17m")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_vsr18")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_vsr18")
-theme_override_styles/hover = SubResource("StyleBoxFlat_vsr18")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_vsr18")
-theme_override_styles/normal = SubResource("StyleBoxFlat_vsr18")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xvwna")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_qjgpd")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_qjgpd")
+theme_override_styles/hover = SubResource("StyleBoxFlat_qjgpd")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_qjgpd")
+theme_override_styles/normal = SubResource("StyleBoxFlat_qjgpd")
 text = "Confirm"
 
 [node name="level" type="Label" parent="Panel"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -342,7 +372,29 @@ text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Node2D" type="Control" parent="."]
+anchors_preset = 0
+pivot_offset = Vector2(193, 276)
+
+[node name="Star-svgrepo-com2" type="Sprite2D" parent="Node2D"]
+position = Vector2(96, 287)
+rotation = 3.14159
+scale = Vector2(0.09, 0.09)
+texture = ExtResource("3_nqaca")
+
+[node name="Star-svgrepo-com" type="Sprite2D" parent="Node2D"]
+position = Vector2(193, 245)
+rotation = 1.14319
+scale = Vector2(0.115, 0.115)
+texture = ExtResource("3_nqaca")
+
+[node name="Star-svgrepo-com3" type="Sprite2D" parent="Node2D"]
+position = Vector2(291, 287)
+rotation = 3.14159
+scale = Vector2(0.09, 0.09)
+texture = ExtResource("3_nqaca")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-&"": SubResource("AnimationLibrary_iq17m")
+&"": SubResource("AnimationLibrary_jia4s")
 }

@@ -1,16 +1,41 @@
 extends Control
 
+var current_request = ""
+
 @onready var animation = $AnimationPlayer
 @onready var center_container = $CenterContainer
 @onready var register_window = $"Register_Window"
 @onready var fun_loading_info = $"fun_loading_info"
 @onready var http = HTTPRequest.new()
 
+@onready var submit_btn = $"Register_Window/register/HBoxContainer/submit_btn"
+@onready var username_input = $"Register_Window/register/username_input"
+@onready var password_input = $"Register_Window/register/password_input"
+@onready var conf_pass_input = $"Register_Window/register/confirm_pass_input"
+
+@onready var go_to_login = $"Register_Window/register/login_btn"
+
+@onready var toast_notif = $"toast_notification"
+
 var infos_array = ["Buying Frisbee for Pet", "Feeding your Pet", "Taking a Walk"]
 
+func show_message(text: String, duration: float = 2.0):
+	toast_notif.text = text
+	toast_notif.modulate.a = 0.0
+	toast_notif.visible = true
+
+	var tween = create_tween()
+	tween.tween_property(toast_notif, "modulate:a", 1.0, 0.3) # fade in
+	tween.tween_interval(duration)
+	tween.tween_property(toast_notif, "modulate:a", 0.0, 0.3) # fade out
+	tween.tween_callback(Callable(toast_notif, "hide"))
+	
 func _ready():
 	add_child(http)
-
+	http.request_completed.connect(_on_HTTPRequest_request_completed)
+	go_to_login.pressed.connect(_go_login)
+	submit_btn.pressed.connect(_on_submit_pressed)
+	
 	# Show loading screen
 	center_container.visible = true
 	register_window.visible = false
@@ -24,6 +49,27 @@ func _ready():
 	await get_tree().create_timer(1.0).timeout
 	show_register_form()
 
+func _go_login():
+	
+	# Switch to loading screen and tell it where to go
+			var loading_scene = load("res://Scenes/loading_screen.tscn").instantiate()
+			loading_scene.next_scene_path = "res://Scenes/login.tscn"
+			loading_scene.wait_time = 1.0   # you can tweak per case
+			
+			get_tree().root.add_child(loading_scene)
+			get_tree().current_scene.queue_free()  # remove old scene
+			
+func _on_submit_pressed():
+	current_request = "check_user"
+	
+	if not username_input.text.is_empty():
+		if password_input.text == conf_pass_input.text and not password_input.text.is_empty() :
+			check_user(username_input.text)
+		else:
+			show_message("Password must be equal")
+	else:
+		show_message("Empty username")
+
 func show_register_form():
 	# Stop showing loading
 	center_container.visible = false
@@ -33,7 +79,6 @@ func show_register_form():
 	register_window.visible = true
 	animation.play("Pop_up")
 
-# Cycle loading info messages while 'loading' animation is active
 func start_info_cycle():
 	await get_tree().process_frame
 	var index = 0
@@ -42,30 +87,51 @@ func start_info_cycle():
 		index += 1
 		await get_tree().create_timer(0.8).timeout
 
-# Supabase fetch journals
-func get_journals():
-	var url = "https://rekmhywernuqjshghyvu.supabase.co/rest/v1/journals?select=*"
-	var headers = [
-		"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJla21oeXdlcm51cWpzaGdoeXZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg1MDEwNjEsImV4cCI6MjA3NDA3NzA2MX0.-ljSNpqHZ-Yzv_0eDlCGDSH7m3uM96c5oD2ejxPHhyY",
-		"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJla21oeXdlcm51cWpzaGdoeXZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg1MDEwNjEsImV4cCI6MjA3NDA3NzA2MX0.-ljSNpqHZ-Yzv_0eDlCGDSH7m3uM96c5oD2ejxPHhyY"
-	]
-	http.request(url, headers, HTTPClient.METHOD_GET)
+func _on_HTTPRequest_request_completed(result, response_code, headers, body):
+	print("HTTP Response Code: ", response_code)
+	var response_text = body.get_string_from_utf8()
+	print("Response: ", response_text)
 
-# Supabase add journal entry
-func add_journal(user_name: String, text: String):
-	var url = "https://rekmhywernuqjshghyvu.supabase.co/rest/v1/journals"
+	if current_request == "check_user":
+		var data = JSON.parse_string(response_text)
+		if typeof(data) == TYPE_ARRAY and data.size() > 0:
+			# User already exists
+			show_message("User already exists!")
+		else:
+			# User doesn’t exist → try to register
+			current_request = "add_user"
+			add_user(username_input.text, password_input.text)
+
+	elif current_request == "add_user":
+		if response_code == 201:
+			show_message("Registration Success!")
+			get_tree().change_scene_to_file("res://Scenes/login.tscn")
+		else:
+			show_message("Failed to register user!")
+			
+func add_user(user_name: String, user_password: String):
+	current_request = "add_user"
+	
+	var url = "https://rekmhywernuqjshghyvu.supabase.co/rest/v1/users"
 	var headers = [
 		"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJla21oeXdlcm51cWpzaGdoeXZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg1MDEwNjEsImV4cCI6MjA3NDA3NzA2MX0.-ljSNpqHZ-Yzv_0eDlCGDSH7m3uM96c5oD2ejxPHhyY",
 		"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJla21oeXdlcm51cWpzaGdoeXZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg1MDEwNjEsImV4cCI6MjA3NDA3NzA2MX0.-ljSNpqHZ-Yzv_0eDlCGDSH7m3uM96c5oD2ejxPHhyY",
 		"Content-Type: application/json"
 	]
 	var body = {
-		"user_name": user_name,
-		"entry": text
+		"username": user_name,
+		"password": user_password
 	}
+	
 	http.request(url, headers, HTTPClient.METHOD_POST, JSON.stringify(body))
 
-# Handle HTTP responses
-func _on_HTTPRequest_request_completed(result, response_code, headers, body):
-	print("HTTP Response Code: ", response_code)
-	print("Response: ", body.get_string_from_utf8())
+
+func check_user(user_name: String):
+	var url = "https://rekmhywernuqjshghyvu.supabase.co/rest/v1/users"
+	url += "?select=username&username=eq." + user_name  
+	
+	var headers = [
+		"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJla21oeXdlcm51cWpzaGdoeXZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg1MDEwNjEsImV4cCI6MjA3NDA3NzA2MX0.-ljSNpqHZ-Yzv_0eDlCGDSH7m3uM96c5oD2ejxPHhyY",
+		"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJla21oeXdlcm51cWpzaGdoeXZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg1MDEwNjEsImV4cCI6MjA3NDA3NzA2MX0.-ljSNpqHZ-Yzv_0eDlCGDSH7m3uM96c5oD2ejxPHhyY"
+	]
+	http.request(url, headers, HTTPClient.METHOD_GET)

@@ -1,16 +1,21 @@
-[gd_scene load_steps=12 format=3 uid="uid://cqou840dqir01"]
+[gd_scene load_steps=17 format=3 uid="uid://cqou840dqir01"]
 
 [ext_resource type="Texture2D" uid="uid://b5ice2x4m76dg" path="res://Sprite/GUI/back-svgrepo-com.svg" id="1_ctyiq"]
-[ext_resource type="Texture2D" uid="uid://cxge6pknpl6gx" path="res://Sprite/GUI/dog.png" id="1_yd4af"]
+[ext_resource type="Script" uid="uid://bq61cpyr5s4q" path="res://Scenes/zenbody_level_1.gd" id="1_xc7yd"]
 [ext_resource type="Texture2D" uid="uid://cw1k432863fv1" path="res://Sprite/2917805.png" id="3_xc7yd"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sxhtv"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lnkm6"]
+bg_color = Color(0.984314, 0.639216, 0.431373, 1)
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yd4af"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xc7yd"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lnkm6"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xotda"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+shadow_color = Color(0.720404, 0.759802, 0.961924, 1)
+shadow_size = 1
+shadow_offset = Vector2(0, 5.64)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yd4af"]
 bg_color = Color(0.994447, 0.8078, 0.701716, 1)
@@ -29,16 +34,104 @@ corner_radius_bottom_left = 5
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xotda"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hk0ch"]
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
+bg_color = Color(0.843137, 0.356863, 0.345098, 1)
 border_color = Color(0.646296, 0.437752, 0, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
+
+[sub_resource type="Animation" id="Animation_xc7yd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("fade_out_rect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("start_btn:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(121, 691)]
+}
+
+[sub_resource type="Animation" id="Animation_yd4af"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("fade_out_rect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.51),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.666667, 1),
+"transitions": PackedFloat32Array(0.732043, 1.31951, 1),
+"update": 0,
+"values": [Vector2(1.055, 1.055), Vector2(0.97, 0.97), Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("start_btn:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.566667, 1),
+"transitions": PackedFloat32Array(0.574349, 1.27456, 1),
+"update": 0,
+"values": [Vector2(121, 732.075), Vector2(121, 686.455), Vector2(121, 691)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lnkm6"]
+_data = {
+&"RESET": SubResource("Animation_xc7yd"),
+&"fade_out": SubResource("Animation_yd4af")
+}
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sxhtv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yd4af"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xc7yd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lnkm6"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -47,44 +140,44 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_xc7yd")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect2" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_bottom = 81.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_lnkm6")
 
-[node name="ColorRect2" type="ColorRect" parent="."]
-clip_contents = true
+[node name="ColorRect" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 640.0
+offset_bottom = -185.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 0.686275, 0, 1)
+theme_override_styles/panel = SubResource("StyleBoxFlat_xotda")
 
-[node name="Sprite2D2" type="Sprite2D" parent="ColorRect2"]
-modulate = Color(1, 0.698039, 0.65098, 0.0941176)
-self_modulate = Color(1, 0.813727, 0.780998, 0.411765)
-position = Vector2(299, 84)
-scale = Vector2(0.68, 0.68)
-texture = ExtResource("1_yd4af")
+[node name="Control" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+pivot_offset = Vector2(191, 325)
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="Control"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -175.0
-offset_top = -274.0
-offset_right = 175.0
-offset_bottom = -251.0
+offset_top = 128.0
+offset_right = 350.0
+offset_bottom = 151.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -92,17 +185,16 @@ text = "Level 1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label4" type="Label" parent="."]
+[node name="Label4" type="Label" parent="Control"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -175.0
-offset_top = -243.0
-offset_right = 175.0
-offset_bottom = -220.0
+offset_top = 159.0
+offset_right = 350.0
+offset_bottom = 182.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -110,35 +202,35 @@ text = "- Yoga Title -"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label3" type="Label" parent="."]
+[node name="TimerLabel" type="Label" parent="Control"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -92.0
-offset_top = 160.0
-offset_right = 92.0
-offset_bottom = 183.0
+offset_left = 79.0
+offset_top = 562.0
+offset_right = 271.0
+offset_bottom = 585.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "00.00"
+text = "10.0s"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="."]
+[node name="YogaDescription" type="Label" parent="Control"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -151.5
-offset_top = 17.0
-offset_right = 151.5
-offset_bottom = 144.0
+offset_left = 61.0
+offset_top = 434.0
+offset_right = 290.0
+offset_bottom = 531.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -149,7 +241,63 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
+[node name="Sprite2D" type="Sprite2D" parent="Control"]
+position = Vector2(184, 296)
+scale = Vector2(0.304688, 0.304688)
+texture = ExtResource("3_xc7yd")
+
+[node name="ProgressBar" type="ProgressBar" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 60.0
+offset_top = 384.0
+offset_right = 290.0
+offset_bottom = 399.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_yd4af")
+theme_override_styles/fill = SubResource("StyleBoxFlat_xc7yd")
+show_percentage = false
+
+[node name="start_btn" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -74.0
+offset_top = 269.0
+offset_right = 74.0
+offset_bottom = 314.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(75, 22)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xotda")
+theme_override_styles/normal = SubResource("StyleBoxFlat_hk0ch")
+text = "Start"
+
+[node name="fade_out_rect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_lnkm6")
+}
+
 [node name="back_button" type="Button" parent="."]
+layout_mode = 0
 offset_left = 23.0
 offset_top = 22.0
 offset_right = 95.0
@@ -166,44 +314,3 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_xc7yd")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_lnkm6")
 icon = ExtResource("1_ctyiq")
 icon_alignment = 1
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(184, 296)
-scale = Vector2(0.304688, 0.304688)
-texture = ExtResource("3_xc7yd")
-
-[node name="ProgressBar" type="ProgressBar" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -115.0
-offset_top = -18.0
-offset_right = 115.0
-offset_bottom = -3.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_yd4af")
-theme_override_styles/fill = SubResource("StyleBoxFlat_xc7yd")
-value = 23.39
-show_percentage = false
-
-[node name="Button" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -74.0
-offset_top = 252.0
-offset_right = 74.0
-offset_bottom = 297.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_styles/focus = SubResource("StyleBoxEmpty_xotda")
-theme_override_styles/normal = SubResource("StyleBoxFlat_hk0ch")
-text = "Start"

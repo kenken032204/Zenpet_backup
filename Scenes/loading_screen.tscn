@@ -1,0 +1,96 @@
+[gd_scene load_steps=6 format=3 uid="uid://ds85a5ck7vj2b"]
+
+[ext_resource type="Script" uid="uid://ba1ky3vtes6li" path="res://Scenes/loading_screen.gd" id="1_0t5xw"]
+[ext_resource type="Texture2D" uid="uid://0vbyxnb333sj" path="res://Sprite/GUI/loading-svgrepo-com (1).svg" id="1_oobaa"]
+
+[sub_resource type="Animation" id="Animation_45hwp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterContainer/Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_1jmvk"]
+resource_name = "loading"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterContainer/Sprite2D:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.9, 1),
+"transitions": PackedFloat32Array(1, 0.659753, 1.51572, 1.51572),
+"update": 0,
+"values": [0.0, -6.28319, 0.598648, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v8uky"]
+_data = {
+&"RESET": SubResource("Animation_45hwp"),
+&"loading": SubResource("Animation_1jmvk")
+}
+
+[node name="loading_control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_0t5xw")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="CenterContainer"]
+scale = Vector2(0.402367, 0.402367)
+texture = ExtResource("1_oobaa")
+
+[node name="fun_loading_info" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -115.0
+offset_top = 69.0
+offset_right = 115.0
+offset_bottom = 92.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.846044, 0.846044, 0.846044, 1)
+text = "Putting the pet for adoption..."
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_v8uky")
+}
