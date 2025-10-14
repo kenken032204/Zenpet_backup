@@ -43,6 +43,7 @@ var GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/g
 
 #Misc
 @onready var animation = $"Pet/AnimationPlayer"
+@onready var GUIanimation = $"Pet/GUIAnimation"
 var lamp_toggle = true
 
 @onready var pet_area = $Pet/PetArea
@@ -61,7 +62,8 @@ var red_style := preload("res://Styles/button_buttom_pressed_texture.tres").dupl
 var original_style := preload("res://Styles/button_button_original.tres").duplicate() as StyleBoxFlat
 var yellow_style := preload("res://Styles/button_button_yellow.tres").duplicate() as StyleBoxFlat
 
-@onready var http = HTTPRequest.new()
+@onready var http_pet = HTTPRequest.new()
+@onready var http_outfit = HTTPRequest.new()
 
 var exp_given_after_sleep := false  # track if EXP has been awarded
 
@@ -73,12 +75,18 @@ func _ready():
 		get_tree().change_scene_to_file("res://Scenes/login.tscn")
 		return
 	
-	add_child(http)
-	http.request_completed.connect(_on_HTTPRequest_request_completed)
+	add_child(http_pet)
+	add_child(http_outfit)
+	http_pet.request_completed.connect(_on_pet_request_completed)
+	http_outfit.request_completed.connect(_on_outfit_request_completed)
+	
 	Global.load_stats()
 	
 	PetStore.pet_node = $Pet
-	load_equipped_outfits()
+	
+	load_equipped_outfits_from_supabase(user_id)
+	load_pet_data_from_supabase(user_id)
+	
 	load_chat_history()
 	Global.play_sound(load("res://Audio/meow-1.mp3"), -30.0) 
 	Audio.play()
@@ -89,22 +97,21 @@ func _ready():
 	# Connect signal to trigger idle after intro
 	animation.animation_finished.connect(_on_intro_finished)
 	
-	if outfit["Hat"] and outfit["Hat"].has("sprite"):
-		var hat_sprite = $Pet/PetArea/HatSprite
-		if hat_sprite:
-			hat_sprite.texture = load(outfit["Hat"]["sprite"])
-	
-	if outfit["Dress"] and outfit["Dress"].has("sprite"):
-		var dress_sprite = $Pet/PetArea/ChestSprite
-		if dress_sprite:
-			dress_sprite.texture = load(outfit["Dress"]["sprite"])
-	
-	if outfit["Boots"] and outfit["Boots"].has("sprite"):
-		var boots_sprite = $Pet/PetArea/ArmSprite
-		if boots_sprite:
-			boots_sprite.texture = load(outfit["Boots"]["sprite"])
+	#if outfit["Hat"] and outfit["Hat"].has("sprite"):
+		#var hat_sprite = $Pet/PetArea/HatSprite
+		#if hat_sprite:
+			#hat_sprite.texture = load(outfit["Hat"]["sprite"])
+	#
+	#if outfit["Dress"] and outfit["Dress"].has("sprite"):
+		#var dress_sprite = $Pet/PetArea/ChestSprite
+		#if dress_sprite:
+			#dress_sprite.texture = load(outfit["Dress"]["sprite"])
+	#
+	#if outfit["Boots"] and outfit["Boots"].has("sprite"):
+		#var boots_sprite = $Pet/PetArea/ArmSprite
+		#if boots_sprite:
+			#boots_sprite.texture = load(outfit["Boots"]["sprite"])
 					
-	load_pet_data_from_supabase(user_id)
 	lamp_button.visible = false
 	animation.play("idle")
 	
@@ -137,39 +144,18 @@ func _on_intro_finished(name):
 		animation.play("pet")
 		love_particles.emitting = true
 		
-func load_equipped_outfits():
-	var path = "user://equipped_outfits.json"
-	if not FileAccess.file_exists(path):
-		return
+func load_equipped_outfits_from_supabase(user_id: int):
+	
+	var url = "https://rekmhywernuqjshghyvu.supabase.co/rest/v1/user_pet_outfit"
+	url += "?select=category,outfit_id(outfit_name,sprite_url)&user_id=eq." + str(int(user_id))
 
-	var file = FileAccess.open(path, FileAccess.READ)
-	var text = file.get_as_text()
-	file.close()
+	var headers = [
+		"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJla21oeXdlcm51cWpzaGdoeXZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg1MDEwNjEsImV4cCI6MjA3NDA3NzA2MX0.-ljSNpqHZ-Yzv_0eDlCGDSH7m3uM96c5oD2ejxPHhyY",
+		"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJla21oeXdlcm51cWpzaGdoeXZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg1MDEwNjEsImV4cCI6MjA3NDA3NzA2MX0.-ljSNpqHZ-Yzv_0eDlCGDSH7m3uM96c5oD2ejxPHhyY",
+		"Prefer: return=representation"
+	]
 
-	var result = JSON.parse_string(text)
-
-	# Loop through each category and apply the saved outfit
-	for category in result.keys():
-		var item = result[category]
-		var sprite_path = item.get("sprite", "")
-
-		if sprite_path != "":
-			match category:
-				"Hat":
-					var hat_sprite = PetStore.pet_node.get_node("PetArea/HatSprite")
-					if hat_sprite:
-						hat_sprite.texture = load(sprite_path)
-				"Dress":
-					var dress_sprite = PetStore.pet_node.get_node("PetArea/ChestSprite")
-					if dress_sprite:
-						dress_sprite.texture = load(sprite_path)
-				"Boots":
-					var boots_sprite = PetStore.pet_node.get_node("PetArea/ChestSprite")
-					if boots_sprite:
-						boots_sprite.texture = load(sprite_path)
-
-		# Also update PetStore memory for future reference
-		PetStore.equipped_outfits[category] = item
+	http_outfit.request(url, headers, HTTPClient.METHOD_GET)
 
 func play_button_pop(button: Button):
 	var tween = create_tween()
@@ -361,7 +347,6 @@ func _open_kitchen():
 	animation.play("idle")
 	get_tree().change_scene_to_packed(scene)
 
-
 func submit_message():
 	if message_box.text.strip_edges() != "":
 		var user_input = message_box.text
@@ -397,7 +382,6 @@ func reset_message():
 		chat_box.remove_child(child)
 		child.queue_free()
 
-	
 func _on_request_completed(result, response_code, headers, body):
 	if response_code == 200:
 		var response = JSON.parse_string(body.get_string_from_utf8())
@@ -428,7 +412,6 @@ func load_chat_history():
 					var is_user = entry["role"] == "user"
 					display_message(entry["text"], is_user)  # <- Only display, no saving!
 
-
 func display_message(text: String, is_user: bool):
 	var msg_label = Label.new()
 	msg_label.text = ("You: " if is_user else "Pet: ") + text
@@ -440,7 +423,6 @@ func display_message(text: String, is_user: bool):
 	await get_tree().process_frame
 	var scroll = $UI/ChatSystem/ChatMessages
 	scroll.scroll_vertical = scroll.get_v_scroll_bar().max_value
-
 
 func add_message(text: String, is_user: bool = false, save: bool = true):
 	
@@ -465,8 +447,6 @@ func add_message(text: String, is_user: bool = false, save: bool = true):
 	scroll.scroll_vertical = scroll.get_v_scroll_bar().max_value
 
 func load_pet_data_from_supabase(user_id: int):
-	current_request = "get_pet"
-	
 	var url = "https://rekmhywernuqjshghyvu.supabase.co/rest/v1/users"
 	url += "?select=level,exp&id=eq." + str(user_id)
 	
@@ -475,43 +455,196 @@ func load_pet_data_from_supabase(user_id: int):
 		"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJla21oeXdlcm51cWpzaGdoeXZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg1MDEwNjEsImV4cCI6MjA3NDA3NzA2MX0.-ljSNpqHZ-Yzv_0eDlCGDSH7m3uM96c5oD2ejxPHhyY",
 		"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJla21oeXdlcm51cWpzaGdoeXZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg1MDEwNjEsImV4cCI6MjA3NDA3NzA2MX0.-ljSNpqHZ-Yzv_0eDlCGDSH7m3uM96c5oD2ejxPHhyY",
 	]
-	http.request(url, headers, HTTPClient.METHOD_GET)
+	http_pet.request(url, headers, HTTPClient.METHOD_GET)
+
+func _on_outfit_request_completed(result, response_code, headers, body):
+	var response_text = body.get_string_from_utf8()
+	print("=== OUTFIT REQUEST ===")
+	print("Response code: ", response_code)
+	print("Response: ", response_text)
+	
+	if response_code != 200:
+		push_error("Failed to load outfits: " + response_text)
+		return
+	
+	var parse_result = JSON.parse_string(response_text)
+	if parse_result == null:
+		push_error("Failed to parse outfits JSON")
+		return
+
+	var outfits_array = parse_result
+	if typeof(outfits_array) != TYPE_ARRAY or outfits_array.size() == 0:
+		print("No outfits found for user.")
+		return
+
+	# Map database categories to your PetStore keys
+	var category_mapping = {
+		"Hat": "Hat",
+		"Dress": "Dress",
+		"Boots": "Boots"
+	}
+
+	# Loop through each row
+	for outfit_row in outfits_array:
+		var db_category = outfit_row.get("category", "")
+		var outfit_info = outfit_row.get("outfit_id", {})
+
+		if db_category == null:
+			continue
+
+		var store_key = category_mapping.get(db_category, "")
+		if store_key == "":
+			continue
+
+		if outfit_info.has("sprite_url") and outfit_info["sprite_url"] != "":
+			var sprite_path = outfit_info["sprite_url"]
+			
+			var tex = load(sprite_path)
+			
+			if tex:
+				match store_key:
+					"Hat":
+						var hat_sprite = PetStore.pet_node.get_node("PetArea/HatSprite")
+						if hat_sprite:
+							hat_sprite.texture = load(sprite_path)
+					"Dress":
+						var dress_sprite = PetStore.pet_node.get_node("PetArea/ChestSprite")
+						if dress_sprite:
+							dress_sprite.texture = load(sprite_path)
+					"Boots":
+						var boots_sprite = PetStore.pet_node.get_node("PetArea/ArmSprite")
+						if boots_sprite:
+							boots_sprite.texture = load(sprite_path)
+				PetStore.equipped_outfits[store_key] = sprite_path
+			else:
+				push_error("Failed to load sprite at path: " + sprite_path)
+
+
+func _on_pet_request_completed(result, response_code, headers, body):
+	var response_text = body.get_string_from_utf8()
+	print("=== PET REQUEST ===")
+	print("Response code: ", response_code)
+	print("Response: ", response_text)
+	
+	if response_code != 200:
+		push_error("Failed to load pet data: " + response_text)
+		return
+	
+	var parse_result = JSON.parse_string(response_text)
+	if parse_result == null:
+		push_error("Failed to parse pet JSON")
+		return
+
+	var data_array = parse_result
+	if typeof(data_array) != TYPE_ARRAY or data_array.size() == 0:
+		print("No pet data found, using defaults")
+		Global.User["level"] = 1
+		Global.User["exp"] = 0.0
+		level.text = "1"
+		level_bar.value = 0
+		return
+
+	var pet = data_array[0]
+	var loaded_level = int(pet.get("level", 1))
+	var loaded_exp = float(pet.get("exp", 0.0))
+
+	Global.User["level"] = loaded_level
+	Global.User["exp"] = loaded_exp
+	level.text = str(loaded_level)
+	level_bar.value = loaded_exp
+	
+	print("Loaded: Level %d, EXP %.1f" % [loaded_level, loaded_exp])
 	
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	var response_text = body.get_string_from_utf8()
+	
+	print("=== HTTP REQUEST COMPLETED ===")
+	print("Request type: ", current_request)
+	print("Response code: ", response_code)
+	print("Response body: ", response_text)
+	print("=============================")
+	
+	# Add this check at the start
+	if response_code != 200 and response_code != 201:
+		push_error("HTTP request failed with code %d: %s" % [response_code, response_text])
+		return
 
-	if current_request == "get_pet":
-		var data = JSON.parse_string(response_text)
-		if typeof(data) == TYPE_ARRAY and data.size() > 0:
-			var pet = data[0]
+	if current_request == "get_outfits":
+		var parse_result = JSON.parse_string(response_text)
+		if parse_result == null:
+			push_error("Failed to parse outfits JSON")
+			return
 
-			# ✅ Safely parse from Supabase
-			var loaded_level = int(pet["level"]) if pet.has("level") else 1
-			var loaded_exp = float(pet["exp"]) if pet.has("exp") else 0.0
+		var outfits_array = parse_result
+		if typeof(outfits_array) != TYPE_ARRAY or outfits_array.size() == 0:
+			print("No outfits found for user.")
+			return
 
-			# ✅ Store in Global.User
-			Global.User["level"] = loaded_level
-			Global.User["exp"] = loaded_exp
+		var outfit_data = outfits_array[0]
 
-			# ✅ Update UI
-			level.text = str(loaded_level)
-			level_bar.value = loaded_exp
+		for category in ["Hat", "Dress", "Boots"]:
+			if outfit_data.has(category):
+				var item_raw = outfit_data[category]
+				var item: Dictionary = {}
+				if typeof(item_raw) == TYPE_STRING and item_raw != "":
+					var json_parse = JSON.parse_string(item_raw)
+					if json_parse != null:
+						item = json_parse
 
-		else:
+				if item.has("sprite") and item["sprite"] != "":
+					var sprite_path = item["sprite"]
+					match category:
+						"Hat":
+							var hat_sprite = PetStore.pet_node.get_node("PetArea/HatSprite")
+							if hat_sprite:
+								hat_sprite.texture = load(sprite_path)
+						"Dress":
+							var dress_sprite = PetStore.pet_node.get_node("PetArea/ChestSprite")
+							if dress_sprite:
+								dress_sprite.texture = load(sprite_path)
+						"Boots":
+							var boots_sprite = PetStore.pet_node.get_node("PetArea/ArmSprite")
+							if boots_sprite:
+								boots_sprite.texture = load(sprite_path)
+
+				PetStore.equipped_outfits[category] = item
+
+	elif current_request == "get_pet":
+		var parse_result = JSON.parse_string(response_text)
+
+		if parse_result == null:
+			push_error("Failed to parse pet JSON: %s" % response_text)
+			return
+
+		var data_array = parse_result  # <- this is the array from Supabase
+
+		if typeof(data_array) != TYPE_ARRAY or data_array.size() == 0:
+			print("No pet data found, creating pet...")
 			current_request = "create_pet"
+			return
+
+		var pet = data_array[0]
+		var loaded_level = int(pet.get("level", 1))
+		var loaded_exp = float(pet.get("exp", 0.0))
+
+		Global.User["level"] = loaded_level
+		Global.User["exp"] = loaded_exp
+		level.text = str(loaded_level)
+		level_bar.value = loaded_exp
 
 	elif current_request == "create_pet":
 		if response_code == 201:
 			level.text = "1"
 			level_bar.value = 0
-			
+
 	elif current_request == "save_pet":
 		if response_code in [200, 201]:
-			var json = JSON.parse_string(body.get_string_from_utf8())
-			if typeof(json) == TYPE_ARRAY and json.size() > 0:
-				var updated_pet = json[0]
-				Global.User["level"] = int(updated_pet["level"])
-				Global.User["exp"] = float(updated_pet["exp"])
+			var updated_pet_array = JSON.parse_string(response_text)
+			if typeof(updated_pet_array) == TYPE_ARRAY and updated_pet_array.size() > 0:
+				var updated_pet = updated_pet_array[0]
+				Global.User["level"] = int(updated_pet.get("level", 1))
+				Global.User["exp"] = float(updated_pet.get("exp", 0))
+
 
 func increase_exp(base_amount: float):
 	var current_level = int(Global.User.get("level", 1))
@@ -571,7 +704,7 @@ func save_pet_data_to_supabase(new_level: int, new_exp: float):
 		"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJla21oeXdlcm51cWpzaGdoeXZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg1MDEwNjEsImV4cCI6MjA3NDA3NzA2MX0.-ljSNpqHZ-Yzv_0eDlCGDSH7m3uM96c5oD2ejxPHhyY",
 	]
 
-	http.request(url, headers, HTTPClient.METHOD_PATCH, JSON.stringify(body))
+	http_pet.request(url, headers, HTTPClient.METHOD_PATCH, JSON.stringify(body))
 	
 func _on_sleep_pressed():
 	save_chat_history()
@@ -609,6 +742,7 @@ func _on_chat_pressed():
 	bath_scene.visible = false
 	$UI/HBoxContainer.visible = false
 	$UI/ChatSystem.visible = true
+	GUIanimation.play("show_message")
 	animation.play("idle")
 	Global.play_sound(load("res://Audio/comedy_pop_finger_in_mouth_001.mp3"))
 

@@ -42,10 +42,9 @@ func _ready() -> void:
 		JournalManager.journal_saved.connect(callable)
 
 	# Start immediately if a last journal exists
-	if JournalManager.last_journal.has("id"):
-		_start_conversation(JournalManager.last_journal["text"], JournalManager.last_journal["id"])
+	#if JournalManager.last_journal.has("id"):
+		#_start_conversation(JournalManager.last_journal["text"], JournalManager.last_journal["id"])
 
-# Called when user presses "send"
 func _on_submit_pressed() -> void:
 	var user_text = message_box.text.strip_edges()
 	if user_text == "":
@@ -53,28 +52,44 @@ func _on_submit_pressed() -> void:
 	message_box.text = ""  # clear after sending
 
 	add_message(user_text, true)
-	chat_history.append({ "role": "user", "text": user_text })
 	_send_to_gemini(user_text)
 
-# Shared sending logic
 func _send_to_gemini(user_text: String) -> void:
-	var contents = []
-	# Add history
-	for entry in chat_history:
-		if typeof(entry) == TYPE_DICTIONARY and entry.has("role") and entry.has("text"):
-			contents.append({
-				"role": entry["role"],
-				"parts": [{ "text": entry["text"] }]
-			})
+	# Instruction
+	var instruction_text := "Respond in brief 1-2 short sentences. Stop after 2 sentences. Refrain from telling user to commit violence"
 
-	var body = { "contents": contents }
+	# Build contents array from chat history
+	var contents := []
+	
+	# Add all previous chat history
+	for entry in chat_history:
+		var role_text = "user" if entry["role"] == "user" else "model"
+		contents.append({
+			"role": role_text,
+			"parts": [{"text": entry["text"]}]
+		})
+	
+	# Add the current user message with instruction prepended
+	var current_message = instruction_text + "\n\n" + user_text if contents.is_empty() else user_text
+	contents.append({
+		"role": "user",
+		"parts": [{"text": current_message}]
+	})
+
+	# New Gemini v1beta request payload with full history
+	var body := {
+		"contents": contents
+	}
+
 	var headers = ["Content-Type: application/json"]
 	var full_url = "%s?key=%s" % [GEMINI_ENDPOINT, GEMINI_API_KEY]
 	var json_body = JSON.stringify(body)
-	
-	chat_request.request(full_url, headers, HTTPClient.METHOD_POST, json_body)
 
-	
+	if chat_request:
+		chat_request.request(full_url, headers, HTTPClient.METHOD_POST, json_body)
+	else:
+		push_error("chat_request node is missing")
+
 # ==============================
 # SAVE / LOAD
 # ==============================
@@ -97,7 +112,7 @@ func load_chat_history() -> void:
 				for entry in chat_history:
 					if typeof(entry) == TYPE_DICTIONARY:
 						if entry.has("text") and entry.has("role"):
-							_show_message(entry["text"], entry["role"] == "user", true)
+							add_message(entry["text"], entry["role"] == "user", false)
 
 # ==============================
 # NAVIGATION
@@ -108,44 +123,22 @@ func _back_to_dashboard():
 
 
 # ==============================
-# JOURNAL → GEMINI
+# GEMINI REQUEST
 # ==============================
 func _start_conversation(journal_text: String, journal_id: String) -> void:
-	# Build Gemini request contents
-	var contents = [
-		{
-			"role": "user",
-			"parts": [
-			  {
-				"text": "Respond in 1-2 sentences maximum with empathy and understanding. Use a gentle, supportive tone as if you're listening to a close friend share their thoughts. Avoid using bold, bulleted, numbered, long words. " 
-			  },
-			  {
-				"text": journal_text
-			  }
-			]
-		}
-	]
+	var instruction_text := "Respond in exactly 1-2 short sentences with empathy. Use a gentle, supportive tone. Stop after 2 sentences."
+	var full_prompt := "%s\n%s" % [instruction_text, journal_text]
 
-	# Append chat history (excluding the just-added journal to avoid duplication)
-	for entry in chat_history.slice(0, chat_history.size() - 1):
-		contents.append({
-			"role": entry["role"],
-			"parts": [{ "text": entry["text"] }]
-		})
-
-	var body = { "contents": contents }
-	var headers = ["Content-Type: application/json"]
-	var full_url = "%s?key=%s" % [GEMINI_ENDPOINT, GEMINI_API_KEY]
-	var json_body = JSON.stringify(body)
-
-	chat_request.request(full_url, headers, HTTPClient.METHOD_POST, json_body)
-
+	_send_to_gemini(full_prompt)
 
 # ==============================
 # GEMINI RESPONSE
 # ==============================
 func _on_request_completed(result, response_code, headers, body):
-
+	
+	print("Response code:", response_code)
+	print("Body:", body.get_string_from_utf8())
+	
 	if response_code == 200:
 		var response = JSON.parse_string(body.get_string_from_utf8())
 		if response and response.has("candidates") and response["candidates"].size() > 0:
@@ -156,12 +149,16 @@ func _on_request_completed(result, response_code, headers, body):
 	else:
 		push_error("Gemini API request failed")
 
-func add_message(text: String, is_user: bool) -> void:
+func add_message(text: String, is_user: bool, save: bool = true) -> void:
 	var role = "user" if is_user else "model"
 	var entry = { "role": role, "text": text }
-	chat_history.append(entry)
-	save_chat_history()
+
+	if save:
+		chat_history.append(entry)
+		save_chat_history()
+
 	_show_message(text, is_user)
+
 
 func type_text(label: Label, full_text: String, delay: float = 0.004) -> void:
 	label.text = ""
@@ -174,30 +171,83 @@ func type_text(label: Label, full_text: String, delay: float = 0.004) -> void:
 		
 		await get_tree().create_timer(delay).timeout
 
-
 func _show_message(text: String, is_user: bool, skip_typing: bool = false) -> void:
-	# Create label
+	# -- Row container --
+	var hbox = HBoxContainer.new()
+	hbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	hbox.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	
+	# -- Spacers --
+	var left_spacer = Control.new()
+	left_spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	left_spacer.custom_minimum_size = Vector2(0, 0)
+	
+	var right_spacer = Control.new()
+	right_spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	right_spacer.custom_minimum_size = Vector2(0, 0)
+	
+	# -- Bubble --
+	var bubble = PanelContainer.new()
+	bubble.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	bubble.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	
+	var bubble_style = StyleBoxFlat.new()
+	bubble_style.bg_color = Color("#FFD42C") if is_user else Color("#FFFFFF")
+	
+	# 💬 Border settings
+	bubble_style.border_width_left = 2
+	bubble_style.border_width_top = 2
+	bubble_style.border_width_right = 2
+	bubble_style.border_width_bottom = 2
+	bubble_style.border_color = Color("#313B45") if is_user else Color("#FF9B17")
+	
+	bubble_style.corner_radius_top_left = 16
+	bubble_style.corner_radius_top_right = 16
+	bubble_style.corner_radius_bottom_left = 16
+	bubble_style.corner_radius_bottom_right = 16
+	bubble_style.content_margin_left = 12
+	bubble_style.content_margin_right = 12
+	bubble_style.content_margin_top = 8
+	bubble_style.content_margin_bottom = 8
+	bubble.add_theme_stylebox_override("panel", bubble_style)
+	
+	# -- Label with max width constraint --
 	var label = Label.new()
-	label.autowrap_mode = TextServer.AUTOWRAP_WORD
-	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT if is_user else HORIZONTAL_ALIGNMENT_LEFT
-
-	# Color styling
+	label.text = text
+	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	label.size_flags_horizontal = Control.SIZE_FILL
+	label.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	
+	# 🎨 Font color
 	if is_user:
-		label.add_theme_color_override("font_color", Color(0.2, 0.6, 1)) # blue
+		label.add_theme_color_override("font_color", Color("#FFFFFF"))
 	else:
-		label.add_theme_color_override("font_color", Color(0.2, 0.8, 0.4)) # green
-
-	Vboxcontainer.add_child(label)
-
-	# Typing effect logic
-	if is_user or skip_typing:
-		# User messages and history show instantly
-		label.text = text
-		_update_scroll()
+		label.add_theme_color_override("font_color", Color("#000000"))
+	
+	# Set max width for the label based on viewport
+	var vw = get_viewport_rect().size.x
+	var max_bubble_width = vw * 0.7  # 70% of screen width
+	label.custom_minimum_size = Vector2(0, 0)
+	label.set_custom_minimum_size(Vector2(max_bubble_width - 24, 0))  # subtract padding
+	
+	# Assemble
+	bubble.add_child(label)
+	hbox.add_child(left_spacer)
+	hbox.add_child(bubble)
+	hbox.add_child(right_spacer)
+	Vboxcontainer.add_child(hbox)
+	
+	# Set space
+	var spacer_width = vw * 0.15  # 15% margin on the opposite side
+	if is_user:
+		left_spacer.custom_minimum_size = Vector2(spacer_width, 0)
+		right_spacer.custom_minimum_size = Vector2(0, 0)
 	else:
-		# AI new responses "type out"
-		await type_text(label, text)
-		_update_scroll()
+		right_spacer.custom_minimum_size = Vector2(spacer_width, 0)
+		left_spacer.custom_minimum_size = Vector2(0, 0)
+	
+	await get_tree().process_frame
+	_update_scroll()
 
 func _update_scroll():
 	var scroll = $"ScrollContainer"

@@ -13,12 +13,12 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5h6ls"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ccnec"]
-bg_color = Color(0.484566, 0.84396, 0.886848, 1)
+bg_color = Color(0.988235, 0.705882, 0.329412, 1)
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
-border_color = Color(0.230899, 0.548495, 0.585141, 1)
+border_color = Color(0.192157, 0.231373, 0.270588, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -40,12 +40,12 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gp04c"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f4pem"]
-bg_color = Color(0.231373, 0.54902, 0.584314, 1)
+bg_color = Color(1, 0.831373, 0.172549, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.170032, 0.430498, 0.459298, 1)
+border_color = Color(0.624471, 0.510103, 0, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -57,7 +57,7 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.839216, 0.54902, 0.168627, 1)
+border_color = Color(0.623529, 0.509804, 0, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -140,6 +140,7 @@ grow_vertical = 2
 pivot_offset = Vector2(179, 308)
 script = ExtResource("1_akxf4")
 metadata/_edit_horizontal_guides_ = [266.0, 246.0]
+metadata/_edit_vertical_guides_ = [43.0, 347.0]
 
 [node name="back_zendiary" type="Button" parent="."]
 z_index = 100
@@ -231,10 +232,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 18.0
+offset_left = 26.0
 offset_top = 115.0
-offset_right = -18.0
-offset_bottom = -74.0
+offset_right = -26.0
+offset_bottom = -76.0
 grow_horizontal = 2
 grow_vertical = 2
 horizontal_scroll_mode = 0

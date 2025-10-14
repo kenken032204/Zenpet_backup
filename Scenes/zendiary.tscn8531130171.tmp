@@ -1,8 +1,8 @@
 [gd_scene load_steps=42 format=3 uid="uid://nrcxwgy5gygy"]
 
+[ext_resource type="Texture2D" uid="uid://vu45py5axrg4" path="res://Sprite/cat-clipart-icon-flat-design-on-transparent-background-animal-isolated-clipping-path-element-png.png" id="1_c3due"]
 [ext_resource type="Script" uid="uid://d5ilmyaeytnf" path="res://Scripts/zendiary.gd" id="1_crga8"]
 [ext_resource type="Texture2D" uid="uid://b5ice2x4m76dg" path="res://Sprite/GUI/back-svgrepo-com.svg" id="2_wj2ap"]
-[ext_resource type="Texture2D" uid="uid://bvwf15n7pu0ke" path="res://Sprite/brain-icon-outline_1076610-35170.png" id="3_crga8"]
 [ext_resource type="AudioStream" uid="uid://dy7ugph527csx" path="res://Audio/Happy_Notes.wav" id="5_gp04c"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c3due"]
@@ -50,12 +50,12 @@ anti_aliasing_size = 10.0
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5h6ls"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ccnec"]
-bg_color = Color(0.988235, 0.705882, 0.329412, 1)
+bg_color = Color(0.392104, 0.702139, 0.832094, 1)
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
-border_color = Color(0.192157, 0.231373, 0.270588, 1)
+border_color = Color(0.2, 0.447059, 0.545098, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -77,12 +77,12 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gp04c"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f4pem"]
-bg_color = Color(1, 0.831373, 0.172549, 1)
+bg_color = Color(0.313726, 0.619608, 0.745098, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.192157, 0.231373, 0.270588, 1)
+border_color = Color(0.201043, 0.446288, 0.545001, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -155,12 +155,12 @@ corner_radius_bottom_left = 2
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_crga8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gp04c"]
-bg_color = Color(0.988235, 0.705882, 0.329412, 1)
+bg_color = Color(0.314134, 0.617822, 0.745105, 1)
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
-border_color = Color(0.192157, 0.231373, 0.270588, 1)
+border_color = Color(0.2, 0.447059, 0.545098, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -306,7 +306,7 @@ border_width_left = 5
 border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
-border_color = Color(0.192157, 0.231373, 0.270588, 1)
+border_color = Color(0.2, 0.447059, 0.545098, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -336,7 +336,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_crga8")
 metadata/_edit_horizontal_guides_ = [297.0, 281.0]
-metadata/_edit_vertical_guides_ = [51.0, 462.0, 346.0]
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -389,7 +388,7 @@ offset_bottom = 38.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(105, 14)
-theme_override_colors/font_color = Color(1, 0.607843, 0.0901961, 1)
+theme_override_colors/font_color = Color(0.313726, 0.619608, 0.745098, 1)
 theme_override_font_sizes/font_size = 21
 text = "You have no notes :<"
 horizontal_alignment = 1
@@ -471,9 +470,9 @@ placeholder_text = "Your title..."
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Add_Journal_window/journal-id"]
 layout_mode = 0
-offset_left = 21.0
+offset_left = 18.0
 offset_top = 108.0
-offset_right = 314.0
+offset_right = 310.0
 offset_bottom = 443.0
 horizontal_scroll_mode = 0
 
@@ -595,7 +594,7 @@ offset_right = 168.0
 offset_bottom = 391.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(1, 0.607843, 0.0901961, 1)
+theme_override_colors/font_color = Color(0.313726, 0.619608, 0.745098, 1)
 theme_override_styles/focus = SubResource("StyleBoxEmpty_crga8")
 theme_override_styles/normal = SubResource("StyleBoxFlat_gp04c")
 text = "Want to talk it out? Go to ZenAi"
@@ -613,15 +612,15 @@ offset_right = -152.0
 offset_bottom = -243.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0.192157, 0.231373, 0.270588, 1)
+theme_override_colors/font_color = Color(0.2, 0.447059, 0.545098, 1)
 theme_override_font_sizes/font_size = 26
 text = "What's on your mind?"
 autowrap_mode = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(304, 141)
-scale = Vector2(0.15016, 0.15016)
-texture = ExtResource("3_crga8")
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_c3due")
 
 [node name="back_button" type="Button" parent="."]
 layout_mode = 1
@@ -665,7 +664,6 @@ libraries = {
 }
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-visible = false
 stream = ExtResource("5_gp04c")
 volume_db = -7.442
 
@@ -677,9 +675,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -164.0
-offset_top = -201.0
+offset_top = -216.0
 offset_right = 164.0
-offset_bottom = -174.0
+offset_bottom = -177.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ufpgt")

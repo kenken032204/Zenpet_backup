@@ -1,8 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://5ph415n6ffj5"]
+[gd_scene load_steps=21 format=3 uid="uid://5ph415n6ffj5"]
 
 [ext_resource type="Texture2D" uid="uid://b5ice2x4m76dg" path="res://Sprite/GUI/back-svgrepo-com.svg" id="1_e68g8"]
 [ext_resource type="Script" uid="uid://bv7qktqjs2vob" path="res://Scenes/zenai.gd" id="1_miorb"]
-[ext_resource type="Texture2D" uid="uid://cbb0008hdy1qd" path="res://Sprite/GUI/check-svgrepo-com.svg" id="2_widxd"]
+[ext_resource type="Texture2D" uid="uid://cjq5s5m11o7kn" path="res://Sprite/send-alt-1-svgrepo-com.svg" id="3_vttb2"]
 [ext_resource type="Texture2D" uid="uid://c483w28pi8ei0" path="res://Sprite/GUI/arrow-path-20-solid (1).svg" id="4_vttb2"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_widxd"]
@@ -15,15 +15,15 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_miorb"]
 content_margin_left = 20.0
-content_margin_top = 30.0
-content_margin_right = 20.0
-content_margin_bottom = 30.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
 bg_color = Color(1, 1, 1, 1)
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
-border_color = Color(0.292464, 0.517573, 1, 1)
+border_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
@@ -33,6 +33,24 @@ corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_otbd0"]
 bg_color = Color(1, 1, 1, 0.462745)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.34902, 0.243137, 0.0980392, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 5.0
+expand_margin_top = 2.0
+expand_margin_right = 5.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_otbd0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e3abe"]
+bg_color = Color(0.623529, 0.862745, 0.509804, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -63,42 +81,48 @@ expand_margin_top = 2.0
 expand_margin_right = 5.0
 expand_margin_bottom = 2.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_is3jc"]
+bg_color = Color(1, 0.831373, 0.172549, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.34902, 0.243137, 0.0980392, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 5.0
+expand_margin_top = 2.0
+expand_margin_right = 5.0
+expand_margin_bottom = 2.0
+
 [sub_resource type="Animation" id="Animation_o3qwk"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ScrollContainer:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
 
 [sub_resource type="Animation" id="Animation_vttb2"]
 resource_name = "shake"
 length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ScrollContainer:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.133333, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [0.0610865, -0.0349066, 0.0]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nu3pb"]
 _data = {
 &"RESET": SubResource("Animation_o3qwk"),
 &"shake": SubResource("Animation_vttb2")
 }
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gh88f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t4bgd"]
+bg_color = Color(0.314134, 0.617822, 0.745105, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.2, 0.447059, 0.545098, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -143,20 +167,21 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -164.0
+offset_left = -169.0
 offset_top = -240.0
-offset_right = 168.0
+offset_right = 173.0
 offset_bottom = 295.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(169, 276)
 theme_override_styles/panel = SubResource("StyleBoxFlat_miorb")
 horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 15
+theme_override_constants/separation = 20
 
 [node name="ChatInput" type="HBoxContainer" parent="."]
 layout_mode = 0
@@ -170,23 +195,23 @@ alignment = 1
 [node name="message_box" type="LineEdit" parent="ChatInput"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_placeholder_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0.794828, 0.794828, 0.794828, 1)
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_styles/focus = SubResource("StyleBoxEmpty_nu3pb")
 theme_override_styles/normal = SubResource("StyleBoxFlat_otbd0")
-placeholder_text = "Type Something..."
+placeholder_text = "Talk to ZenAi..."
 
 [node name="submit_message" type="Button" parent="ChatInput"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_styles/focus = SubResource("StyleBoxEmpty_nu3pb")
-theme_override_styles/hover = SubResource("StyleBoxFlat_xv5dn")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_otbd0")
+theme_override_styles/hover = SubResource("StyleBoxFlat_e3abe")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_xv5dn")
-theme_override_styles/normal = SubResource("StyleBoxFlat_xv5dn")
-icon = ExtResource("2_widxd")
+theme_override_styles/normal = SubResource("StyleBoxFlat_is3jc")
+icon = ExtResource("3_vttb2")
 icon_alignment = 1
 expand_icon = true
 
@@ -229,3 +254,22 @@ expand_icon = true
 libraries = {
 &"": SubResource("AnimationLibrary_nu3pb")
 }
+
+[node name="go_to_zenai" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -168.0
+offset_top = 364.0
+offset_right = 168.0
+offset_bottom = 391.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.831373, 0.172549, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gh88f")
+theme_override_styles/normal = SubResource("StyleBoxFlat_t4bgd")
+text = "Back to ZenDiary"
+flat = true

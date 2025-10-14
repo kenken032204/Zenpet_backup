@@ -192,7 +192,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_lhmql")
 theme_override_styles/normal = SubResource("StyleBoxFlat_aaqfp")
 text = "Change Pet Name"
 
-[node name="Button2" type="Button" parent="CanvasLayer"]
+[node name="logout_btn" type="Button" parent="CanvasLayer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_styles/focus = SubResource("StyleBoxEmpty_lhmql")

@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://clwl4gtisaa5h" path="res://Scripts/petmain.gd" id="1_fl2ai"]
 [ext_resource type="Texture2D" uid="uid://buxj36tfsmjx5" path="res://Sprite/empty-room-with-black-floor-pink-walls_1308-65874.png" id="2_fl2ai"]
-[ext_resource type="Script" uid="uid://bnpxugvb1kti6" path="res://Scripts/pet.gd" id="3_glxf2"]
 [ext_resource type="StyleBox" uid="uid://c6qr6ty4xpcl4" path="res://Styles/button_buttom_pressed_texture.tres" id="3_k2sp5"]
 [ext_resource type="Texture2D" uid="uid://b7eemf6p6jvv3" path="res://Sprite/ZZZ_sprite.png" id="4_0q0eo"]
 [ext_resource type="Texture2D" uid="uid://g2ncy6bvxf0n" path="res://Sprite/Cat/Ears.png" id="4_m4dmp"]
@@ -30,8 +29,8 @@
 [ext_resource type="Texture2D" uid="uid://vwdboetig7ix" path="res://Sprite/GUI/couch-svgrepo-com.svg" id="21_imusp"]
 [ext_resource type="Texture2D" uid="uid://bwm4xmnd456yu" path="res://Sprite/GUI/hanger-svgrepo-com.svg" id="22_1lydj"]
 [ext_resource type="Texture2D" uid="uid://xa724e1ffpk8" path="res://Sprite/GUI/spoon-silhouette-svgrepo-com.svg" id="23_8spvl"]
-[ext_resource type="Texture2D" uid="uid://4c8xr5apr62t" path="res://Sprite/GUI/reset-svgrepo-com (1).svg" id="23_euqvv"]
 [ext_resource type="Texture2D" uid="uid://cbb0008hdy1qd" path="res://Sprite/GUI/check-svgrepo-com.svg" id="24_affev"]
+[ext_resource type="Texture2D" uid="uid://bvanqrm2gx1tv" path="res://Sprite/GUI/arrow-path-20-solid.svg" id="27_ltmtx"]
 [ext_resource type="AudioStream" uid="uid://ymfu31kw8856" path="res://Audio/comedy_pop_finger_in_mouth_001.mp3" id="32_1lydj"]
 [ext_resource type="AudioStream" uid="uid://bxjy1mwastnv0" path="res://Audio/Happy Shopping 2.mp3" id="33_ltmtx"]
 
@@ -147,6 +146,30 @@ tracks/8/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("../UI/ChatSystem:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("../UI/ChatSystem:scale")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_svu6p"]
@@ -465,6 +488,34 @@ tracks/7/keys = {
 "values": [Vector2(1, 110.005), Vector2(1, 109)]
 }
 
+[sub_resource type="Animation" id="Animation_im5bp"]
+resource_name = "show_message"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../UI/ChatSystem:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333334, 0.366667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../UI/ChatSystem:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0333333, 0.133333, 0.266667, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.47, 0.47), Vector2(1.2, 1.2), Vector2(0.99, 0.99), Vector2(1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_cbjx0"]
 resource_name = "sleep"
 loop_mode = 1
@@ -572,6 +623,7 @@ _data = {
 &"idle": SubResource("Animation_6j26i"),
 &"pet": SubResource("Animation_m4dmp"),
 &"pet_ready": SubResource("Animation_1lydj"),
+&"show_message": SubResource("Animation_im5bp"),
 &"sleep": SubResource("Animation_cbjx0")
 }
 
@@ -653,11 +705,12 @@ border_width_left = 5
 border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
-border_color = Color(0.350604, 0.244822, 0.0974478, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+border_color = Color(0.650128, 0.650128, 0.650128, 1)
+border_blend = true
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
 corner_detail = 10
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_euqvv"]
@@ -681,7 +734,7 @@ expand_margin_right = 5.0
 expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8spvl"]
-bg_color = Color(1, 1, 1, 0.462745)
+bg_color = Color(1, 1, 1, 0.129412)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -772,7 +825,6 @@ offset_bottom = 30.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.028, 1)
-script = ExtResource("3_glxf2")
 
 [node name="PetArea" type="Area2D" parent="Pet" groups=["pet"]]
 collision_layer = 2
@@ -832,6 +884,13 @@ texture = ExtResource("4_qm7ub")
 offset = Vector2(0, -296.025)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Pet"]
+libraries = {
+&"": SubResource("AnimationLibrary_r4q3e")
+}
+speed_scale = 0.5
+blend_times = [&"pet", &"idle", 0.05, &"pet_ready", &"pet", 0.05]
+
+[node name="GUIAnimation" type="AnimationPlayer" parent="Pet"]
 libraries = {
 &"": SubResource("AnimationLibrary_r4q3e")
 }
@@ -910,9 +969,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -154.0
-offset_top = -119.0
+offset_top = -116.0
 offset_right = 151.0
-offset_bottom = -34.0
+offset_bottom = -31.0
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -1120,12 +1179,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -168.0
-offset_top = 181.0
-offset_right = 168.0
-offset_bottom = 383.0
+offset_left = -173.0
+offset_top = 204.0
+offset_right = 173.0
+offset_bottom = 406.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(168.366, 91.5488)
 theme_override_constants/separation = 10
 
 [node name="ChatMessages" type="ScrollContainer" parent="UI/ChatSystem"]
@@ -1179,7 +1239,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_imusp")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ltmtx")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_ltmtx")
 theme_override_styles/normal = SubResource("StyleBoxFlat_ltmtx")
-icon = ExtResource("23_euqvv")
+icon = ExtResource("27_ltmtx")
 icon_alignment = 1
 expand_icon = true
 

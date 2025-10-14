@@ -1,42 +1,16 @@
-[gd_scene load_steps=11 format=3 uid="uid://4qwcdygaha1r"]
+[gd_scene load_steps=8 format=3 uid="uid://4qwcdygaha1r"]
 
 [ext_resource type="Script" uid="uid://cdfibdhemgnwd" path="res://Scenes/journal_card.gd" id="1_eeuyw"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cg3dd"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eeuyw"]
-bg_color = Color(0.892532, 0.955669, 0.998289, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0.0531894, 0.428, 0.60456, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_crga8"]
-bg_color = Color(0.99606, 0.708777, 0.445776, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.827451, 0.513726, 0.101961, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gp04c"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_78bd0"]
-bg_color = Color(1, 1, 1, 1)
+bg_color = Color(1, 0.831373, 0.172549, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.0509804, 0.427451, 0.603922, 1)
+border_color = Color(0.192157, 0.231373, 0.270588, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -176,21 +150,17 @@ layout_mode = 1
 offset_right = 162.0
 offset_bottom = 257.0
 size_flags_horizontal = 3
-theme_override_styles/focus = SubResource("StyleBoxEmpty_cg3dd")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_eeuyw")
-theme_override_styles/normal = SubResource("StyleBoxFlat_crga8")
-disabled = true
 
 [node name="journal-title" type="Label" parent="journal-id"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = 16.0
-offset_top = 32.0
+offset_top = 28.0
 offset_right = -12.0
-offset_bottom = 54.0
+offset_bottom = 50.0
 grow_horizontal = 2
-theme_override_colors/font_color = Color(0, 0, 0.0784314, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 15
 text = "July 25, 2025"
 vertical_alignment = 1
@@ -206,7 +176,7 @@ offset_top = 9.0
 offset_right = -11.0
 offset_bottom = 27.0
 grow_horizontal = 2
-theme_override_colors/font_color = Color(0, 0, 0.0784314, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 13
 text = "Date"
 horizontal_alignment = 2
@@ -220,12 +190,12 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -64.0
-offset_top = -53.5
+offset_top = -57.5
 offset_right = 66.0
-offset_bottom = 80.5
+offset_bottom = 76.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0.0784314, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 11
 text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 autowrap_mode = 1
@@ -248,7 +218,9 @@ theme_override_constants/separation = 2
 [node name="view_btn" type="Button" parent="journal-id/journal-settings"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.988235, 0.705882, 0.329412, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 10
 theme_override_styles/focus = SubResource("StyleBoxEmpty_gp04c")
 theme_override_styles/normal = SubResource("StyleBoxFlat_78bd0")
@@ -257,7 +229,9 @@ text = "View"
 [node name="delete-btn" type="Button" parent="journal-id/journal-settings"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.988235, 0.705882, 0.329412, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 10
 theme_override_styles/focus = SubResource("StyleBoxEmpty_gp04c")
 theme_override_styles/normal = SubResource("StyleBoxFlat_78bd0")
@@ -266,10 +240,9 @@ text = "Delete"
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 0
 offset_left = 15.0
-offset_top = 64.0
+offset_top = 59.0
 offset_right = 149.0
-offset_bottom = 66.0
-color = Color(0.356863, 0.356863, 0.407843, 1)
+offset_bottom = 61.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

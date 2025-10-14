@@ -24,9 +24,31 @@ func show_message(text: String, duration: float = 2.0):
 	
 func _ready():
 	add_child(http)  # make sure HTTPRequest is in the tree
+	
+	var auth_data = load_login_data()
+	if auth_data.size() > 0:
+		print("🔐 Auto-login as:", auth_data["username"])
+		Global.User = auth_data
+		_go_to_dashboard()
+		return  # stop here, skip manual login
+		
 	http.request_completed.connect(_on_HTTPRequest_request_completed)
 	submit_btn.pressed.connect(_on_submit_pressed)
 	go_to_registration.pressed.connect(_go_register)
+	
+func load_login_data() -> Dictionary:
+	if not FileAccess.file_exists("user://auth.json"):
+		return {}
+	var file = FileAccess.open("user://auth.json", FileAccess.READ)
+	if not file:
+		return {}
+	var content = file.get_as_text()
+	file.close()
+	var parsed = JSON.parse_string(content)
+	if typeof(parsed) == TYPE_DICTIONARY:
+		return parsed
+	return {}
+
 
 func _go_register():
 	
@@ -74,16 +96,34 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 			var user = data[0]
 			show_message("Successful!")
 			Global.User = user
-			
+
+			# 💾 Save login data for next app launch
+			save_login_data(user)
+
 			# Switch to loading screen and tell it where to go
 			var loading_scene = load("res://Scenes/loading_screen.tscn").instantiate()
 			loading_scene.next_scene_path = "res://Scenes/dashboard.tscn"
-			loading_scene.wait_time = 1.0   # you can tweak per case
+			loading_scene.wait_time = 1.0
 			
 			get_tree().root.add_child(loading_scene)
-			get_tree().current_scene.queue_free()  # remove old scene
-			
+			get_tree().current_scene.queue_free()
 		else:
 			show_message("Invalid Credentials!")
 	else:
 		print("⚠️ Error contacting server")
+		show_message("Server connection failed!")
+
+func save_login_data(user: Dictionary) -> void:
+	var file = FileAccess.open("user://auth.json", FileAccess.WRITE)
+	if file:
+		file.store_string(JSON.stringify(user))
+		file.close()
+		print("💾 Saved login for:", user["username"])
+		
+func _go_to_dashboard():
+	# Switch to loading screen and tell it where to go
+	var loading_scene = load("res://Scenes/loading_screen.tscn").instantiate()
+	loading_scene.next_scene_path = "res://Scenes/dashboard.tscn"
+	loading_scene.wait_time = 1.0  # optional delay
+	get_tree().root.add_child(loading_scene)
+	get_tree().current_scene.queue_free()  # remove old scene
