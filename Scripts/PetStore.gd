@@ -1,10 +1,10 @@
 extends Node
 
-# PetStore.gd (add this as autoload)
+# PetStore.gd
 var pet_node: Node = null
 
 var equipped_outfits := {
-	"Hat": null,
-	"Dress": null,
-	"Boots": null
+	"Hat": {},    # Change from null to {}
+	"Dress": {},
+	"Boots": {}
 }

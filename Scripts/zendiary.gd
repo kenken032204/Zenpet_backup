@@ -27,7 +27,7 @@ signal journal_saved(journal_text: String, journal_id: String)
 @onready var green_button = $"Add_Journal_window/HBoxContainer/green_btn"
 @onready var orange_button = $"Add_Journal_window/HBoxContainer/orange_btn"
 
-var selected_color: String = "#FFFFFF" # default white
+var selected_color: String = "#F39C12" # default white
 
 func get_journals(user_id: String) -> Array:
 	var url = "https://rekmhywernuqjshghyvu.supabase.co/rest/v1/journals?user_id=eq.%s" % user_id
@@ -67,12 +67,20 @@ func add_journal(title: String, text: String, user_id: String) -> Dictionary:
 		"Content-Type: application/json",
 		"Prefer: return=representation",
 	]
-
+	
+	# 📅 Format current date/time
+	var now = Time.get_datetime_dict_from_system()
+	var formatted_date = "%04d-%02d-%02d %02d:%02d:%02d" % [
+		now.year, now.month, now.day,
+		now.hour, now.minute, now.second
+	]
+	
 	var payload = {
 		"title": title,
 		"content": text,
 		"user_id": user_id,
-		"color": selected_color  
+		"color": selected_color,
+		"date_created": formatted_date
 	}
 
 	var http := HTTPRequest.new()
@@ -185,8 +193,8 @@ func _on_add_new_journal_pressed():
 	add_new_journal.visible = false
 	
 	# 🎨 Reset to default color when opening
-	selected_color = "#FFFFFF"
-	_set_panel_color(journal_id_panel, Color("#FFFFFF"))
+	selected_color = "#F39C12"
+	_set_panel_color(journal_id_panel, Color("#F39C12"))
 
 func _on_save_new_journal_pressed():
 	if journal_title.text == "" or journal_title.text.length() <= 5:

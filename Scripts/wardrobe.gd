@@ -1,5 +1,11 @@
 extends Control
 
+var previously_equipped: Dictionary = {
+	"Hat": null,
+	"Dress": null,
+	"Boots": null
+}
+
 #back 
 @onready var back = $"UI/back_button"
 
@@ -22,7 +28,7 @@ extends Control
 var current_items: Array = []
 var current_index: int = 0
 
-var player_level: int = 0  # default if not loaded
+var player_level: int = 0
 
 func _ready():
 	
@@ -46,11 +52,17 @@ func _ready():
 
 	if PetStore.pet_node:
 		add_child(PetStore.pet_node)
-		load_equipped_outfits()  # ← Load saved outfit here!
+		load_equipped_outfits()
 
 func _on_accessory_toggled(button_pressed: bool, category: String):
 	if button_pressed:
-		# Untoggle the other buttons
+		# Save currently displayed outfit before switching category
+		if current_items.size() > 0:
+			var current_item = current_items[current_index]
+			var current_category = current_item.get("category", "")
+			if current_category != "":
+				previously_equipped[current_category] = current_item
+		
 		match category:
 			"Hat":
 				dress.button_pressed = false
@@ -68,27 +80,26 @@ func _on_accessory_toggled(button_pressed: bool, category: String):
 				outfit_label.text = "Shoes"
 				show_boot_items()
 	else:
-		# If untoggled, just hide the panel
+		_restore_all_equipped_outfits()
 		open_panel.visible = false
-
+		
 func show_hat_items():
 	open_panel.visible = true
-	current_items = await load_wardrobe_items("Hat")  # ← Added await
+	current_items = await load_wardrobe_items("Hat")
 	current_index = 0
 	_render_single_item()
 
 func show_dress_items():
 	open_panel.visible = true
-	current_items = await load_wardrobe_items("Dress")  # ← Added await
+	current_items = await load_wardrobe_items("Dress")
 	current_index = 0
 	_render_single_item()
 
 func show_boot_items():
 	open_panel.visible = true
-	current_items = await load_wardrobe_items("Boots")  # ← Added await
+	current_items = await load_wardrobe_items("Boots")
 	current_index = 0
 	_render_single_item()
-
 
 func back_to_home():
 	get_tree().change_scene_to_file("res://Scenes/petmain.tscn")
@@ -96,38 +107,51 @@ func back_to_home():
 func load_wardrobe_items(category: String) -> Array:
 	var filtered_items: Array = []
 
-	var url = "https://rekmhywernuqjshghyvu.supabase.co/rest/v1/pet_outfits?outfit_type=eq." + category
-	var headers = [
-		"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJla21oeXdlcm51cWpzaGdoeXZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg1MDEwNjEsImV4cCI6MjA3NDA3NzA2MX0.-ljSNpqHZ-Yzv_0eDlCGDSH7m3uM96c5oD2ejxPHhyY",
-		"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJla21oeXdlcm51cWpzaGdoeXZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg1MDEwNjEsImV4cCI6MjA3NDA3NzA2MX0.-ljSNpqHZ-Yzv_0eDlCGDSH7m3uM96c5oD2ejxPHhyY",
-		"Content-Type: application/json",
-		"Prefer: return=representation"
-
-	]
-
+	var url = "http://192.168.254.111/zenpet/get_wardrobe_items.php?category=%s" % category
+	
 	var http := HTTPRequest.new()
 	add_child(http)
 
-	var err = http.request(url, headers, HTTPClient.METHOD_GET)
+	var err = http.request(url, [], HTTPClient.METHOD_GET)
 	if err != OK:
-		print("❌ Supabase request failed to start.")
+		print("Request failed to start.")
 		return filtered_items
 
 	# Wait for completion signal
 	var result = await http.request_completed
 
-	# Result format: [result_enum, response_code, headers, body]
 	var response_code = result[1]
 	var body = result[3]
 
 	if response_code != 200:
-		print("⚠️ Supabase responded with:", response_code)
+		print("HTTP request failed with code:", response_code)
 		return filtered_items
 
 	var json_text = body.get_string_from_utf8()
+	print("Raw response: ", json_text)  # Debug: see what we're getting
+	
 	var parsed = JSON.parse_string(json_text)
 
-	if typeof(parsed) == TYPE_ARRAY:
+	if parsed == null:
+		print("Failed to parse JSON")
+		return filtered_items
+
+	# Check if the response has the nested structure
+	if typeof(parsed) == TYPE_DICTIONARY and parsed.has("items"):
+		# New format with debug info
+		var items_array = parsed.get("items", [])
+		if typeof(items_array) == TYPE_ARRAY:
+			for outfit in items_array:
+				filtered_items.append({
+					"id": outfit.get("id", 0),
+					"name": outfit.get("outfit_name", "Unnamed"),
+					"sprite": outfit.get("sprite_url", ""),
+					"category": outfit.get("outfit_type", ""),
+					"equipped": outfit.get("is_equipped", false),
+					"lvl_required": outfit.get("lvl_required", 0)
+				})
+	elif typeof(parsed) == TYPE_ARRAY:
+		# Old format (simple array)
 		for outfit in parsed:
 			filtered_items.append({
 				"id": outfit.get("id", 0),
@@ -135,78 +159,15 @@ func load_wardrobe_items(category: String) -> Array:
 				"sprite": outfit.get("sprite_url", ""),
 				"category": outfit.get("outfit_type", ""),
 				"equipped": outfit.get("is_equipped", false),
-				"lvl_required": outfit.get("lvl_required", 0)  # <-- default 1 if missing
+				"lvl_required": outfit.get("lvl_required", 0)
 			})
 	else:
-		print("❌ Invalid data format from Supabase.")
+		print("Invalid data format from server. Got type: ", typeof(parsed))
+		if typeof(parsed) == TYPE_DICTIONARY:
+			print("Debug info from server: ", parsed.get("debug", {}))
 
 	return filtered_items
-
-#func load_wardrobe_items(category: String) -> Array:
-	#var filtered_items := []
-	#var file_path = "res://Assets/wardrobe_items.json"
-#
-	#if FileAccess.file_exists(file_path):
-		#var file = FileAccess.open(file_path, FileAccess.READ)
-		#var json_text = file.get_as_text()
-		#file.close()
-#
-		#var result = JSON.parse_string(json_text)
-		#if typeof(result) == TYPE_ARRAY:
-			#for item in result:
-				#if item.has("category") and item["category"] == category:
-					#filtered_items.append(item)
-#
-			## Sort by "id"
-			#filtered_items.sort_custom(func(a, b): return a["id"] < b["id"])
-		#else:
-			#print("❌ Invalid JSON format.")
-	#else:
-		#print("❌ JSON file not found.")
-#
-	#return filtered_items
-
-#func _render_single_item():
-	#if current_items.is_empty():
-		#item.text = "No items found."
-		#apply_outfit.text = "Apply Outfit"
-		#return
-#
-	#var current_item = current_items[current_index]
-	#item.text = "%s" % [current_item.get("name", "Unnamed")]
-	#
-	#var category = current_item.get("category", "")
-	#var sprite_path = current_item.get("sprite", "")
-#
-	## Change apply button text based on PetStore
-	#var equipped_item = PetStore.equipped_outfits.get(category, null)
-	#if equipped_item and equipped_item.get("sprite", "") == sprite_path:
-		#apply_outfit.text = "Equipped"
-	#else:
-		#apply_outfit.text = "Apply Outfit"
-#
-	#var texture = load(sprite_path) if sprite_path != "" else null  # ✅
-	#match category:
-		#"Hat":
-			#var hat_sprite = PetStore.pet_node.get_node_or_null("PetArea/HatSprite")
-			#if hat_sprite:
-				#hat_sprite.texture = texture
-				#hat_sprite.visible = texture != null
-		#"Dress":
-			#var dress_sprite = PetStore.pet_node.get_node_or_null("PetArea/ChestSprite")
-			#if dress_sprite:
-				#dress_sprite.texture = texture
-				#dress_sprite.visible = texture != null
-		#"Boots":
-			#var boots_sprite = PetStore.pet_node.get_node_or_null("PetArea/ArmSprite")
-			#if boots_sprite:
-				#boots_sprite.texture = texture
-				#boots_sprite.visible = texture != null
-#
-	## Disable buttons at ends
-	#prev_btn.disabled = current_index == 0
-	#next_btn.disabled = current_index >= current_items.size() - 1
-
+	
 func _render_single_item():
 	if current_items.is_empty():
 		item.text = "No items found."
@@ -218,18 +179,8 @@ func _render_single_item():
 	var category = current_item.get("category", "")
 	var required_level = current_item.get("lvl_required", 1)
 
-	# Update the label
 	item.text = "%s" % [current_item.get("name", "Unnamed")]
 
-	# Change apply button text based on whether this item is already equipped
-	#var equipped_item = PetStore.equipped_outfits.get(category, null)
-	#if equipped_item and equipped_item.get("sprite", "") == sprite_path:
-		#apply_outfit.text = "Equipped"
-	#else:
-		#apply_outfit.text = "Apply Outfit"
-
-	# Preview the selected item on the pet (try-on)
-	
 	# Show name + locked info
 	if player_level < required_level:
 		item.text = "Locked"
@@ -237,6 +188,14 @@ func _render_single_item():
 	else:
 		item.text = "%s" % [current_item.get("name", "Unnamed")]
 		apply_outfit.disabled = false
+	
+	# Check if this outfit is the one currently equipped in PetStore
+	var equipped_outfit = PetStore.equipped_outfits.get(category, {})
+	var is_this_equipped = (equipped_outfit and equipped_outfit.get("id") == current_item.get("id"))
+	if is_this_equipped:
+		apply_outfit.text = "Equipped"
+	else:
+		apply_outfit.text = "Apply Outfit"
 		
 	var texture = load(sprite_path) if sprite_path != "" else null
 	match category:
@@ -253,16 +212,25 @@ func _render_single_item():
 				dress_sprite.visible = texture != null
 				dress_sprite.modulate = Color(1,1,1, 1 if player_level >= required_level else 0.3)
 		"Boots":
-			var boots_sprite = PetStore.pet_node.get_node_or_null("PetArea/BootsSprite")
+			var boots_sprite = PetStore.pet_node.get_node_or_null("PetArea/ArmSprite")
 			if boots_sprite:
 				boots_sprite.texture = texture
 				boots_sprite.visible = texture != null
 				boots_sprite.modulate = Color(1,1,1, 1 if player_level >= required_level else 0.3)
 
-	# Disable buttons at ends
 	prev_btn.disabled = current_index == 0
 	next_btn.disabled = current_index >= current_items.size() - 1
-
+	
+func _restore_all_equipped_outfits():
+	for category in PetStore.equipped_outfits.keys():
+		var equipped_outfit = PetStore.equipped_outfits[category]
+		if equipped_outfit and typeof(equipped_outfit) == TYPE_DICTIONARY:
+			var sprite_url = equipped_outfit.get("sprite_url", "")
+			if sprite_url and sprite_url != "":
+				var texture = load(sprite_url)
+				if texture:
+					_set_sprite_for_category(category, texture)
+					
 func _on_next_pressed():
 	if current_index < current_items.size() - 1:
 		current_index += 1
@@ -275,74 +243,57 @@ func _on_prev_pressed():
 
 func _apply_pressed():
 	if current_items.is_empty():
-		print("⚠️ No item to apply.")
+		print("No item to apply.")
 		return
 
 	var selected_item = current_items[current_index]
 	var name = selected_item.get("name", "Unnamed")
 	var sprite_path = selected_item.get("sprite", "")
 	var category = selected_item.get("category", "")
+	var outfit_id = selected_item.get("id", 0)
 	var texture = load(sprite_path) if sprite_path != "" else null
 
-	# 🔁 Unmark all items in this category first
-	for i in range(current_items.size()):
-		var item_data = current_items[i]
-		if item_data.has("equipped") and item_data["category"] == category:
-			item_data["equipped"] = false
-
-		if item_data == selected_item:
-			item_data["equipped"] = true
-
-	# ✅ Mark the selected one
+	# Mark the selected one as equipped
 	selected_item["equipped"] = true
 
-	# Apply sprite or clear if default
+	# Apply sprite
 	match category:
 		"Hat":
-			var hat_sprite = PetStore.pet_node.get_node_or_null("Area2D/HatSprite")
+			var hat_sprite = PetStore.pet_node.get_node_or_null("PetArea/HatSprite")
 			if hat_sprite:
 				hat_sprite.texture = texture
 				hat_sprite.visible = texture != null
 		"Dress":
-			var dress_sprite = PetStore.pet_node.get_node_or_null("Area2D/ChestSprite")
+			var dress_sprite = PetStore.pet_node.get_node_or_null("PetArea/ChestSprite")
 			if dress_sprite:
 				dress_sprite.texture = texture
 				dress_sprite.visible = texture != null
 		"Boots":
-			var boots_sprite = PetStore.pet_node.get_node_or_null("Area2D/BootsSprite")
+			var boots_sprite = PetStore.pet_node.get_node_or_null("PetArea/ArmSprite")
 			if boots_sprite:
 				boots_sprite.texture = texture
 				boots_sprite.visible = texture != null
 
-	# Save to PetStore
 	PetStore.equipped_outfits[category] = selected_item
 	apply_outfit.text = "Equipped"
 	print("You're now wearing:", name)
 	_render_single_item()
-	save_equipped_outfits()
+	save_equipped_outfits(outfit_id, category)
 
 func load_equipped_outfits() -> void:
 	if not Global.User.has("id"):
-		print("⚠️ Missing user_id — cannot load equipped outfits.")
+		print("Missing user_id — cannot load equipped outfits.")
 		return
 
-	var user_id = str(Global.User["id"])
-	var url = "https://rekmhywernuqjshghyvu/rest/v1/user_pet_outfit?user_id=eq." + str(user_id) + "&equipped=eq.true&select=*,pet_outfits(*)"
+	var user_id = int(Global.User["id"])
+	var url = "http://192.168.254.111/zenpet/get_equipped_outfits.php?user_id=%d" % user_id
 	
-	var headers = [
-		"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJla21oeXdlcm51cWpzaGdoeXZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg1MDEwNjEsImV4cCI6MjA3NDA3NzA2MX0.-ljSNpqHZ-Yzv_0eDlCGDSH7m3uM96c5oD2ejxPHhyY",
-		"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJla21oeXdlcm51cWpzaGdoeXZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg1MDEwNjEsImV4cCI6MjA3NDA3NzA2MX0.-ljSNpqHZ-Yzv_0eDlCGDSH7m3uM96c5oD2ejxPHhyY",
-		"Content-Type: application/json",
-		"Prefer: return=representation"
-
-	]
-
 	var http := HTTPRequest.new()
 	add_child(http)
 
-	var err = http.request(url, headers, HTTPClient.METHOD_GET)
+	var err = http.request(url, [], HTTPClient.METHOD_GET)
 	if err != OK:
-		print("❌ Failed to start HTTP request:", err)
+		print("Failed to start HTTP request:", err)
 		return
 
 	var result = await http.request_completed
@@ -351,70 +302,73 @@ func load_equipped_outfits() -> void:
 	var body = result[3]
 
 	if response_code != 200:
-		print("⚠️ Supabase request failed with code:", response_code)
+		print("Server request failed with code:", response_code)
 		return
 
 	var json_text = body.get_string_from_utf8()
+	print("Equipped outfits response: ", json_text)  # Debug
+	
 	var parsed = JSON.parse_string(json_text)
 
-	if typeof(parsed) == TYPE_ARRAY:
-		for outfit in parsed:
-			var category = outfit.get("outfit_type", "")
-			PetStore.equipped_outfits[category] = outfit
-			var texture = load(outfit.get("sprite_url", ""))
-			_set_sprite_for_category(category, texture)
-	else:
-		print("❌ Invalid Supabase response format")
+	if parsed == null:
+		print("Failed to parse equipped outfits JSON")
+		return
 
-func save_equipped_outfits():
+	# Handle nested response format
+	var outfits_array = parsed
+	if typeof(parsed) == TYPE_DICTIONARY and parsed.has("items"):
+		outfits_array = parsed.get("items", [])
 	
+	if typeof(outfits_array) != TYPE_ARRAY:
+		print("Invalid server response format. Got type: ", typeof(outfits_array))
+		if typeof(parsed) == TYPE_DICTIONARY:
+			print("Debug info: ", parsed.get("debug", {}))
+		return
+
+	for outfit in outfits_array:
+		var category = outfit.get("category", "")
+		var sprite_url = outfit.get("sprite_url", "")
+		
+		if category == "" or not sprite_url or sprite_url == "":
+			continue
+			
+		var texture = load(sprite_url) if (sprite_url and sprite_url != "") else null
+		if texture:
+			PetStore.equipped_outfits[category] = outfit
+			_set_sprite_for_category(category, texture)
+		else:
+			print("Failed to load texture: ", sprite_url)
+			
+func save_equipped_outfits(outfit_id: int, category: String):
 	if not Global.User.has("id"):
-		print("⚠️ Missing user_id — cannot save equipped outfits.")
+		print("Missing user_id — cannot save equipped outfits.")
 		return
 
 	var user_id = int(Global.User["id"])
 
-	for category in PetStore.equipped_outfits.keys():
-		var item = PetStore.equipped_outfits[category]
-		if item == null or typeof(item) != TYPE_DICTIONARY:
-			continue
+	var url = "http://192.168.254.111/zenpet/save_equipped_outfit.php"
+	var headers = ["Content-Type: application/json"]
+	var body = JSON.stringify({
+		"user_id": user_id,
+		"outfit_id": outfit_id,
+		"category": category
+	})
 
-		var outfit_id = item.get("id", null)
-		if outfit_id == null:
-			continue
+	var http := HTTPRequest.new()
+	add_child(http)
 
-		var url = "https://rekmhywernuqjshghyvu.supabase.co/rest/v1/user_pet_outfit?on_conflict=user_id,category"
-		var headers = [
-			"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJla21oeXdlcm51cWpzaGdoeXZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg1MDEwNjEsImV4cCI6MjA3NDA3NzA2MX0.-ljSNpqHZ-Yzv_0eDlCGDSH7m3uM96c5oD2ejxPHhyY",
-			"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJla21oeXdlcm51cWpzaGdoeXZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg1MDEwNjEsImV4cCI6MjA3NDA3NzA2MX0.-ljSNpqHZ-Yzv_0eDlCGDSH7m3uM96c5oD2ejxPHhyY",
-			"Content-Type: application/json",
-			"Prefer: resolution=merge-duplicates",
-			"Prefer: return=representation"
-		]
+	http.request_completed.connect(_on_save_completed.bind(http))
+	var err = http.request(url, headers, HTTPClient.METHOD_POST, body)
+	if err != OK:
+		print("HTTP Request failed to start for category:", category, "Error:", err)
 
-		var body = JSON.stringify({
-			"user_id": user_id,
-			"outfit_id": int(outfit_id),
-			"category": category,
-			"equipped_at": Time.get_datetime_string_from_system()
-		})
-
-		var http := HTTPRequest.new()
-		add_child(http)
-
-		http.request_completed.connect(_on_request_completed.bind(category, http))
-		var err = http.request(url, headers, HTTPClient.METHOD_POST, body)
-		if err != OK:
-			print("⚠️ HTTP Request failed to start for category:", category, "Error:", err)
-
-# 🔹 This function handles the response from Supabase
-func _on_request_completed(result, code, headers, body_data, category, http):
-	if code in [200, 201, 204]:
-		print("✅ Saved equipped", category, "outfit to Supabase.")
+func _on_save_completed(result, code, headers, body_data, http):
+	if code in [200, 201]:
+		print("Equipped outfit saved successfully.")
 	else:
-		print("⚠️ Supabase failed to save", category, ":", code, body_data.get_string_from_utf8())
+		print("Failed to save equipped outfit:", code, body_data.get_string_from_utf8())
 	http.queue_free()
-	
+
 func _set_sprite_for_category(category: String, texture: Texture2D):
 	match category:
 		"Hat":
@@ -428,7 +382,7 @@ func _set_sprite_for_category(category: String, texture: Texture2D):
 				dress_sprite.texture = texture
 				dress_sprite.visible = texture != null
 		"Boots":
-			var boots_sprite = PetStore.pet_node.get_node_or_null("PetArea/BootsSprite")
+			var boots_sprite = PetStore.pet_node.get_node_or_null("PetArea/ArmSprite")
 			if boots_sprite:
 				boots_sprite.texture = texture
 				boots_sprite.visible = texture != null

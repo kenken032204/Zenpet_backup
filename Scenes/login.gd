@@ -26,12 +26,13 @@ func _ready():
 	add_child(http)  # make sure HTTPRequest is in the tree
 	
 	var auth_data = load_login_data()
-	if auth_data.size() > 0:
+	print("Loaded auth data: ", auth_data)
+	if auth_data.has("username") and auth_data.has("id"):
 		print("🔐 Auto-login as:", auth_data["username"])
 		Global.User = auth_data
 		_go_to_dashboard()
-		return  # stop here, skip manual login
-		
+		return
+
 	http.request_completed.connect(_on_HTTPRequest_request_completed)
 	submit_btn.pressed.connect(_on_submit_pressed)
 	go_to_registration.pressed.connect(_go_register)
@@ -74,43 +75,39 @@ func _on_submit_pressed():
 
 	check_user(username, password)
 
-# Query Supabase users table (only username)
-func check_user(user_name: String, password: String):
-	var url = "https://rekmhywernuqjshghyvu.supabase.co/rest/v1/users"
-	url += "?select=id,username&username=eq." + user_name + "&password=eq." + password
+func check_user(username: String, password: String):
+	var url = "http://192.168.254.111/zenpet/login.php"  # adjust path
 	
-	var headers = [
-		"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJla21oeXdlcm51cWpzaGdoeXZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg1MDEwNjEsImV4cCI6MjA3NDA3NzA2MX0.-ljSNpqHZ-Yzv_0eDlCGDSH7m3uM96c5oD2ejxPHhyY",
-		"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJla21oeXdlcm51cWpzaGdoeXZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg1MDEwNjEsImV4cCI6MjA3NDA3NzA2MX0.-ljSNpqHZ-Yzv_0eDlCGDSH7m3uM96c5oD2ejxPHhyY"
-	]
-	http.request(url, headers, HTTPClient.METHOD_GET)
+	# Convert dictionary to URL-encoded string
+	var form_data = "username=%s&password=%s" % [username, password]
+	
+	# Set proper headers
+	var headers = ["Content-Type: application/x-www-form-urlencoded"]
+	
+	# Send POST request
+	http.request(url, headers, HTTPClient.METHOD_POST, form_data)
+
 
 # Handle HTTP responses
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	print("HTTP Response Code:", response_code)
 	var response_text = body.get_string_from_utf8()
-
 	if response_code == 200:
 		var data = JSON.parse_string(response_text)
 		if typeof(data) == TYPE_ARRAY and data.size() > 0:
 			var user = data[0]
 			show_message("Successful!")
 			Global.User = user
-
-			# 💾 Save login data for next app launch
 			save_login_data(user)
-
-			# Switch to loading screen and tell it where to go
+			
 			var loading_scene = load("res://Scenes/loading_screen.tscn").instantiate()
 			loading_scene.next_scene_path = "res://Scenes/dashboard.tscn"
 			loading_scene.wait_time = 1.0
-			
 			get_tree().root.add_child(loading_scene)
 			get_tree().current_scene.queue_free()
 		else:
 			show_message("Invalid Credentials!")
 	else:
-		print("⚠️ Error contacting server")
 		show_message("Server connection failed!")
 
 func save_login_data(user: Dictionary) -> void:
@@ -118,12 +115,6 @@ func save_login_data(user: Dictionary) -> void:
 	if file:
 		file.store_string(JSON.stringify(user))
 		file.close()
-		print("💾 Saved login for:", user["username"])
-		
+
 func _go_to_dashboard():
-	# Switch to loading screen and tell it where to go
-	var loading_scene = load("res://Scenes/loading_screen.tscn").instantiate()
-	loading_scene.next_scene_path = "res://Scenes/dashboard.tscn"
-	loading_scene.wait_time = 1.0  # optional delay
-	get_tree().root.add_child(loading_scene)
-	get_tree().current_scene.queue_free()  # remove old scene
+	get_tree().change_scene_to_file("res://Scenes/dashboard.tscn")

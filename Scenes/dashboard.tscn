@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bqrwlhh53caev"]
+[gd_scene load_steps=19 format=3 uid="uid://bqrwlhh53caev"]
 
 [ext_resource type="Script" uid="uid://35si2vhdcx33" path="res://Scripts/dashboard.gd" id="1_pyu07"]
 [ext_resource type="Texture2D" uid="uid://cxge6pknpl6gx" path="res://Sprite/GUI/dog.png" id="1_w53iw"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cw1k432863fv1" path="res://Sprite/2917805.png" id="5_vld2e"]
 [ext_resource type="Texture2D" uid="uid://d32gpwwv43bfy" path="res://Sprite/book-poster.png" id="6_3r00j"]
 [ext_resource type="Texture2D" uid="uid://3ky4w6j1h5su" path="res://Sprite/Poe-Chatbot-Logo.png" id="7_048ak"]
+[ext_resource type="Script" uid="uid://ud1iuobw7npf" path="res://Scenes/settings_btn.gd" id="9_mt3ts"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wytj6"]
 bg_color = Color(1, 1, 1, 1)
@@ -67,6 +68,13 @@ _data = {
 &"RESET": SubResource("Animation_235xf"),
 &"fade_out": SubResource("Animation_vkjem")
 }
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mt3ts"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -273,6 +281,7 @@ theme_override_font_sizes/font_size = 36
 theme_override_styles/focus = SubResource("StyleBoxEmpty_235xf")
 icon = ExtResource("3_vkjem")
 flat = true
+script = ExtResource("9_mt3ts")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
@@ -291,3 +300,29 @@ libraries = {
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_235xf")
+
+[node name="Control" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -145.0
+offset_top = -66.0
+offset_right = 145.0
+offset_bottom = 66.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -26.0
+offset_right = 26.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_mt3ts")

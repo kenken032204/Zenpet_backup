@@ -60,15 +60,29 @@ func _go_login():
 			get_tree().current_scene.queue_free()  # remove old scene
 			
 func _on_submit_pressed():
-	current_request = "check_user"
+	var username = username_input.text.strip_edges()
+	var password = password_input.text.strip_edges()
+	var conf_pass = conf_pass_input.text.strip_edges()
 	
-	if not username_input.text.is_empty():
-		if password_input.text == conf_pass_input.text and not password_input.text.is_empty() :
-			check_user(username_input.text)
-		else:
-			show_message("Password must be equal")
-	else:
+	if username == "":
 		show_message("Empty username")
+		return
+	if password == "" or password != conf_pass:
+		show_message("Passwords must match and not be empty")
+		return
+	
+	register_user(username, password)
+
+func register_user(username: String, password: String):
+	current_request = "add_user"
+	
+	var url = "http://192.168.254.111/zenpet/register.php"  # adjust path
+	
+	# URL-encoded POST data
+	var form_data = "username=%s&password=%s" % [username, password]
+	var headers = ["Content-Type: application/x-www-form-urlencoded"]
+	
+	http.request(url, headers, HTTPClient.METHOD_POST, form_data)
 
 func show_register_form():
 	# Stop showing loading

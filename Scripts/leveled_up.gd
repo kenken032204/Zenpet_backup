@@ -8,6 +8,7 @@ var pet_data_path := "user://pet_data.json"
 
 func _ready():
 	animation.play("leveled_up")
+	Global.play_sound(preload("res://Audio/999-level-up.mp3"))
 	visible = true
 	confirm.pressed.connect(hide_popup)
 	load_pet_data()

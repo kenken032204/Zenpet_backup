@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://bmnrmm2ulhvo5"]
+[gd_scene load_steps=61 format=3 uid="uid://bmnrmm2ulhvo5"]
 
 [ext_resource type="Script" uid="uid://clwl4gtisaa5h" path="res://Scripts/petmain.gd" id="1_fl2ai"]
 [ext_resource type="Texture2D" uid="uid://buxj36tfsmjx5" path="res://Sprite/empty-room-with-black-floor-pink-walls_1308-65874.png" id="2_fl2ai"]
@@ -24,8 +24,8 @@
 [ext_resource type="StyleBox" uid="uid://bm1w6o2wek7t3" path="res://Styles/button_buttom_pressed_and_hovered_texture.tres" id="16_aiak0"]
 [ext_resource type="Script" uid="uid://buomwy74hoffx" path="res://Scripts/soap.gd" id="16_hstsw"]
 [ext_resource type="Texture2D" uid="uid://d255d050831ai" path="res://Sprite/GUI/bath-svgrepo-com.svg" id="18_euqvv"]
-[ext_resource type="Texture2D" uid="uid://c3nm0o1gl8uh0" path="res://Sprite/GUI/settings-svgrepo-com.svg" id="19_imusp"]
 [ext_resource type="Texture2D" uid="uid://cchr18pf0227s" path="res://Sprite/GUI/layers-svgrepo-com.svg" id="20_1lydj"]
+[ext_resource type="PackedScene" uid="uid://bh55l5138v0t5" path="res://Scenes/settings_btn.tscn" id="20_8spvl"]
 [ext_resource type="Texture2D" uid="uid://vwdboetig7ix" path="res://Sprite/GUI/couch-svgrepo-com.svg" id="21_imusp"]
 [ext_resource type="Texture2D" uid="uid://bwm4xmnd456yu" path="res://Sprite/GUI/hanger-svgrepo-com.svg" id="22_1lydj"]
 [ext_resource type="Texture2D" uid="uid://xa724e1ffpk8" path="res://Sprite/GUI/spoon-silhouette-svgrepo-com.svg" id="23_8spvl"]
@@ -33,6 +33,7 @@
 [ext_resource type="Texture2D" uid="uid://bvanqrm2gx1tv" path="res://Sprite/GUI/arrow-path-20-solid.svg" id="27_ltmtx"]
 [ext_resource type="AudioStream" uid="uid://ymfu31kw8856" path="res://Audio/comedy_pop_finger_in_mouth_001.mp3" id="32_1lydj"]
 [ext_resource type="AudioStream" uid="uid://bxjy1mwastnv0" path="res://Audio/Happy Shopping 2.mp3" id="33_ltmtx"]
+[ext_resource type="FontFile" uid="uid://b7qvl2gpk3y26" path="res://Fonts/Super Trend.ttf" id="34_ltmtx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fl2ai"]
 radius = 60.3944
@@ -1053,13 +1054,8 @@ offset_bottom = 189.0
 grow_horizontal = 0
 scale = Vector2(1.05, 1.05)
 
-[node name="Settings_btn" type="Button" parent="UI/VBoxContainer"]
+[node name="Settings_btn" parent="UI/VBoxContainer" instance=ExtResource("20_8spvl")]
 layout_mode = 2
-theme_override_font_sizes/font_size = 41
-theme_override_styles/focus = SubResource("StyleBoxEmpty_1lydj")
-icon = ExtResource("19_imusp")
-flat = true
-icon_alignment = 1
 
 [node name="Logout_btn" type="Button" parent="UI/VBoxContainer"]
 layout_mode = 2
@@ -1290,6 +1286,48 @@ volume_db = 5.0
 
 [node name="SoundEffect" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("32_1lydj")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="pet_name" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -79.0
+offset_top = -364.0
+offset_right = 79.0
+offset_bottom = -333.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0.693576, 0.214151, 0.200342, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("34_ltmtx")
+theme_override_font_sizes/font_size = 25
+text = "Meming name"
+horizontal_alignment = 1
+
+[node name="room_name" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.0
+offset_top = -395.0
+offset_right = 96.0
+offset_bottom = -364.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0.693576, 0.214151, 0.200342, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("34_ltmtx")
+theme_override_font_sizes/font_size = 21
+text = "Living Room"
+horizontal_alignment = 1
 
 [connection signal="input_event" from="Pet/PetArea" to="." method="_on_area_2d_input_event"]
 [connection signal="input_event" from="Bath/Area2D" to="Bath/Area2D" method="_on_input_event"]

@@ -1,0 +1,206 @@
+[gd_scene load_steps=13 format=3 uid="uid://b3y6ffr7nbi5y"]
+
+[ext_resource type="Texture2D" uid="uid://bu8q61cvq8mjc" path="res://Sprite/GUI/dog-paw-prints-clipart-lg.png" id="1_qwevg"]
+[ext_resource type="Script" uid="uid://ck82enf84cvid" path="res://Scenes/new_pet.gd" id="1_yw20p"]
+[ext_resource type="FontFile" uid="uid://b7qvl2gpk3y26" path="res://Fonts/Super Trend.ttf" id="2_yw20p"]
+[ext_resource type="Texture2D" uid="uid://cbb0008hdy1qd" path="res://Sprite/GUI/check-svgrepo-com.svg" id="4_j7e0p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nvgu8"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j7e0p"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g6y5b"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ad462"]
+bg_color = Color(0.345835, 0.69141, 0.357332, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Animation" id="Animation_qwevg"]
+resource_name = "pop"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.5, 0.833333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.175, 0.175), Vector2(1.065, 1.065), Vector2(0.945, 0.945), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_yw20p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j7e0p"]
+_data = {
+&"RESET": SubResource("Animation_yw20p"),
+&"pop": SubResource("Animation_qwevg")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g6y5b"]
+bg_color = Color(0.6, 0.6, 0.6, 0.596078)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -145.0
+offset_top = -66.0
+offset_right = 145.0
+offset_bottom = 66.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(142, 74)
+script = ExtResource("1_yw20p")
+metadata/_edit_vertical_guides_ = [51.0]
+metadata/_edit_horizontal_guides_ = [464.0, 424.0]
+
+[node name="Panel" type="Panel" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -26.0
+offset_right = 26.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nvgu8")
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel"]
+modulate = Color(1, 1, 1, 0.0627451)
+clip_children = 2
+light_mask = 2
+visibility_layer = 2
+position = Vector2(169, 76)
+scale = Vector2(0.224694, 0.224694)
+texture = ExtResource("1_qwevg")
+
+[node name="LineEdit" type="LineEdit" parent="Panel"]
+z_as_relative = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -147.0
+offset_top = 2.0
+offset_right = 95.0
+offset_bottom = 41.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_placeholder_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_j7e0p")
+placeholder_text = "e.x Meowmeow"
+
+[node name="Label" type="Label" parent="Panel"]
+z_as_relative = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -143.0
+offset_top = -41.0
+offset_right = 52.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_yw20p")
+theme_override_font_sizes/font_size = 27
+text = "Name your pet!"
+
+[node name="Button" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 103.0
+offset_top = 2.0
+offset_right = 150.0
+offset_bottom = 41.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_g6y5b")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ad462")
+icon = ExtResource("4_j7e0p")
+icon_alignment = 1
+expand_icon = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_j7e0p")
+}
+
+[node name="toast_notification" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -41.0
+offset_top = 289.0
+offset_right = 41.0
+offset_bottom = 312.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_g6y5b")
+text = "Success!"
+horizontal_alignment = 1

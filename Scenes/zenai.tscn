@@ -1,9 +1,10 @@
-[gd_scene load_steps=21 format=3 uid="uid://5ph415n6ffj5"]
+[gd_scene load_steps=20 format=3 uid="uid://5ph415n6ffj5"]
 
 [ext_resource type="Texture2D" uid="uid://b5ice2x4m76dg" path="res://Sprite/GUI/back-svgrepo-com.svg" id="1_e68g8"]
 [ext_resource type="Script" uid="uid://bv7qktqjs2vob" path="res://Scenes/zenai.gd" id="1_miorb"]
 [ext_resource type="Texture2D" uid="uid://cjq5s5m11o7kn" path="res://Sprite/send-alt-1-svgrepo-com.svg" id="3_vttb2"]
 [ext_resource type="Texture2D" uid="uid://c483w28pi8ei0" path="res://Sprite/GUI/arrow-path-20-solid (1).svg" id="4_vttb2"]
+[ext_resource type="PackedScene" uid="uid://bh55l5138v0t5" path="res://Scenes/settings_btn.tscn" id="5_o3qwk"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_widxd"]
 
@@ -110,20 +111,6 @@ _data = {
 &"shake": SubResource("Animation_vttb2")
 }
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gh88f"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t4bgd"]
-bg_color = Color(0.314134, 0.617822, 0.745105, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.2, 0.447059, 0.545098, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
 [node name="Control" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -132,6 +119,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_miorb")
+metadata/_edit_horizontal_guides_ = [32.0]
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -255,21 +243,9 @@ libraries = {
 &"": SubResource("AnimationLibrary_nu3pb")
 }
 
-[node name="go_to_zenai" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -168.0
-offset_top = 364.0
-offset_right = 168.0
-offset_bottom = 391.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(1, 0.831373, 0.172549, 1)
-theme_override_styles/focus = SubResource("StyleBoxEmpty_gh88f")
-theme_override_styles/normal = SubResource("StyleBoxFlat_t4bgd")
-text = "Back to ZenDiary"
-flat = true
+[node name="Settings_btn" parent="." instance=ExtResource("5_o3qwk")]
+layout_mode = 0
+offset_left = 300.0
+offset_top = 19.0
+offset_right = 372.0
+offset_bottom = 91.0

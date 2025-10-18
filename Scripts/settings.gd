@@ -9,15 +9,13 @@ func _ready():
 	logout_btn.pressed.connect(_on_logout_pressed)
 
 func back_to_home():
-	get_tree().change_scene_to_file("res://Scenes/petmain.tscn")
+	get_tree().change_scene_to_file("res://Scenes/dashboard.tscn")
 
 func _on_logout_pressed():
 	var path = "user://auth.json"
 	if FileAccess.file_exists(path):
 		var dir = DirAccess.open("user://")
 		if dir:
-			dir.remove("auth.json")  # ✅ correct way to delete
-			print("🗑️ Deleted saved login data")
+			dir.remove("auth.json") 
 
-	print("🚪 Logged out")
 	get_tree().change_scene_to_file("res://Scenes/login.tscn")

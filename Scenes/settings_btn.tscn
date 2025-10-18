@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://bh55l5138v0t5"]
+
+[ext_resource type="Texture2D" uid="uid://c3nm0o1gl8uh0" path="res://Sprite/GUI/settings-svgrepo-com.svg" id="1_j2c6a"]
+[ext_resource type="Script" uid="uid://ud1iuobw7npf" path="res://Scenes/settings_btn.gd" id="2_2t5cb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1lydj"]
+
+[node name="Settings_btn" type="Button"]
+theme_override_font_sizes/font_size = 41
+theme_override_styles/focus = SubResource("StyleBoxEmpty_1lydj")
+icon = ExtResource("1_j2c6a")
+flat = true
+icon_alignment = 1
+script = ExtResource("2_2t5cb")

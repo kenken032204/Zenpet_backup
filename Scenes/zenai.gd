@@ -44,6 +44,23 @@ func _ready() -> void:
 	# Start immediately if a last journal exists
 	#if JournalManager.last_journal.has("id"):
 		#_start_conversation(JournalManager.last_journal["text"], JournalManager.last_journal["id"])
+	
+	# 🧠 Start a random hidden conversation on load (only AI reply shows)
+	_start_random_hidden_conversation()
+
+func _start_random_hidden_conversation():
+	var random_prompts = [
+		"Give me a random funny fact about cats.",
+		"Greet me and give me a random joke.",
+		"Hello.",
+		"I just want some encouragement to keep going today.",
+	]
+	
+	var random_index = randi() % random_prompts.size()
+	var hidden_prompt = random_prompts[random_index]
+
+	# Don't display the user message — only send it internally
+	_send_to_gemini(hidden_prompt)
 
 func _on_submit_pressed() -> void:
 	var user_text = message_box.text.strip_edges()
@@ -180,27 +197,23 @@ func _show_message(text: String, is_user: bool, skip_typing: bool = false) -> vo
 	# -- Spacers --
 	var left_spacer = Control.new()
 	left_spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	left_spacer.custom_minimum_size = Vector2(0, 0)
-	
 	var right_spacer = Control.new()
 	right_spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	right_spacer.custom_minimum_size = Vector2(0, 0)
 	
 	# -- Bubble --
 	var bubble = PanelContainer.new()
 	bubble.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	bubble.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	bubble.modulate = Color(1, 1, 1, 0)  # start invisible
+	bubble.scale = Vector2(0.9, 0.9)     # slightly smaller initially
 	
 	var bubble_style = StyleBoxFlat.new()
 	bubble_style.bg_color = Color("#FFD42C") if is_user else Color("#FFFFFF")
-	
-	# 💬 Border settings
 	bubble_style.border_width_left = 2
 	bubble_style.border_width_top = 2
 	bubble_style.border_width_right = 2
 	bubble_style.border_width_bottom = 2
 	bubble_style.border_color = Color("#313B45") if is_user else Color("#FF9B17")
-	
 	bubble_style.corner_radius_top_left = 16
 	bubble_style.corner_radius_top_right = 16
 	bubble_style.corner_radius_bottom_left = 16
@@ -211,43 +224,41 @@ func _show_message(text: String, is_user: bool, skip_typing: bool = false) -> vo
 	bubble_style.content_margin_bottom = 8
 	bubble.add_theme_stylebox_override("panel", bubble_style)
 	
-	# -- Label with max width constraint --
+	# -- Label --
 	var label = Label.new()
 	label.text = text
 	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	label.size_flags_horizontal = Control.SIZE_FILL
 	label.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	
-	# 🎨 Font color
 	if is_user:
 		label.add_theme_color_override("font_color", Color("#FFFFFF"))
 	else:
 		label.add_theme_color_override("font_color", Color("#000000"))
 	
-	# Set max width for the label based on viewport
 	var vw = get_viewport_rect().size.x
-	var max_bubble_width = vw * 0.7  # 70% of screen width
-	label.custom_minimum_size = Vector2(0, 0)
-	label.set_custom_minimum_size(Vector2(max_bubble_width - 24, 0))  # subtract padding
+	var max_bubble_width = vw * 0.7
+	label.custom_minimum_size = Vector2(max_bubble_width - 24, 0)
 	
-	# Assemble
 	bubble.add_child(label)
 	hbox.add_child(left_spacer)
 	hbox.add_child(bubble)
 	hbox.add_child(right_spacer)
 	Vboxcontainer.add_child(hbox)
 	
-	# Set space
-	var spacer_width = vw * 0.15  # 15% margin on the opposite side
+	# -- Alignment margins --
+	var spacer_width = vw * 0.15
 	if is_user:
 		left_spacer.custom_minimum_size = Vector2(spacer_width, 0)
-		right_spacer.custom_minimum_size = Vector2(0, 0)
 	else:
 		right_spacer.custom_minimum_size = Vector2(spacer_width, 0)
-		left_spacer.custom_minimum_size = Vector2(0, 0)
 	
 	await get_tree().process_frame
 	_update_scroll()
+
+	# ✨ -- Animation with Tween --
+	var tween = create_tween()
+	tween.tween_property(bubble, "modulate:a", 1.0, 0.25).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.tween_property(bubble, "scale", Vector2(1, 1), 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 func _update_scroll():
 	var scroll = $"ScrollContainer"
