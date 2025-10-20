@@ -10,12 +10,30 @@ var sentences: Array = [
 	"Fetching zen powers...",
 	"Counting cat pixels...",
 	"Polishing the virtual floor...",
-	"Preparing your adventure..."
+	"Preparing your adventure...",
+	"Charging happiness crystals...",
+	"Calibrating rainbow lasers...",
+	"Feeding the virtual unicorns...",
+	"Syncing with the cloud of dreams...",
+	"Untangling digital spaghetti...",
+	"Adding sprinkles of joy...",
+	"Sharpening pixel swords...",
+	"Watering imaginary plants...",
+	"Stirring the potion cauldron...",
+	"Teaching robots to meditate...",
+	"Aligning stars for perfect balance...",
+	"Polishing user smiles...",
+	"Painting invisible walls...",
+	"Counting virtual sheep...",
+	"Deploying ninja squirrels...",
+	"Lighting up virtual lanterns...",
+	"Adjusting gravity for fun...",
+	"Training digital puppies...",
+	"Charging your zen meter..."
 ]
 
+
 func _ready() -> void:
-	animation.play("fade_in")
-	await animation.animation_finished
 	animation.play("loading")
 	_start_random_info()
 	_start_transition()
@@ -24,7 +42,7 @@ func _ready() -> void:
 func _start_random_info() -> void:
 	while true:
 		info.text = sentences[randi() % sentences.size()]
-		await get_tree().create_timer(0.5).timeout
+		await get_tree().create_timer(1).timeout
 
 # 🔹 Switch scene after wait_time
 func _start_transition() -> void:

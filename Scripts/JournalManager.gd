@@ -1,151 +1,191 @@
 extends Node
 
+signal journal_saved(journal_text: String, journal_id: String)
 
 var journals: Array = []
-signal journal_saved(journal_text: String, journal_id: String)
 var last_journal: Dictionary = {}
 
-func _ready():
-	print("🟢 JournalManager ready")
-	load_journals_from_supabase()
+const API_URL = "http://192.168.254.111/zenpet"
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
-func save_journals():
-	var file = FileAccess.open("user://journals.json", FileAccess.WRITE)
-	if file:
-		file.store_string(JSON.stringify(journals))
-		file.close()
+func _ready() -> void:
+	print("🟢 JournalManager initialized")
 
-func load_journals_from_supabase():
-	var url = "https://rekmhywernuqjshghyvu.supabase.co/rest/v1/journals?select=*"
-	var headers = [
-		"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJla21oeXdlcm51cWpzaGdoeXZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg1MDEwNjEsImV4cCI6MjA3NDA3NzA2MX0.-ljSNpqHZ-Yzv_0eDlCGDSH7m3uM96c5oD2ejxPHhyY",
-		"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJla21oeXdlcm51cWpzaGdoeXZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg1MDEwNjEsImV4cCI6MjA3NDA3NzA2MX0.-ljSNpqHZ-Yzv_0eDlCGDSH7m3uM96c5oD2ejxPHhyY",
-		"Content-Type: application/json"
-	]
-
-	var http := HTTPRequest.new()
+func _make_request(endpoint: String, method: int, body: String = "") -> Variant:
+	var http = HTTPRequest.new()
 	add_child(http)
-
-	http.request_completed.connect(func(result, response_code, headers, body):
-		if response_code == 200:
-			var data = JSON.parse_string(body.get_string_from_utf8())
-			if typeof(data) == TYPE_ARRAY:
-				journals = data
-				if journals.size() > 0:
-					last_journal = journals[0]
-				print("✅ Journals loaded from Supabase:", journals.size())
-			else:
-				print("⚠️ Unexpected data format from Supabase:", data)
-		else:
-			print("❌ Failed to load journals from Supabase. Code:", response_code, "Body:", body.get_string_from_utf8())
-
-		http.queue_free()
-	)
-
-	http.request(url, headers)
-
-
-func add_journal(title: String, text: String) -> Dictionary:
-	var now = Time.get_datetime_dict_from_system()
-	var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
 	
-	var formatted_date = str(months[now.month - 1]) + " " + str(now.day) + ", " + str(now.year) \
-	+ " " + str(now.hour) + ":" + str(now.minute).pad_zeros(2)
+	var headers = ["Content-Type: application/json"]
+	var url = "%s/%s" % [API_URL, endpoint]
 	
-	var new_journal = {
-		"id": str(Time.get_unix_time_from_system()), # Always string
-		"title": title,
-		"text": text,
-		"date": str(months[now.month - 1]) + " " + str(now.day) + ", " + str(now.year) \
-				+ " " + str(now.hour) + ":" + str(now.minute).pad_zeros(2),
-		"date_created": formatted_date   # ✅ Add this line!
-	}
-	journals.append(new_journal)
-
-	journals.sort_custom(func(a, b):
-		return int(b["id"]) - int(a["id"])
-	)
+	var err = http.request(url, headers, method, body if body else "")
 	
-	save_journals()
-
-	if journals.size() > 0:
-		last_journal = journals[0]
-
-	emit_signal("journal_saved", new_journal["text"], new_journal["id"])
-	return new_journal
-
-
-func update_journal(journal_data: Dictionary) -> void:
-	if not journal_data.has("id"):
-		print("⚠️ Missing journal ID — cannot update!")
-		return
-
-	var journal_id = str(journal_data["id"])
-	var url = "https://rekmhywernuqjshghyvu.supabase.co/rest/v1/journals?id=eq." + journal_id
-	var headers = [
-		"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJla21oeXdlcm51cWpzaGdoeXZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg1MDEwNjEsImV4cCI6MjA3NDA3NzA2MX0.-ljSNpqHZ-Yzv_0eDlCGDSH7m3uM96c5oD2ejxPHhyY",
-		"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJla21oeXdlcm51cWpzaGdoeXZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg1MDEwNjEsImV4cCI6MjA3NDA3NzA2MX0.-ljSNpqHZ-Yzv_0eDlCGDSH7m3uM96c5oD2ejxPHhyY",
-		"Content-Type: application/json",
-	]
-
-	var body = {
-		"title": journal_data["title"],
-		"content": journal_data["text"],
-		"date_created": journal_data.get("date_created", Time.get_date_string_from_system())
-	}
-
-	print("📝 Updating journal:", journal_id, body)
-
-	var http_request = HTTPRequest.new()
-	add_child(http_request)
-
-	http_request.request_completed.connect(func(result, response_code, headers, body_data):
-		if response_code == 204:
-			print("✅ Journal updated successfully on Supabase!")
-		else:
-			print("❌ Failed to update journal on Supabase. Response code:", response_code, "Body:", body_data.get_string_from_utf8())
-	)
-
-	http_request.request(url, headers, HTTPClient.METHOD_PATCH, JSON.stringify(body))
-
-func get_journal(id: String) -> Dictionary:
-	var id_int = int(id)
-	for j in journals:
-		if int(j["id"]) == id_int:
-			return j
-	return {}
-
-# Delete a journal by ID from Supabase
-func delete_journal(id: int) -> bool:
-	
-	var url = "https://rekmhywernuqjshghyvu.supabase.co/rest/v1/journals?id=eq." + str(id)
-
-	var headers = [
-		"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJla21oeXdlcm51cWpzaGdoeXZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg1MDEwNjEsImV4cCI6MjA3NDA3NzA2MX0.-ljSNpqHZ-Yzv_0eDlCGDSH7m3uM96c5oD2ejxPHhyY",
-		"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJla21oeXdlcm51cWpzaGdoeXZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg1MDEwNjEsImV4cCI6MjA3NDA3NzA2MX0.-ljSNpqHZ-Yzv_0eDlCGDSH7m3uM96c5oD2ejxPHhyY",
-		"Content-Type: application/json",
-		]
-
-	var http := HTTPRequest.new()
-	get_tree().root.add_child(http)
-
-	var err = http.request(url, headers, HTTPClient.METHOD_DELETE)
 	if err != OK:
-		push_error("Failed request: %s" % err)
-		return false
-
+		print("❌ HTTP Request failed: ", err)
+		http.queue_free()
+		return null
+	
 	var result = await http.request_completed
-	http.queue_free()
-
 	var response_code: int = result[1]
-	if response_code == 204:
-		# ✅ Remove from local list
+	var response_body: PackedByteArray = result[3]
+	var response_text: String = response_body.get_string_from_utf8()
+	
+	http.queue_free()
+	
+	print("📊 Response Code: %d, Body: %s" % [response_code, response_text])
+	
+	# Handle success responses (200, 201, 204)
+	if response_code == 200 or response_code == 201 or response_code == 204:
+		if response_text.is_empty():
+			return {"success": true}
+		var parsed = JSON.parse_string(response_text)
+		return parsed if parsed else null
+	else:
+		print("❌ HTTP Error %d: %s" % [response_code, response_text])
+		return null
+
+# 📥 Load all journals from PHP backend
+func load_journals_from_php(user_id: int) -> void:
+	var response = await _make_request(
+		"get_journals.php?user_id=%d" % user_id,
+		HTTPClient.METHOD_GET
+	)
+	
+	if response is Array:
+		journals = []
+		for journal in response:
+			if typeof(journal) == TYPE_DICTIONARY and journal.has("id"):
+				journals.append({
+					"id": str(journal["id"]),
+					"title": journal.get("title", "Untitled"),
+					"text": journal.get("content", ""),
+					"content": journal.get("content", ""),
+					"date": journal.get("date_created", ""),
+					"date_created": journal.get("date_created", ""),
+					"color": journal.get("color", "#FFFFFF")
+				})
+		
+		if journals.size() > 0:
+			last_journal = journals[0]
+		
+		print("✅ Loaded %d journals from PHP" % journals.size())
+	else:
+		print("⚠️ Failed to load journals")
+		journals = []
+
+# ➕ Add new journal via PHP
+func add_journal(title: String, text: String, user_id: int, color: String = "#F39C12") -> Dictionary:
+	var payload = {
+		"user_id": user_id,
+		"title": title,
+		"content": text,
+		"color": color
+	}
+	
+	var response = await _make_request(
+		"add_journal.php",
+		HTTPClient.METHOD_POST,
+		JSON.stringify(payload)
+	)
+	
+	if response is Dictionary and response.get("success", false):
+		var new_journal = {
+			"id": str(response["id"]),
+			"title": response["title"],
+			"text": response["content"],
+			"content": response["content"],
+			"date": response["date_created"],
+			"date_created": response["date_created"],
+			"color": response["color"]
+		}
+		
+		journals.append(new_journal)
+		last_journal = new_journal
+		
+		emit_signal("journal_saved", new_journal["text"], new_journal["id"])
+		print("✅ Journal saved: %s" % new_journal["id"])
+		return new_journal
+	else:
+		print("❌ Failed to save journal")
+		return {}
+
+# ✏️ Update existing journal via PHP
+func update_journal(journal_data: Dictionary, user_id: int) -> bool:
+	if not journal_data.has("id"):
+		print("⚠️ Missing journal ID")
+		return false
+	
+	var journal_id = str(journal_data["id"])
+	print("🔄 Attempting to update journal ID:", journal_id)
+
+	var payload = {
+		"id": int(journal_id),
+		"user_id": user_id,
+		"title": journal_data.get("title", ""),
+		"content": journal_data.get("text", journal_data.get("content", "")),
+		"color": journal_data.get("color", "#FFFFFF")
+	}
+
+	print("📤 Sending update payload:", JSON.stringify(payload))
+
+	var response = await _make_request(
+		"update_journal.php",
+		HTTPClient.METHOD_POST,
+		JSON.stringify(payload)
+	)
+
+	if response is Dictionary:
+		print("📥 Received update response:", JSON.stringify(response))
+
+	if response is Dictionary and response.get("success", false):
+		# 🧠 Use updated decrypted data from backend
+		var updated_data = {
+			"id": str(response.get("id", journal_id)),
+			"title": response.get("title", payload["title"]),
+			"text": response.get("content", payload["content"]),
+			"content": response.get("content", payload["content"]),
+			"date": response.get("date", journals.filter(func(j): return str(j["id"]) == journal_id)[0].get("date", "")),
+			"color": response.get("color", payload["color"])
+		}
+
+		# 🔁 Replace cached version
 		for i in range(journals.size()):
-			if int(float(journals[i]["id"])) == id:
-				journals.remove_at(i)
+			if str(journals[i]["id"]) == journal_id:
+				journals[i] = updated_data
 				break
-		print("Deleted journal with ID:", id)
+
+		last_journal = updated_data
+		print("✅ Journal updated successfully:", updated_data)
 		return true
 	else:
-		print("❌ Failed to delete from Supabase:", response_code, result[3].get_string_from_utf8())
+		print("❌ Failed to update journal. Response:", response)
 		return false
+
+# 🗑️ Delete journal via PHP
+func delete_journal(journal_id: int, user_id: int = 0) -> bool:
+	var payload = {"id": journal_id, "user_id": user_id}
+	var response = await _make_request(
+		"delete_journal.php",
+		HTTPClient.METHOD_POST,
+		JSON.stringify(payload)
+	)
+	
+	if response is Dictionary and response.get("success", false):
+		for i in range(journals.size()):
+			if int(journals[i]["id"]) == journal_id:
+				journals.remove_at(i)
+				break
+		print("✅ Journal deleted: %d" % journal_id)
+		return true
+	else:
+		print("❌ Failed to delete journal: ", response)
+		return false
+
+
+# 🔍 Get journal by ID from local cache
+func get_journal(id: String) -> Dictionary:
+	var id_int = int(id)
+	for journal in journals:
+		if int(journal["id"]) == id_int:
+			return journal
+	return {}

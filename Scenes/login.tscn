@@ -1,30 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://cbeitv7iimw6q"]
+[gd_scene load_steps=11 format=3 uid="uid://cbeitv7iimw6q"]
 
 [ext_resource type="Script" uid="uid://cm7ggfri7cth7" path="res://Scenes/login.gd" id="1_5cd0j"]
+[ext_resource type="FontFile" uid="uid://b7qvl2gpk3y26" path="res://Fonts/Super Trend.ttf" id="2_hbxdl"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5cd0j"]
-content_margin_left = 5.0
-content_margin_top = 5.0
-content_margin_right = 5.0
-content_margin_bottom = 5.0
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.754952, 0.916185, 0.989815, 1)
-border_blend = true
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-expand_margin_left = 5.0
-expand_margin_top = 5.0
-expand_margin_right = 5.0
-expand_margin_bottom = 5.0
-shadow_color = Color(0.178904, 0.148722, 0.440498, 0.266667)
-shadow_size = 2
-shadow_offset = Vector2(1.665, 2.55)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5iow8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hbxdl"]
 bg_color = Color(0.646066, 0.862285, 0.9486, 1)
@@ -46,18 +25,25 @@ content_margin_right = 3.0
 content_margin_bottom = 3.0
 bg_color = Color(1, 1, 1, 1)
 draw_center = false
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
 border_width_bottom = 3
-border_color = Color(0.207843, 0.654902, 0.819608, 1)
+border_color = Color(0.643137, 0.745098, 0.815686, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_88cqn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m7a0j"]
-bg_color = Color(0.442079, 0.890663, 0.550015, 1)
+bg_color = Color(0.643137, 0.745098, 0.815686, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.204493, 0.452663, 0.351853, 1)
+border_color = Color(0.52549, 0.647059, 0.733333, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -82,6 +68,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5cd0j")
+metadata/_edit_vertical_guides_ = [69.0, 329.0]
+metadata/_edit_horizontal_guides_ = [331.0, 426.0, 255.0, 357.0]
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -118,9 +106,10 @@ offset_right = 163.0
 offset_bottom = 81.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_5cd0j")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_5iow8")
 
 [node name="Panel" type="Panel" parent="Login_window/register"]
+visible = false
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -135,15 +124,16 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_hbxdl")
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_left = 92.0
-offset_top = 10.0
-offset_right = -92.0
+offset_left = 47.0
+offset_top = 2.0
+offset_right = -47.0
 offset_bottom = 46.0
 grow_horizontal = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(0.52549, 0.647059, 0.733333, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 2
-theme_override_font_sizes/font_size = 26
+theme_override_fonts/font = ExtResource("2_hbxdl")
+theme_override_font_sizes/font_size = 35
 text = "Login"
 horizontal_alignment = 1
 uppercase = true
@@ -152,24 +142,28 @@ uppercase = true
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_left = 17.0
-offset_top = 79.0
-offset_right = -17.0
-offset_bottom = 102.0
+offset_left = 30.0
+offset_top = 67.0
+offset_right = -29.0
+offset_bottom = 91.0
 grow_horizontal = 2
-theme_override_colors/font_color = Color(0.207843, 0.654902, 0.819608, 1)
+theme_override_colors/font_color = Color(0.643137, 0.745098, 0.815686, 1)
+theme_override_fonts/font = ExtResource("2_hbxdl")
+theme_override_font_sizes/font_size = 19
 text = "Username"
 
 [node name="password_title" type="Label" parent="Login_window/register"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_left = 17.0
-offset_top = 171.0
-offset_right = -17.0
-offset_bottom = 194.0
+offset_left = 30.0
+offset_top = 167.0
+offset_right = -28.0
+offset_bottom = 191.0
 grow_horizontal = 2
-theme_override_colors/font_color = Color(0.207843, 0.654902, 0.819608, 1)
+theme_override_colors/font_color = Color(0.643137, 0.745098, 0.815686, 1)
+theme_override_fonts/font = ExtResource("2_hbxdl")
+theme_override_font_sizes/font_size = 19
 text = "Password"
 
 [node name="password_input" type="LineEdit" parent="Login_window/register"]
@@ -179,9 +173,9 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_left = 28.0
-offset_top = 36.5
+offset_top = 39.5
 offset_right = -29.0
-offset_bottom = 78.5
+offset_bottom = 81.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_placeholder_color = Color(0.862745, 0.862745, 0.862745, 1)
@@ -198,9 +192,9 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_left = 29.0
-offset_top = -55.0
+offset_top = -58.0
 offset_right = -29.0
-offset_bottom = -10.0
+offset_bottom = -13.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_placeholder_color = Color(0.862745, 0.862745, 0.862745, 1)
@@ -215,14 +209,15 @@ anchors_preset = 13
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -103.0
-offset_top = 346.0
-offset_right = 103.0
-offset_bottom = 57.0
+offset_left = -131.0
+offset_top = 577.0
+offset_right = 131.0
+offset_bottom = 288.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.207843, 0.654902, 0.819608, 1)
+theme_override_colors/font_color = Color(0.643137, 0.745098, 0.815686, 1)
+theme_override_fonts/font = ExtResource("2_hbxdl")
 text = "Don't have an account? Register"
 flat = true
 
@@ -232,10 +227,10 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 13.0
-offset_top = -56.0
-offset_right = -13.0
-offset_bottom = -22.0
+offset_left = 29.0
+offset_top = -41.0
+offset_right = -29.0
+offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_vertical = 3
@@ -244,6 +239,8 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_hbxdl")
+theme_override_font_sizes/font_size = 19
 theme_override_styles/focus = SubResource("StyleBoxEmpty_88cqn")
 theme_override_styles/normal = SubResource("StyleBoxFlat_m7a0j")
 text = "Login"

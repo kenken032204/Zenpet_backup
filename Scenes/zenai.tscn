@@ -1,7 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://5ph415n6ffj5"]
+[gd_scene load_steps=21 format=3 uid="uid://5ph415n6ffj5"]
 
 [ext_resource type="Texture2D" uid="uid://b5ice2x4m76dg" path="res://Sprite/GUI/back-svgrepo-com.svg" id="1_e68g8"]
 [ext_resource type="Script" uid="uid://bv7qktqjs2vob" path="res://Scenes/zenai.gd" id="1_miorb"]
+[ext_resource type="Script" uid="uid://dnij2abmv1ff6" path="res://Scenes/scroll_container.gd" id="3_nu3pb"]
 [ext_resource type="Texture2D" uid="uid://cjq5s5m11o7kn" path="res://Sprite/send-alt-1-svgrepo-com.svg" id="3_vttb2"]
 [ext_resource type="Texture2D" uid="uid://c483w28pi8ei0" path="res://Sprite/GUI/arrow-path-20-solid (1).svg" id="4_vttb2"]
 [ext_resource type="PackedScene" uid="uid://bh55l5138v0t5" path="res://Scenes/settings_btn.tscn" id="5_o3qwk"]
@@ -165,6 +166,7 @@ pivot_offset = Vector2(169, 276)
 theme_override_styles/panel = SubResource("StyleBoxFlat_miorb")
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
+script = ExtResource("3_nu3pb")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
 layout_mode = 2

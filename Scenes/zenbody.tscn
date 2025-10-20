@@ -1,8 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://seaaico7nhkr"]
+[gd_scene load_steps=18 format=3 uid="uid://seaaico7nhkr"]
 
 [ext_resource type="Texture2D" uid="uid://b5ice2x4m76dg" path="res://Sprite/GUI/back-svgrepo-com.svg" id="1_7e23w"]
 [ext_resource type="Script" uid="uid://b2t03sivxs71s" path="res://Scenes/zenbody.gd" id="1_pok1w"]
 [ext_resource type="Texture2D" uid="uid://cxge6pknpl6gx" path="res://Sprite/GUI/dog.png" id="2_pok1w"]
+[ext_resource type="FontFile" uid="uid://b7qvl2gpk3y26" path="res://Fonts/Super Trend.ttf" id="4_lojgk"]
+[ext_resource type="Script" uid="uid://dnij2abmv1ff6" path="res://Scenes/scroll_container.gd" id="4_ocp8v"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lojgk"]
 bg_color = Color(0.984314, 0.639216, 0.431373, 1)
@@ -238,6 +240,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_pok1w")
+metadata/_edit_vertical_guides_ = [83.0, 303.0]
 
 [node name="ColorRect2" type="Panel" parent="."]
 layout_mode = 1
@@ -305,6 +308,7 @@ grow_vertical = 2
 pivot_offset = Vector2(167, 184)
 horizontal_scroll_mode = 3
 vertical_scroll_mode = 2
+script = ExtResource("4_ocp8v")
 
 [node name="CanvasLayer" type="Control" parent="ScrollContainer"]
 custom_minimum_size = Vector2(0, 1000)
@@ -354,7 +358,7 @@ anchor_right = 1.0
 grow_horizontal = 2
 pivot_offset = Vector2(188, 221)
 
-[node name="Button" type="Button" parent="Control"]
+[node name="level_label" type="Label" parent="Control"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
 anchors_preset = 8
@@ -362,15 +366,16 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -57.0
+offset_left = -112.0
 offset_top = 155.0
-offset_right = 55.0
+offset_right = 110.0
 offset_bottom = 212.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 41
 theme_override_styles/normal = SubResource("StyleBoxFlat_tvlsw")
 text = "1"
+horizontal_alignment = 1
 
 [node name="Label" type="Label" parent="Control"]
 layout_mode = 1
@@ -379,18 +384,22 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -94.0
-offset_top = 286.0
-offset_right = 92.0
-offset_bottom = 322.0
+offset_left = -140.0
+offset_top = 293.0
+offset_right = 138.0
+offset_bottom = 339.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 26
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.176471, 0.466667, 1, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("4_lojgk")
+theme_override_font_sizes/font_size = 37
 text = "Level Selection"
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="Control"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -415,9 +424,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -155.0
-offset_top = 238.0
-offset_right = 153.0
-offset_bottom = 265.0
+offset_left = -110.0
+offset_top = 240.0
+offset_right = 108.0
+offset_bottom = 267.0
 grow_horizontal = 2
 grow_vertical = 2

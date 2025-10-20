@@ -21,6 +21,8 @@ config/icon="res://icon.svg"
 PetStore="*res://Scripts/PetStore.gd"
 Global="*res://Scripts/Global.gd"
 JournalManager="*res://Scripts/JournalManager.gd"
+Infospawner="*res://infospawner.gd"
+LevelManager="*res://LevelManager.gd"
 
 [display]
 

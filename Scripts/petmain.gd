@@ -4,19 +4,19 @@ var current_request = ""
 var user_id = Global.User.get("id", null)
 var has_pet: bool = false
 
-#Main Interactions
+# Main Interactions
 @onready var sleep_button = $"UI/HBoxContainer/Sleep_btn"
 @onready var chat_button = $"UI/HBoxContainer/Chat_btn"
 @onready var bath_button = $"UI/HBoxContainer/Bath_btn"
 
-#Sleep Details
+# Sleep Details
 @onready var lamp_button = $"UI/Lamp_btn"
 @onready var background = $TextureRect
 @onready var tint_overlay = $ColorRect
 @onready var zzz_particles = $CPUParticles2D
 @onready var love_particles = $Love_particles
 
-#Bath Details
+# Bath Details
 @onready var bath_scene = $Bath
 @onready var head_sprite = $"Pet/PetArea/HeadSprite"
 
@@ -24,12 +24,12 @@ var has_pet: bool = false
 @onready var logout_btn = $"UI/VBoxContainer/Logout_btn"
 @onready var settings_btn = $"UI/VBoxContainer/Settings_btn"
 
-#Wardrobe and Furnitures
+# Wardrobe and Furnitures
 @onready var open_wardrobe = $"UI/VBoxContainer2/Wardrobe_btn"
 @onready var open_furniture = $"UI/VBoxContainer2/Furnitures_btn"
 @onready var open_kitchen = $"UI/VBoxContainer2/Kitchen_btn"
 
-#Chat Details
+# Chat Details
 @onready var back_button = $"UI/ChatSystem/ChatInput/back_to_main"
 @onready var submit_message_button = $"UI/ChatSystem/ChatInput/submit_message"
 @onready var reset_message_button = $"UI/ChatSystem/ChatInput/reset_messages"
@@ -40,31 +40,30 @@ var chat_history: Array = []
 var GEMINI_API_KEY = "AIzaSyCo8wY7NHUtP2XvoNgDmpaXjhWXcW5ewFU"
 var GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
 
-#Level System
+# Level System
 @onready var level_bar = $"UI/EXP_level"
 @onready var level = $"UI/level"
 
-#Misc
+# Misc
 @onready var animation = $"Pet/AnimationPlayer"
 @onready var GUIanimation = $"Pet/GUIAnimation"
 @onready var room_name = $"room_name"
-
 @onready var pet_name = $"pet_name"
-
-var lamp_toggle = true
-
 @onready var pet_area = $Pet/PetArea
-var is_hovering := false
-var is_holding := false
+@onready var Audio = $"AudioStreamPlayer2D"
 
 @onready var ExpPopup = preload("res://Scenes/pop_up.tscn")
 
-@onready var Audio = $"AudioStreamPlayer2D"
+var lamp_toggle = true
+var is_hovering := false
+var is_holding := false
 var is_sleeping = false
 var is_tweening_sleep := false
 var is_tweening_little_sleep := false
 var is_tweening_little_bath := false
 var is_tweening_bath := false
+var exp_given_after_sleep := false
+
 var red_style := preload("res://Styles/button_buttom_pressed_texture.tres").duplicate() as StyleBoxFlat
 var original_style := preload("res://Styles/button_button_original.tres").duplicate() as StyleBoxFlat
 var yellow_style := preload("res://Styles/button_button_yellow.tres").duplicate() as StyleBoxFlat
@@ -72,9 +71,8 @@ var yellow_style := preload("res://Styles/button_button_yellow.tres").duplicate(
 @onready var http_pet = HTTPRequest.new()
 @onready var http_outfit = HTTPRequest.new()
 
-var exp_given_after_sleep := false
-
 func _ready():
+	
 	if user_id == null:
 		get_tree().change_scene_to_file("res://Scenes/login.tscn")
 		return
@@ -90,9 +88,11 @@ func _ready():
 	lamp_button.visible = false
 	animation.play("idle")
 	
-	# Connect Buttons
-	pet_area.connect("mouse_entered", _on_mouse_entered)
-	pet_area.connect("mouse_exited", _on_mouse_exited)
+	# Connect all signals
+	pet_area.mouse_entered.connect(_on_mouse_entered)
+	pet_area.mouse_exited.connect(_on_mouse_exited)
+	pet_area.input_event.connect(_on_area_input_event)
+	
 	sleep_button.pressed.connect(_on_sleep_pressed)
 	chat_button.pressed.connect(_on_chat_pressed)
 	bath_button.pressed.connect(_on_bath_pressed)
@@ -109,6 +109,8 @@ func _ready():
 	lamp_button.add_theme_stylebox_override("normal", lamp_button.get_theme_stylebox("normal").duplicate())
 	bath_button.add_theme_stylebox_override("normal", bath_button.get_theme_stylebox("normal").duplicate())
 
+	Audio.play()
+	
 func check_user_pet():
 	if user_id == null:
 		return
@@ -145,7 +147,6 @@ func _handle_get_pet(parse_result):
 		var pet_data = parse_result[0]
 		print("User already has a pet:", parse_result[0])
 		
-		# Set the pet name from server
 		if pet_data.has("pet_name"):
 			pet_name.text = str(pet_data["pet_name"])
 
@@ -516,6 +517,34 @@ func _process(delta):
 	update_sleep_button_style()
 	update_bath_button_style(dirt)
 
+# ========== PET INTERACTIONS ==========
+
+func _on_mouse_entered() -> void:
+	is_hovering = true
+
+func _on_mouse_exited() -> void:
+	is_hovering = false
+	if is_holding:
+		is_holding = false
+		animation.play("idle")
+		love_particles.emitting = false
+
+func _on_area_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	if not is_hovering or is_sleeping:
+		return
+	
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed:
+			is_holding = true
+			animation.play("pet")
+			love_particles.emitting = true
+			print("Pet being petted - animation started")
+		else:
+			is_holding = false
+			animation.play("idle")
+			love_particles.emitting = false
+			print("Pet released - back to idle")
+
 # ========== SCENE NAVIGATION ==========
 
 func back_to_dashboard():
@@ -540,28 +569,6 @@ func _open_kitchen():
 	var scene = load("res://Scenes/kitchen.tscn") as PackedScene
 	animation.play("idle")
 	get_tree().change_scene_to_packed(scene)
-
-# ========== PET INTERACTIONS ==========
-
-func _on_mouse_entered():
-	is_hovering = true
-
-func _on_mouse_exited():
-	is_hovering = false
-	if is_holding:
-		is_holding = false
-		animation.play("idle")
-
-func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	if event is InputEventMouseButton and !is_sleeping:
-		if event.button_index == MOUSE_BUTTON_LEFT:
-			if event.pressed and is_hovering:
-				is_holding = true
-				animation.play("pet_ready")
-			else:
-				is_holding = false
-				animation.play("idle")
-				love_particles.emitting = false
 
 # ========== ROOM INTERACTIONS ==========
 

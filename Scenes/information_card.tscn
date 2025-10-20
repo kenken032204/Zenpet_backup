@@ -1,0 +1,212 @@
+[gd_scene load_steps=19 format=3 uid="uid://c0l4kngdmlonc"]
+
+[ext_resource type="Script" uid="uid://bqk1pqt47snrh" path="res://Scenes/information_card.gd" id="1_16xqp"]
+[ext_resource type="FontFile" uid="uid://b7qvl2gpk3y26" path="res://Fonts/Super Trend.ttf" id="1_pd1el"]
+[ext_resource type="Texture2D" uid="uid://daqwy2r8qiouq" path="res://Sprite/GUI/info-circle-svgrepo-com.svg" id="2_16xqp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vd4rt"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.724472, 0.809672, 0.866896, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0, 0, 0.160784)
+shadow_size = 5
+shadow_offset = Vector2(4.77, 5.29)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6dmbp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ii03q"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d5ni0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bamn7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vua0w"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mltul"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ywm4x"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fufgi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_11c27"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rj3ie"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_62a7f"]
+
+[sub_resource type="Animation" id="Animation_16xqp"]
+resource_name = "pop"
+length = 0.62
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.466667, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.115, 0.115), Vector2(1.03, 1.03), Vector2(0.95, 0.95), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.14),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.0196078), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_vd4rt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6dmbp"]
+_data = {
+&"RESET": SubResource("Animation_vd4rt"),
+&"pop": SubResource("Animation_16xqp")
+}
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(195, 475)
+script = ExtResource("1_16xqp")
+metadata/_edit_vertical_guides_ = [195.0]
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.0
+offset_top = -104.0
+offset_right = 130.0
+offset_bottom = 170.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vd4rt")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -86.0
+offset_top = -55.0
+offset_right = 86.0
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="confirm_btn" type="Button" parent="Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.52549, 0.647059, 0.733333, 1)
+theme_override_fonts/font = ExtResource("1_pd1el")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_6dmbp")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_ii03q")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_d5ni0")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_bamn7")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_vua0w")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_mltul")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ywm4x")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_fufgi")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_11c27")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_rj3ie")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_62a7f")
+text = "Okay, I understand"
+
+[node name="info_title" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -88.0
+offset_top = -35.0
+offset_right = 86.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.524145, 0.647686, 0.734282, 1)
+theme_override_fonts/font = ExtResource("1_pd1el")
+theme_override_font_sizes/font_size = 30
+text = "Information"
+horizontal_alignment = 1
+
+[node name="info_contents" type="RichTextLabel" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.0
+offset_top = 6.0
+offset_right = 109.0
+offset_bottom = 83.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0.641963, 0.744186, 0.817527, 1)
+theme_override_fonts/normal_font = ExtResource("1_pd1el")
+text = "We take your privacy seriously! All your data is encrypted and kept safe."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel"]
+modulate = Color(1, 1, 1, 0.305882)
+position = Vector2(130, 58)
+scale = Vector2(0.0875, 0.0875)
+texture = ExtResource("2_16xqp")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_6dmbp")
+}

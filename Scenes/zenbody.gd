@@ -3,26 +3,35 @@ extends Control
 @onready var back_btn = $"back_button"
 @onready var lvl_1 = $"ScrollContainer/CanvasLayer/level_1"
 @onready var animation = $AnimationPlayer
-
 @onready var exp_bar = $"Control/ProgressBar"
-
-func update_exp_bar():
-	var tween = create_tween()
-	tween.tween_property(exp_bar, "value", Global.total_exp, 0.5)
+@onready var level_label = $"Control/level_label" 
 
 func _ready() -> void:
-	update_exp_bar()
+	# Fade-in animation
 	animation.play("fade_out")
 	
+	# Connect buttons
 	back_btn.pressed.connect(_back_to_dashboard)
-	lvl_1.pressed.connect(go_to_level1)
+	lvl_1.pressed.connect(_on_level_1_pressed)
 	
-func _back_to_dashboard():
+	# Attach EXP bar & optional level label to LevelManager
+	LevelManager.attach_ui(exp_bar, level_label)
+	
+	# Load user level & EXP from backend
+	var user_id = int(Global.User.get("id", 0))
+	if user_id > 0:
+		LevelManager.get_user_level(user_id)
+	else:
+		push_warning("⚠️ Invalid user ID in Global.User")
+
+func _back_to_dashboard() -> void:
 	var scene = load("res://Scenes/dashboard.tscn") as PackedScene
 	get_tree().change_scene_to_packed(scene)
 
-func go_to_level1():
+func _on_level_1_pressed() -> void:
+	
 	animation.play("level_pressed")
 	await animation.animation_finished
+	
 	var scene = load("res://Scenes/zenbody_level_1.tscn") as PackedScene
 	get_tree().change_scene_to_packed(scene)

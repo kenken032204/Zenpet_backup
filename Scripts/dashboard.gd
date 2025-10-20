@@ -18,7 +18,7 @@ func _ready():
 	zenbody_btn.pressed.connect(_on_zenbody_pressed)
 	zendiary_btn.pressed.connect(_on_zendiary_pressed)
 	zenai_btn.pressed.connect(_on_zenai_pressed)
-
+	
 func _on_audio_finished():
 	audio.play()
 

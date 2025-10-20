@@ -50,10 +50,9 @@ func _ready() -> void:
 
 func _start_random_hidden_conversation():
 	var random_prompts = [
-		"Give me a random funny fact about cats.",
-		"Greet me and give me a random joke.",
-		"Hello.",
-		"I just want some encouragement to keep going today.",
+		"Give me a random funny fact about cats. Start of with 'Here's a funny fact about cats... ",
+		"Greet me with 'Hello! I am ZenAi your friendly chatting partner :> ' and give me a random joke. make it unique each time. ",
+		"Reassure me that everything will be alright. Start of with 'Hello. How are you?' ",
 	]
 	
 	var random_index = randi() % random_prompts.size()

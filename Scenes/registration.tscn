@@ -1,31 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://cnurmvpfh7mkf"]
+[gd_scene load_steps=15 format=3 uid="uid://cnurmvpfh7mkf"]
 
 [ext_resource type="Script" uid="uid://ca4qtkmichrbs" path="res://Scenes/registration.gd" id="1_m0h6d"]
 [ext_resource type="Texture2D" uid="uid://0vbyxnb333sj" path="res://Sprite/GUI/loading-svgrepo-com (1).svg" id="2_m0h6d"]
+[ext_resource type="FontFile" uid="uid://b7qvl2gpk3y26" path="res://Fonts/Super Trend.ttf" id="3_45hwp"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8tm2v"]
-content_margin_left = 5.0
-content_margin_top = 5.0
-content_margin_right = 5.0
-content_margin_bottom = 5.0
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.754952, 0.916185, 0.989815, 1)
-border_blend = true
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-expand_margin_left = 5.0
-expand_margin_top = 5.0
-expand_margin_right = 5.0
-expand_margin_bottom = 5.0
-shadow_color = Color(0.178904, 0.148722, 0.440498, 0.266667)
-shadow_size = 2
-shadow_offset = Vector2(1.665, 2.55)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v8uky"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_45hwp"]
 bg_color = Color(0.646066, 0.862285, 0.9486, 1)
@@ -40,25 +19,32 @@ corner_radius_top_right = 5
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m0h6d"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k2c4a"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ag52g"]
 content_margin_left = 10.0
 content_margin_top = 3.0
 content_margin_right = 3.0
 content_margin_bottom = 3.0
 bg_color = Color(1, 1, 1, 1)
 draw_center = false
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
 border_width_bottom = 3
-border_color = Color(0.207843, 0.654902, 0.819608, 1)
+border_color = Color(0.643137, 0.745098, 0.815686, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k2c4a"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1jmvk"]
-bg_color = Color(0.442079, 0.890663, 0.550015, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qpx4l"]
+bg_color = Color(0.643137, 0.745098, 0.815686, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.204493, 0.452663, 0.351853, 1)
+border_color = Color(0.52549, 0.647059, 0.733333, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -179,9 +165,10 @@ offset_right = 163.0
 offset_bottom = 239.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_8tm2v")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_v8uky")
 
 [node name="Panel" type="Panel" parent="Register_Window/register"]
+visible = false
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -196,15 +183,16 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_45hwp")
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_left = 92.0
-offset_top = 10.0
-offset_right = -92.0
-offset_bottom = 46.0
+offset_left = 90.0
+offset_top = 4.0
+offset_right = -90.0
+offset_bottom = 45.0
 grow_horizontal = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(0.52549, 0.647059, 0.733333, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 2
-theme_override_font_sizes/font_size = 26
+theme_override_fonts/font = ExtResource("3_45hwp")
+theme_override_font_sizes/font_size = 33
 text = "Register"
 horizontal_alignment = 1
 uppercase = true
@@ -214,11 +202,13 @@ layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = 17.0
-offset_top = 75.0
+offset_top = 67.0
 offset_right = -17.0
-offset_bottom = 98.0
+offset_bottom = 91.0
 grow_horizontal = 2
-theme_override_colors/font_color = Color(0.207843, 0.654902, 0.819608, 1)
+theme_override_colors/font_color = Color(0.662745, 0.756863, 0.823529, 1)
+theme_override_fonts/font = ExtResource("3_45hwp")
+theme_override_font_sizes/font_size = 19
 text = "Username"
 
 [node name="window_title3" type="Label" parent="Register_Window/register"]
@@ -226,11 +216,13 @@ layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = 17.0
-offset_top = 186.0
+offset_top = 167.0
 offset_right = -17.0
-offset_bottom = 209.0
+offset_bottom = 191.0
 grow_horizontal = 2
-theme_override_colors/font_color = Color(0.207843, 0.654902, 0.819608, 1)
+theme_override_colors/font_color = Color(0.662745, 0.756863, 0.823529, 1)
+theme_override_fonts/font = ExtResource("3_45hwp")
+theme_override_font_sizes/font_size = 19
 text = "Password"
 
 [node name="window_error" type="Label" parent="Register_Window/register"]
@@ -253,17 +245,17 @@ anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = 28.0
-offset_top = -22.5
-offset_right = -29.0
-offset_bottom = 19.5
+offset_left = 17.0
+offset_top = -39.0
+offset_right = -17.0
+offset_bottom = 3.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_placeholder_color = Color(0.862745, 0.862745, 0.862745, 1)
 theme_override_colors/font_color = Color(0.447059, 0.760784, 0.87451, 1)
 theme_override_styles/focus = SubResource("StyleBoxEmpty_bcv41")
 theme_override_styles/read_only = SubResource("StyleBoxEmpty_m0h6d")
-theme_override_styles/normal = SubResource("StyleBoxFlat_k2c4a")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ag52g")
 placeholder_text = "..."
 
 [node name="window_title4" type="Label" parent="Register_Window/register"]
@@ -271,11 +263,13 @@ layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = 17.0
-offset_top = 284.0
+offset_top = 262.0
 offset_right = -17.0
-offset_bottom = 307.0
+offset_bottom = 286.0
 grow_horizontal = 2
-theme_override_colors/font_color = Color(0.207843, 0.654902, 0.819608, 1)
+theme_override_colors/font_color = Color(0.662745, 0.756863, 0.823529, 1)
+theme_override_fonts/font = ExtResource("3_45hwp")
+theme_override_font_sizes/font_size = 19
 text = "Confirm Password"
 
 [node name="confirm_pass_input" type="LineEdit" parent="Register_Window/register"]
@@ -284,17 +278,17 @@ anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = 28.0
-offset_top = 80.5
-offset_right = -29.0
-offset_bottom = 122.5
+offset_left = 16.0
+offset_top = 54.0
+offset_right = -17.0
+offset_bottom = 96.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_placeholder_color = Color(0.862745, 0.862745, 0.862745, 1)
 theme_override_colors/font_color = Color(0.447059, 0.760784, 0.87451, 1)
 theme_override_styles/focus = SubResource("StyleBoxEmpty_bcv41")
 theme_override_styles/read_only = SubResource("StyleBoxEmpty_m0h6d")
-theme_override_styles/normal = SubResource("StyleBoxFlat_k2c4a")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ag52g")
 placeholder_text = "..."
 
 [node name="username_input" type="LineEdit" parent="Register_Window/register"]
@@ -303,17 +297,17 @@ anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = 29.0
-offset_top = -127.0
-offset_right = -29.0
-offset_bottom = -82.0
+offset_left = 17.0
+offset_top = -139.0
+offset_right = -17.0
+offset_bottom = -94.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_placeholder_color = Color(0.862745, 0.862745, 0.862745, 1)
 theme_override_colors/font_color = Color(0.447059, 0.760784, 0.87451, 1)
 theme_override_styles/focus = SubResource("StyleBoxEmpty_bcv41")
 theme_override_styles/read_only = SubResource("StyleBoxEmpty_m0h6d")
-theme_override_styles/normal = SubResource("StyleBoxFlat_k2c4a")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ag52g")
 placeholder_text = "e.x CatOwner22"
 
 [node name="login_btn" type="Button" parent="Register_Window/register"]
@@ -322,14 +316,15 @@ anchors_preset = 13
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -103.0
-offset_top = 505.0
-offset_right = 103.0
-offset_bottom = 63.0
+offset_left = -105.0
+offset_top = 575.0
+offset_right = 105.0
+offset_bottom = 133.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.207843, 0.654902, 0.819608, 1)
+theme_override_colors/font_color = Color(0.643137, 0.745098, 0.815686, 1)
+theme_override_fonts/font = ExtResource("3_45hwp")
 text = "I already have an account"
 flat = true
 
@@ -339,27 +334,22 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 13.0
-offset_top = -56.0
-offset_right = -13.0
-offset_bottom = -22.0
+offset_left = 17.0
+offset_top = -106.0
+offset_right = -17.0
+offset_bottom = -72.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_vertical = 3
-
-[node name="cancel_btn" type="Button" parent="Register_Window/register/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Cancel"
-flat = true
 
 [node name="submit_btn" type="Button" parent="Register_Window/register/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_45hwp")
+theme_override_font_sizes/font_size = 19
 theme_override_styles/focus = SubResource("StyleBoxEmpty_k2c4a")
-theme_override_styles/normal = SubResource("StyleBoxFlat_1jmvk")
+theme_override_styles/normal = SubResource("StyleBoxFlat_qpx4l")
 text = "Submit"
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
