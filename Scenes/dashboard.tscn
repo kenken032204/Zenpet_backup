@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bqrwlhh53caev"]
+[gd_scene load_steps=21 format=3 uid="uid://bqrwlhh53caev"]
 
 [ext_resource type="Script" uid="uid://35si2vhdcx33" path="res://Scripts/dashboard.gd" id="1_pyu07"]
 [ext_resource type="Texture2D" uid="uid://cxge6pknpl6gx" path="res://Sprite/GUI/dog.png" id="1_w53iw"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://d32gpwwv43bfy" path="res://Sprite/book-poster.png" id="6_3r00j"]
 [ext_resource type="Texture2D" uid="uid://3ky4w6j1h5su" path="res://Sprite/Poe-Chatbot-Logo.png" id="7_048ak"]
 [ext_resource type="Script" uid="uid://ud1iuobw7npf" path="res://Scenes/settings_btn.gd" id="9_mt3ts"]
+[ext_resource type="Texture2D" uid="uid://b6bal7kei4o4p" path="res://Sprite/GUI/game-controller-round-797-svgrepo-com (1).svg" id="10_vld2e"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wytj6"]
 bg_color = Color(1, 1, 1, 1)
@@ -76,6 +77,8 @@ corner_radius_top_right = 40
 corner_radius_bottom_right = 40
 corner_radius_bottom_left = 40
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mt3ts"]
+
 [node name="Control" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -84,7 +87,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_pyu07")
-metadata/_edit_vertical_guides_ = [292.0, 55.0]
+metadata/_edit_vertical_guides_ = [309.0, 55.0, 195.0, 359.0]
+metadata/_edit_horizontal_guides_ = [76.0, -175.0]
 
 [node name="Panel" type="Panel" parent="."]
 clip_contents = true
@@ -111,11 +115,12 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -157.0
-offset_top = -237.0
+offset_top = -218.0
 offset_right = 159.0
-offset_bottom = 248.0
+offset_bottom = 267.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(158, 244)
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 20
 
@@ -142,8 +147,8 @@ text = "ZenPet"
 alignment = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Panel/VBoxContainer/Zenpet_btn"]
-position = Vector2(253, 53)
-scale = Vector2(0.165, 0.162317)
+position = Vector2(284, 73)
+scale = Vector2(0.30375, 0.298811)
 texture = ExtResource("4_mt3ts")
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer/Zenpet_btn"]
@@ -153,7 +158,7 @@ offset_top = 64.0
 offset_right = 189.0
 offset_bottom = 87.0
 theme_override_fonts/font = ExtResource("3_mo7lo")
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 15
 text = "Interact with your pet"
 
 [node name="Zenbody_btn" type="Button" parent="Panel/VBoxContainer"]
@@ -185,12 +190,12 @@ offset_top = 65.0
 offset_right = 189.0
 offset_bottom = 88.0
 theme_override_fonts/font = ExtResource("3_mo7lo")
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 15
 text = "Meditate-Relax-Refreshed"
 
 [node name="Sprite2D2" type="Sprite2D" parent="Panel/VBoxContainer/Zenbody_btn"]
-position = Vector2(253, 51)
-scale = Vector2(0.125, 0.122967)
+position = Vector2(277.5, 64.5895)
+scale = Vector2(0.208984, 0.205585)
 texture = ExtResource("5_vld2e")
 
 [node name="Zendiary_btn" type="Button" parent="Panel/VBoxContainer"]
@@ -222,12 +227,12 @@ offset_top = 64.0
 offset_right = 189.0
 offset_bottom = 87.0
 theme_override_fonts/font = ExtResource("3_mo7lo")
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 15
 text = "Journal your thoughts away"
 
 [node name="Sprite2D3" type="Sprite2D" parent="Panel/VBoxContainer/Zendiary_btn"]
-position = Vector2(256, 52)
-scale = Vector2(0.1375, 0.135264)
+position = Vector2(288, 86)
+scale = Vector2(0.208333, 0.204945)
 texture = ExtResource("6_3r00j")
 
 [node name="Zenai_btn" type="Button" parent="Panel/VBoxContainer"]
@@ -259,12 +264,12 @@ offset_top = 63.0
 offset_right = 189.0
 offset_bottom = 86.0
 theme_override_fonts/font = ExtResource("3_mo7lo")
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 15
 text = "Talk your problems, away"
 
 [node name="Sprite2D4" type="Sprite2D" parent="Panel/VBoxContainer/Zenai_btn"]
-position = Vector2(253, 54)
-scale = Vector2(0.0537459, 0.0551111)
+position = Vector2(291, 88)
+scale = Vector2(0.0745507, 0.0764444)
 texture = ExtResource("7_048ak")
 
 [node name="Button" type="Button" parent="."]
@@ -282,6 +287,22 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_235xf")
 icon = ExtResource("3_vkjem")
 flat = true
 script = ExtResource("9_mt3ts")
+
+[node name="open_games_btn" type="Button" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -93.0
+offset_top = 91.0
+offset_right = -21.0
+offset_bottom = 163.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 36
+theme_override_styles/focus = SubResource("StyleBoxEmpty_235xf")
+icon = ExtResource("10_vld2e")
+flat = true
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
@@ -326,3 +347,25 @@ offset_right = 26.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_mt3ts")
+
+[node name="Button2" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -61.0
+offset_right = 160.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_hover_pressed_color = Color(1, 0.831373, 0.172549, 1)
+theme_override_colors/font_hover_color = Color(1, 0.831373, 0.172549, 1)
+theme_override_colors/font_color = Color(1, 0.831373, 0.172549, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.831373, 0.172549, 1)
+theme_override_fonts/font = ExtResource("3_mo7lo")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_mt3ts")
+text = "Visit My dashboard"
+flat = true

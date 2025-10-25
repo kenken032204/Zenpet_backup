@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cbeitv7iimw6q"]
+[gd_scene load_steps=16 format=3 uid="uid://cbeitv7iimw6q"]
 
 [ext_resource type="Script" uid="uid://cm7ggfri7cth7" path="res://Scenes/login.gd" id="1_5cd0j"]
 [ext_resource type="FontFile" uid="uid://b7qvl2gpk3y26" path="res://Fonts/Super Trend.ttf" id="2_hbxdl"]
@@ -23,27 +23,36 @@ content_margin_left = 10.0
 content_margin_top = 3.0
 content_margin_right = 3.0
 content_margin_bottom = 3.0
-bg_color = Color(1, 1, 1, 1)
 draw_center = false
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
-border_color = Color(0.643137, 0.745098, 0.815686, 1)
+border_color = Color(0.341176, 0.207843, 0.0627451, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hbxdl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m7a0j"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8164b"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dpd3p"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qrbpq"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_88cqn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m7a0j"]
-bg_color = Color(0.643137, 0.745098, 0.815686, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.52549, 0.647059, 0.733333, 1)
+bg_color = Color(1, 0.831373, 0.172549, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.341176, 0.207843, 0.0627451, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -129,9 +138,11 @@ offset_top = 2.0
 offset_right = -47.0
 offset_bottom = 46.0
 grow_horizontal = 2
-theme_override_colors/font_color = Color(0.52549, 0.647059, 0.733333, 1)
+theme_override_colors/font_color = Color(1, 0.831373, 0.172549, 1)
+theme_override_colors/font_outline_color = Color(0.341176, 0.207843, 0.0627451, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 12
 theme_override_fonts/font = ExtResource("2_hbxdl")
 theme_override_font_sizes/font_size = 35
 text = "Login"
@@ -147,7 +158,9 @@ offset_top = 67.0
 offset_right = -29.0
 offset_bottom = 91.0
 grow_horizontal = 2
-theme_override_colors/font_color = Color(0.643137, 0.745098, 0.815686, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.341176, 0.207843, 0.0627451, 1)
+theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("2_hbxdl")
 theme_override_font_sizes/font_size = 19
 text = "Username"
@@ -161,7 +174,9 @@ offset_top = 167.0
 offset_right = -28.0
 offset_bottom = 191.0
 grow_horizontal = 2
-theme_override_colors/font_color = Color(0.643137, 0.745098, 0.815686, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.341176, 0.207843, 0.0627451, 1)
+theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("2_hbxdl")
 theme_override_font_sizes/font_size = 19
 text = "Password"
@@ -178,12 +193,14 @@ offset_right = -29.0
 offset_bottom = 81.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_placeholder_color = Color(0.862745, 0.862745, 0.862745, 1)
-theme_override_colors/font_color = Color(0.447059, 0.760784, 0.87451, 1)
+theme_override_colors/font_placeholder_color = Color(1, 0.831373, 0.172549, 1)
+theme_override_colors/font_color = Color(0.341176, 0.207843, 0.0627451, 1)
+theme_override_fonts/font = ExtResource("2_hbxdl")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_fxa43")
 theme_override_styles/read_only = SubResource("StyleBoxEmpty_vrdhx")
 theme_override_styles/normal = SubResource("StyleBoxFlat_5iow8")
-placeholder_text = "..."
+secret = true
+secret_character = "*"
 
 [node name="username_input" type="LineEdit" parent="Login_window/register"]
 layout_mode = 1
@@ -197,8 +214,9 @@ offset_right = -29.0
 offset_bottom = -13.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_placeholder_color = Color(0.862745, 0.862745, 0.862745, 1)
-theme_override_colors/font_color = Color(0.447059, 0.760784, 0.87451, 1)
+theme_override_colors/font_placeholder_color = Color(1, 0.831373, 0.172549, 1)
+theme_override_colors/font_color = Color(0.341176, 0.207843, 0.0627451, 1)
+theme_override_fonts/font = ExtResource("2_hbxdl")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_fxa43")
 theme_override_styles/read_only = SubResource("StyleBoxEmpty_vrdhx")
 theme_override_styles/normal = SubResource("StyleBoxFlat_5iow8")
@@ -209,15 +227,25 @@ anchors_preset = 13
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -131.0
+offset_left = -129.0
 offset_top = 577.0
-offset_right = 131.0
+offset_right = 133.0
 offset_bottom = 288.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.643137, 0.745098, 0.815686, 1)
+theme_override_colors/font_disabled_color = Color(1, 0.831373, 0.172549, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 0.831373, 0.172549, 1)
+theme_override_colors/font_hover_color = Color(1, 0.831373, 0.172549, 1)
+theme_override_colors/font_color = Color(1, 0.831373, 0.172549, 1)
+theme_override_colors/font_focus_color = Color(1, 0.831373, 0.172549, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.831373, 0.172549, 1)
 theme_override_fonts/font = ExtResource("2_hbxdl")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hbxdl")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_m7a0j")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_8164b")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_dpd3p")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_qrbpq")
 text = "Don't have an account? Register"
 flat = true
 
@@ -242,6 +270,9 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_hbxdl")
 theme_override_font_sizes/font_size = 19
 theme_override_styles/focus = SubResource("StyleBoxEmpty_88cqn")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_m7a0j")
+theme_override_styles/hover = SubResource("StyleBoxFlat_m7a0j")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_m7a0j")
 theme_override_styles/normal = SubResource("StyleBoxFlat_m7a0j")
 text = "Login"
 

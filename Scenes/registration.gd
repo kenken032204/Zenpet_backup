@@ -32,6 +32,10 @@ func show_message(text: String, duration: float = 2.0):
 	
 func _ready():
 	add_child(http)
+	
+	Global.add_button_effects(go_to_login)
+	Global.add_button_effects(submit_btn)
+	
 	http.request_completed.connect(_on_HTTPRequest_request_completed)
 	go_to_login.pressed.connect(_go_login)
 	submit_btn.pressed.connect(_on_submit_pressed)

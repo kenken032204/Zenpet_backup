@@ -1,17 +1,17 @@
-[gd_scene load_steps=43 format=3 uid="uid://nrcxwgy5gygy"]
+[gd_scene load_steps=46 format=3 uid="uid://nrcxwgy5gygy"]
 
 [ext_resource type="Script" uid="uid://d5ilmyaeytnf" path="res://Scripts/zendiary.gd" id="1_crga8"]
+[ext_resource type="FontFile" uid="uid://b7qvl2gpk3y26" path="res://Fonts/Super Trend.ttf" id="2_78bd0"]
 [ext_resource type="Texture2D" uid="uid://b5ice2x4m76dg" path="res://Sprite/GUI/back-svgrepo-com.svg" id="2_wj2ap"]
 [ext_resource type="Script" uid="uid://dnij2abmv1ff6" path="res://Scenes/scroll_container.gd" id="3_78bd0"]
-[ext_resource type="Texture2D" uid="uid://bvwf15n7pu0ke" path="res://Sprite/brain-icon-outline_1076610-35170.png" id="3_crga8"]
 [ext_resource type="PackedScene" uid="uid://bh55l5138v0t5" path="res://Scenes/settings_btn.tscn" id="5_78bd0"]
 [ext_resource type="AudioStream" uid="uid://dy7ugph527csx" path="res://Audio/Happy_Notes.wav" id="5_gp04c"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c3due"]
-content_margin_left = 5.0
-content_margin_top = 5.0
-content_margin_right = 5.0
-content_margin_bottom = 5.0
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
 bg_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
@@ -52,16 +52,16 @@ anti_aliasing_size = 10.0
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5h6ls"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ccnec"]
-bg_color = Color(0.988235, 0.705882, 0.329412, 1)
+bg_color = Color(1, 0.831373, 0.172549, 1)
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
-border_color = Color(0.192157, 0.231373, 0.270588, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+border_color = Color(0.34902, 0.219608, 0.0745098, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uvkn8"]
 
@@ -69,15 +69,21 @@ corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ixxyp"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5sjju"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fthx5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7jbls"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gp04c"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f4pem"]
 bg_color = Color(1, 0.831373, 0.172549, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.192157, 0.231373, 0.270588, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.34902, 0.219608, 0.0745098, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -85,11 +91,11 @@ corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_78bd0"]
 bg_color = Color(1, 1, 1, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.839216, 0.54902, 0.168627, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.34902, 0.219608, 0.0745098, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -150,12 +156,12 @@ corner_radius_bottom_left = 2
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_crga8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gp04c"]
-bg_color = Color(0.988235, 0.705882, 0.329412, 1)
+bg_color = Color(1, 0.831373, 0.172549, 1)
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
-border_color = Color(0.192157, 0.231373, 0.270588, 1)
+border_color = Color(0.341176, 0.207843, 0.0627451, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -291,25 +297,21 @@ _data = {
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kefqq"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n1s54"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uvkn8"]
 content_margin_left = 10.0
-content_margin_top = 2.0
-content_margin_right = 2.0
-content_margin_bottom = 2.0
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.192157, 0.231373, 0.270588, 1)
+content_margin_top = 3.0
+content_margin_right = 3.0
+content_margin_bottom = 3.0
+draw_center = false
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.341176, 0.207843, 0.0627451, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
-expand_margin_left = 2.0
-expand_margin_top = 2.0
-expand_margin_right = 2.0
-expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_crga8"]
 bg_color = Color(0.6, 0.6, 0.6, 0.596078)
@@ -331,7 +333,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_crga8")
 metadata/_edit_horizontal_guides_ = [297.0, 281.0, 30.0]
-metadata/_edit_vertical_guides_ = [51.0, 462.0, 346.0]
+metadata/_edit_vertical_guides_ = [51.0, 462.0, 346.0, 196.0]
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -348,10 +350,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -176.0
-offset_top = -162.0
-offset_right = 185.0
-offset_bottom = 291.0
+offset_left = -189.0
+offset_top = -166.0
+offset_right = 199.0
+offset_bottom = 286.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.990776, 1.00687)
@@ -359,6 +361,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_c3due")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_1y5rp")
 follow_focus = true
 draw_focus_border = true
+script = ExtResource("3_78bd0")
 
 [node name="GridContainer" type="GridContainer" parent="Journal_window"]
 layout_mode = 2
@@ -384,8 +387,9 @@ offset_bottom = 38.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(105, 14)
-theme_override_colors/font_color = Color(1, 0.607843, 0.0901961, 1)
-theme_override_font_sizes/font_size = 21
+theme_override_colors/font_color = Color(1, 0.831373, 0.172549, 1)
+theme_override_fonts/font = ExtResource("2_78bd0")
+theme_override_font_sizes/font_size = 28
 text = "You have no notes :<"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -415,9 +419,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -147.0
+offset_left = -139.0
 offset_top = -236.0
-offset_right = -83.0
+offset_right = -75.0
 offset_bottom = -172.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -456,8 +460,9 @@ offset_top = 68.0
 offset_right = -23.0
 offset_bottom = 98.0
 grow_horizontal = 2
-theme_override_colors/font_placeholder_color = Color(1, 1, 1, 1)
+theme_override_colors/font_placeholder_color = Color(1, 1, 1, 0.603922)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_78bd0")
 theme_override_font_sizes/font_size = 21
 theme_override_styles/focus = SubResource("StyleBoxEmpty_uvkn8")
 theme_override_styles/read_only = SubResource("StyleBoxEmpty_r7gum")
@@ -474,6 +479,18 @@ mouse_default_cursor_shape = 6
 horizontal_scroll_mode = 0
 script = ExtResource("3_78bd0")
 
+[node name="TextEdit" type="TextEdit" parent="Add_Journal_window/journal-id/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_placeholder_color = Color(1, 1, 1, 0.596078)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_78bd0")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_5sjju")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_fthx5")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_7jbls")
+placeholder_text = "Tell me something..."
+
 [node name="journal-settings" type="HBoxContainer" parent="Add_Journal_window"]
 layout_mode = 1
 anchors_preset = 12
@@ -481,9 +498,9 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 23.0
-offset_top = -48.0
+offset_top = -61.0
 offset_right = -23.0
-offset_bottom = -18.0
+offset_bottom = -31.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 3
@@ -493,6 +510,7 @@ size_flags_vertical = 8
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_78bd0")
 theme_override_font_sizes/font_size = 18
 theme_override_styles/focus = SubResource("StyleBoxEmpty_gp04c")
 theme_override_styles/normal = SubResource("StyleBoxFlat_f4pem")
@@ -501,7 +519,8 @@ text = "Save"
 [node name="cancel-btn" type="Button" parent="Add_Journal_window/journal-settings"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.34902, 0.219608, 0.0745098, 1)
+theme_override_fonts/font = ExtResource("2_78bd0")
 theme_override_font_sizes/font_size = 18
 theme_override_styles/focus = SubResource("StyleBoxEmpty_gp04c")
 theme_override_styles/normal = SubResource("StyleBoxFlat_78bd0")
@@ -512,9 +531,9 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -93.0
+offset_left = -104.0
 offset_top = 26.0
-offset_right = -15.0
+offset_right = -26.0
 offset_bottom = 41.0
 grow_horizontal = 0
 
@@ -551,19 +570,22 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_yajdy")
 theme_override_styles/normal = SubResource("StyleBoxFlat_0i05r")
 
 [node name="add_new_journal_btn" type="Button" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -168.0
-offset_top = 311.0
-offset_right = 168.0
-offset_bottom = 351.0
+offset_left = -154.0
+offset_top = 302.0
+offset_right = 154.0
+offset_bottom = 344.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_78bd0")
+theme_override_font_sizes/font_size = 20
 theme_override_styles/focus = SubResource("StyleBoxEmpty_crga8")
 theme_override_styles/normal = SubResource("StyleBoxFlat_gp04c")
 text = "Add a new Note"
@@ -575,13 +597,15 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -168.0
-offset_top = 364.0
-offset_right = 168.0
-offset_bottom = 391.0
+offset_left = -167.0
+offset_top = 357.5
+offset_right = 169.0
+offset_bottom = 391.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(1, 0.607843, 0.0901961, 1)
+theme_override_colors/font_color = Color(1, 0.831373, 0.172549, 1)
+theme_override_fonts/font = ExtResource("2_78bd0")
+theme_override_font_sizes/font_size = 19
 theme_override_styles/focus = SubResource("StyleBoxEmpty_crga8")
 theme_override_styles/normal = SubResource("StyleBoxFlat_gp04c")
 text = "Want to talk it out? Go to ZenAi"
@@ -593,21 +617,21 @@ anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = 41.0
-offset_top = -318.0
-offset_right = -152.0
-offset_bottom = -243.0
+offset_left = 53.0
+offset_top = -268.0
+offset_right = -45.0
+offset_bottom = -236.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0.192157, 0.231373, 0.270588, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.341176, 0.207843, 0.0627451, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("2_78bd0")
 theme_override_font_sizes/font_size = 26
 text = "What's on your mind?"
+horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 1
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(304, 141)
-scale = Vector2(0.15016, 0.15016)
-texture = ExtResource("3_crga8")
 
 [node name="back_button" type="Button" parent="."]
 layout_mode = 1
@@ -616,9 +640,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -167.0
+offset_left = -168.0
 offset_top = -400.0
-offset_right = -95.0
+offset_right = -96.0
 offset_bottom = -328.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -662,15 +686,15 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -164.0
-offset_top = -201.0
+offset_left = -158.0
+offset_top = -223.0
 offset_right = 164.0
-offset_bottom = -174.0
+offset_bottom = -179.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ufpgt")
 theme_override_styles/read_only = SubResource("StyleBoxEmpty_kefqq")
-theme_override_styles/normal = SubResource("StyleBoxFlat_n1s54")
+theme_override_styles/normal = SubResource("StyleBoxFlat_uvkn8")
 placeholder_text = "Search..."
 
 [node name="toast_notification" type="Label" parent="."]

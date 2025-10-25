@@ -1,11 +1,13 @@
-[gd_scene load_steps=17 format=3 uid="uid://cqou840dqir01"]
+[gd_scene load_steps=19 format=3 uid="uid://cqou840dqir01"]
 
 [ext_resource type="Texture2D" uid="uid://b5ice2x4m76dg" path="res://Sprite/GUI/back-svgrepo-com.svg" id="1_ctyiq"]
 [ext_resource type="Script" uid="uid://bq61cpyr5s4q" path="res://Scenes/zenbody_level_1.gd" id="1_xc7yd"]
+[ext_resource type="Texture2D" uid="uid://cxge6pknpl6gx" path="res://Sprite/GUI/dog.png" id="2_xotda"]
+[ext_resource type="FontFile" uid="uid://b7qvl2gpk3y26" path="res://Fonts/Super Trend.ttf" id="3_hk0ch"]
 [ext_resource type="Texture2D" uid="uid://cw1k432863fv1" path="res://Sprite/2917805.png" id="3_xc7yd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lnkm6"]
-bg_color = Color(0.984314, 0.639216, 0.431373, 1)
+bg_color = Color(1, 0.831373, 0.172549, 1)
 corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
 
@@ -13,33 +15,50 @@ corner_radius_bottom_left = 50
 bg_color = Color(1, 1, 1, 1)
 corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
-shadow_color = Color(0.720404, 0.759802, 0.961924, 1)
+shadow_color = Color(0.341176, 0.207843, 0.0627451, 1)
 shadow_size = 1
 shadow_offset = Vector2(0, 5.64)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yd4af"]
-bg_color = Color(0.994447, 0.8078, 0.701716, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_se35l"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.341176, 0.207843, 0.0627451, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xc7yd"]
-bg_color = Color(0.983056, 0.638986, 0.431712, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ds5m"]
+bg_color = Color(0.176471, 0.25098, 0.32549, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xotda"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hk0ch"]
-bg_color = Color(0.843137, 0.356863, 0.345098, 1)
-border_color = Color(0.646296, 0.437752, 0, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+bg_color = Color(0.223529, 0.403922, 0.584314, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.341176, 0.207843, 0.0627451, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [sub_resource type="Animation" id="Animation_xc7yd"]
 length = 0.001
@@ -70,14 +89,14 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("start_btn:position")
+tracks/2/path = NodePath("start_btn:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(121, 691)]
+"values": [Vector2(1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_yd4af"]
@@ -109,14 +128,14 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("start_btn:position")
-tracks/2/interp = 1
+tracks/2/path = NodePath("start_btn:scale")
+tracks/2/interp = 2
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.566667, 1),
-"transitions": PackedFloat32Array(0.574349, 1.27456, 1),
+"times": PackedFloat32Array(0, 0.333333, 0.766667),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(121, 732.075), Vector2(121, 686.455), Vector2(121, 691)]
+"values": [Vector2(1.095, 1.095), Vector2(0.94, 0.94), Vector2(1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lnkm6"]
@@ -143,6 +162,7 @@ grow_vertical = 2
 script = ExtResource("1_xc7yd")
 
 [node name="ColorRect2" type="Panel" parent="."]
+clip_contents = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -151,6 +171,12 @@ offset_bottom = 81.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_lnkm6")
+
+[node name="Sprite2D" type="Sprite2D" parent="ColorRect2"]
+modulate = Color(1, 0.698039, 0.65098, 0.0705882)
+self_modulate = Color(1, 0.813727, 0.780998, 0.411765)
+position = Vector2(250, 789)
+texture = ExtResource("2_xotda")
 
 [node name="ColorRect" type="Panel" parent="."]
 layout_mode = 1
@@ -168,37 +194,45 @@ offset_right = 40.0
 offset_bottom = 40.0
 pivot_offset = Vector2(191, 325)
 
-[node name="Label" type="Label" parent="Control"]
+[node name="level_number" type="Label" parent="Control"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_top = 128.0
+offset_top = 112.5
 offset_right = 350.0
-offset_bottom = 151.0
+offset_bottom = 140.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 0.831373, 0.172549, 1)
+theme_override_colors/font_outline_color = Color(0.341176, 0.207843, 0.0627451, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("3_hk0ch")
+theme_override_font_sizes/font_size = 22
 text = "Level 1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label4" type="Label" parent="Control"]
+[node name="level_title" type="Label" parent="Control"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_top = 159.0
+offset_top = 146.0
 offset_right = 350.0
-offset_bottom = 182.0
+offset_bottom = 183.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "- Yoga Title -"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.341176, 0.207843, 0.0627451, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("3_hk0ch")
+theme_override_font_sizes/font_size = 30
+text = "Beginner's Zen"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -210,12 +244,16 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 79.0
-offset_top = 562.0
+offset_top = 579.0
 offset_right = 271.0
-offset_bottom = 585.0
+offset_bottom = 616.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.341176, 0.207843, 0.0627451, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("3_hk0ch")
+theme_override_font_sizes/font_size = 30
 text = "10.0s"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -227,14 +265,17 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 61.0
-offset_top = 434.0
-offset_right = 290.0
-offset_bottom = 531.0
+offset_left = 28.0
+offset_top = 428.0
+offset_right = 323.0
+offset_bottom = 574.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.341176, 0.207843, 0.0627451, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("3_hk0ch")
+theme_override_font_sizes/font_size = 16
 text = "Welcome!
 Find a comfortable seated position—cross-legged if it feels good. Gently place your hands on your knees or in your lap..."
 horizontal_alignment = 1
@@ -242,7 +283,7 @@ vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Control"]
-position = Vector2(184, 296)
+position = Vector2(196, 296)
 scale = Vector2(0.304688, 0.304688)
 texture = ExtResource("3_xc7yd")
 
@@ -253,14 +294,19 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 60.0
-offset_top = 384.0
-offset_right = 290.0
-offset_bottom = 399.0
+offset_left = 44.0
+offset_top = 371.0
+offset_right = 304.0
+offset_bottom = 423.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_yd4af")
-theme_override_styles/fill = SubResource("StyleBoxFlat_xc7yd")
+theme_override_colors/font_color = Color(1, 0.831373, 0.172549, 1)
+theme_override_colors/font_outline_color = Color(0.341176, 0.207843, 0.0627451, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("3_hk0ch")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/background = SubResource("StyleBoxFlat_se35l")
+theme_override_styles/fill = SubResource("StyleBoxFlat_7ds5m")
 show_percentage = false
 
 [node name="start_btn" type="Button" parent="."]
@@ -270,19 +316,22 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -74.0
-offset_top = 269.0
-offset_right = 74.0
-offset_bottom = 314.0
+offset_left = -117.0
+offset_top = 273.0
+offset_right = 123.0
+offset_bottom = 330.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(75, 22)
+pivot_offset = Vector2(122, 25)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_hk0ch")
+theme_override_font_sizes/font_size = 30
 theme_override_styles/focus = SubResource("StyleBoxEmpty_xotda")
 theme_override_styles/normal = SubResource("StyleBoxFlat_hk0ch")
 text = "Start"
 
 [node name="fade_out_rect" type="ColorRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -314,3 +363,5 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_xc7yd")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_lnkm6")
 icon = ExtResource("1_ctyiq")
 icon_alignment = 1
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]

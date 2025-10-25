@@ -1,21 +1,26 @@
-[gd_scene load_steps=18 format=3 uid="uid://seaaico7nhkr"]
+[gd_scene load_steps=25 format=3 uid="uid://seaaico7nhkr"]
 
 [ext_resource type="Texture2D" uid="uid://b5ice2x4m76dg" path="res://Sprite/GUI/back-svgrepo-com.svg" id="1_7e23w"]
 [ext_resource type="Script" uid="uid://b2t03sivxs71s" path="res://Scenes/zenbody.gd" id="1_pok1w"]
 [ext_resource type="Texture2D" uid="uid://cxge6pknpl6gx" path="res://Sprite/GUI/dog.png" id="2_pok1w"]
 [ext_resource type="FontFile" uid="uid://b7qvl2gpk3y26" path="res://Fonts/Super Trend.ttf" id="4_lojgk"]
 [ext_resource type="Script" uid="uid://dnij2abmv1ff6" path="res://Scenes/scroll_container.gd" id="4_ocp8v"]
+[ext_resource type="Texture2D" uid="uid://8revhcpkl6gj" path="res://Sprite/closed-golden-padlock-game-icon-block-and-security-png.png" id="6_2lv6m"]
+[ext_resource type="Texture2D" uid="uid://c3nm0o1gl8uh0" path="res://Sprite/GUI/settings-svgrepo-com.svg" id="7_2lv6m"]
+[ext_resource type="Script" uid="uid://ud1iuobw7npf" path="res://Scenes/settings_btn.gd" id="8_il5n6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lojgk"]
-bg_color = Color(0.984314, 0.639216, 0.431373, 1)
+bg_color = Color(1, 0.831373, 0.172549, 1)
 corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0qeya"]
 bg_color = Color(1, 1, 1, 1)
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 50
-shadow_color = Color(0.720404, 0.759802, 0.961924, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+shadow_color = Color(0.341176, 0.207843, 0.0627451, 1)
 shadow_size = 1
 shadow_offset = Vector2(0, 5.64)
 
@@ -28,12 +33,12 @@ shadow_offset = Vector2(0, 5.64)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0qeya"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ocp8v"]
-bg_color = Color(0.0288, 0.0458667, 0.08, 0.831373)
+bg_color = Color(0.176471, 0.466667, 1, 1)
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
-border_color = Color(1, 1, 1, 1)
+border_color = Color(0.341176, 0.207843, 0.0627451, 1)
 corner_radius_top_left = 60
 corner_radius_top_right = 60
 corner_radius_bottom_right = 60
@@ -48,78 +53,6 @@ tracks/0/path = NodePath("fade_out_rect:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ScrollContainer:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("ColorRect:size")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(390, 372)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("ScrollContainer:scale")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Sprite2D:modulate")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 0.698039, 0.65098, 0.0705882)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Control:modulate")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("back_button:modulate")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -144,78 +77,6 @@ tracks/0/keys = {
 [sub_resource type="Animation" id="Animation_ocp8v"]
 resource_name = "level_pressed"
 length = 1.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ScrollContainer:modulate")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.266667),
-"transitions": PackedFloat32Array(1, 0.143587),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ColorRect:size")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1.5),
-"transitions": PackedFloat32Array(2.82843, 1),
-"update": 0,
-"values": [Vector2(390, 372), Vector2(390, 1000)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("ScrollContainer:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.533333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(2.575, 2.575)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0.0333333, 1.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 0.698039, 0.65098, 0.0705882), Color(1, 0.698039, 0.65098, 0)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Control:modulate")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0.466667, 1.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("back_button:modulate")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 1.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ocp8v"]
 _data = {
@@ -226,11 +87,57 @@ _data = {
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tvlsw"]
 bg_color = Color(0.177056, 0.465902, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(2.88785e-07, 0.332815, 0.874929, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eao6r"]
+bg_color = Color(0.176471, 0.466667, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.341176, 0.207843, 0.0627451, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2lv6m"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.341176, 0.207843, 0.0627451, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_il5n6"]
+bg_color = Color(0.176471, 0.25098, 0.32549, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eao6r"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -240,7 +147,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_pok1w")
-metadata/_edit_vertical_guides_ = [83.0, 303.0]
+metadata/_edit_vertical_guides_ = [83.0, 303.0, 193.0]
+metadata/_edit_horizontal_guides_ = [67.0, 37.0]
 
 [node name="ColorRect2" type="Panel" parent="."]
 layout_mode = 1
@@ -257,9 +165,13 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_bottom = -472.0
+offset_left = -12.0
+offset_top = -8.0
+offset_right = 13.0
+offset_bottom = -480.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(207, 219)
 theme_override_styles/panel = SubResource("StyleBoxFlat_0qeya")
 
 [node name="back_button" type="Button" parent="."]
@@ -299,42 +211,53 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 18.0
-offset_top = 407.0
-offset_right = -17.0
-offset_bottom = 3.53754
+offset_left = 36.0
+offset_top = 421.0
+offset_right = -34.0
+offset_bottom = 577.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(167, 184)
-horizontal_scroll_mode = 3
-vertical_scroll_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 0
 script = ExtResource("4_ocp8v")
 
-[node name="CanvasLayer" type="Control" parent="ScrollContainer"]
+[node name="Levellist" type="GridContainer" parent="ScrollContainer"]
 custom_minimum_size = Vector2(0, 1000)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
 
-[node name="level_1" type="Button" parent="ScrollContainer/CanvasLayer"]
+[node name="level_1" type="Button" parent="ScrollContainer/Levellist"]
+visible = false
+clip_contents = true
 custom_minimum_size = Vector2(100, 100)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -149.341
-offset_top = -478.749
-offset_right = -17.3408
-offset_bottom = -349.749
-grow_horizontal = 2
-grow_vertical = 2
-rotation = -0.244346
-pivot_offset = Vector2(69, 67)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0.293875, 0.780063, 1)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 66
+theme_override_constants/outline_size = 18
+theme_override_fonts/font = ExtResource("4_lojgk")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/focus = SubResource("StyleBoxFlat_ocp8v")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_ocp8v")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_ocp8v")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_ocp8v")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_ocp8v")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_ocp8v")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ocp8v")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_ocp8v")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ocp8v")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_ocp8v")
 theme_override_styles/normal = SubResource("StyleBoxFlat_ocp8v")
 text = "1"
+
+[node name="Sprite2D" type="Sprite2D" parent="ScrollContainer/Levellist/level_1"]
+visible = false
+position = Vector2(50, 50)
+rotation = 0.235619
+scale = Vector2(0.18, 0.18)
+texture = ExtResource("6_2lv6m")
 
 [node name="fade_out_rect" type="ColorRect" parent="."]
 visible = false
@@ -366,16 +289,18 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -112.0
-offset_top = 155.0
-offset_right = 110.0
-offset_bottom = 212.0
+offset_left = -111.0
+offset_top = 120.0
+offset_right = 109.0
+offset_bottom = 205.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 41
+theme_override_fonts/font = ExtResource("4_lojgk")
+theme_override_font_sizes/font_size = 61
 theme_override_styles/normal = SubResource("StyleBoxFlat_tvlsw")
 text = "1"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Label" type="Label" parent="Control"]
 layout_mode = 1
@@ -384,38 +309,42 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -140.0
-offset_top = 293.0
-offset_right = 138.0
-offset_bottom = 339.0
+offset_left = -169.0
+offset_top = 338.0
+offset_right = 167.0
+offset_bottom = 395.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0.176471, 0.466667, 1, 1)
-theme_override_constants/outline_size = 5
+theme_override_colors/font_outline_color = Color(0.341176, 0.207843, 0.0627451, 1)
 theme_override_fonts/font = ExtResource("4_lojgk")
-theme_override_font_sizes/font_size = 37
+theme_override_font_sizes/font_size = 29
+theme_override_styles/normal = SubResource("StyleBoxFlat_eao6r")
 text = "Level Selection"
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="Control"]
-visible = false
+[node name="Label3" type="Label" parent="Control"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -94.0
-offset_top = 104.0
-offset_right = 92.0
-offset_bottom = 140.0
+offset_left = -140.0
+offset_top = 209.0
+offset_right = 138.0
+offset_bottom = 255.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 26
-text = "ZENBODY"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.341176, 0.207843, 0.0627451, 1)
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = ExtResource("4_lojgk")
+theme_override_font_sizes/font_size = 25
+text = "YOGA master"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ProgressBar" type="ProgressBar" parent="Control"]
 layout_mode = 1
@@ -424,9 +353,36 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -110.0
-offset_top = 240.0
-offset_right = 108.0
-offset_bottom = 267.0
+offset_left = -129.0
+offset_top = 262.0
+offset_right = 127.0
+offset_bottom = 314.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.831373, 0.172549, 1)
+theme_override_colors/font_outline_color = Color(0.341176, 0.207843, 0.0627451, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("4_lojgk")
+theme_override_font_sizes/font_size = 34
+theme_override_styles/background = SubResource("StyleBoxFlat_2lv6m")
+theme_override_styles/fill = SubResource("StyleBoxFlat_il5n6")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -86.0
+offset_top = 16.0
+offset_right = -14.0
+offset_bottom = 88.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 36
+theme_override_styles/focus = SubResource("StyleBoxEmpty_eao6r")
+icon = ExtResource("7_2lv6m")
+flat = true
+script = ExtResource("8_il5n6")
+
+[node name="HTTPRequestLevels" type="HTTPRequest" parent="."]
+
+[node name="HTTPRequestUser" type="HTTPRequest" parent="."]

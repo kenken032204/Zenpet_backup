@@ -23,6 +23,7 @@ Global="*res://Scripts/Global.gd"
 JournalManager="*res://Scripts/JournalManager.gd"
 Infospawner="*res://infospawner.gd"
 LevelManager="*res://LevelManager.gd"
+MoodAssessment="*res://Scenes/mood_assessment.tscn"
 
 [display]
 

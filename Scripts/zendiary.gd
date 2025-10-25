@@ -7,7 +7,6 @@ extends Control
 var scroll_dragging := false
 var last_mouse_pos := Vector2.ZERO
 
-
 signal journal_saved(journal_text: String, journal_id: String)
 
 @onready var back_button = $back_button
@@ -19,7 +18,7 @@ signal journal_saved(journal_text: String, journal_id: String)
 @onready var cancel_btn = $"Add_Journal_window/journal-settings/cancel-btn"
 @onready var add_journal_window = $"Add_Journal_window"
 @onready var journal_title = $"Add_Journal_window/journal-id/journal-title"
-@onready var journal_text = $"Add_Journal_window/journal-id/ScrollContainer/journal-text"
+@onready var journal_text = $"Add_Journal_window/journal-id/ScrollContainer/TextEdit"
 @onready var journal_id_panel = $"Add_Journal_window/journal-id"
 @onready var no_notes_label = $"no_notes_indicator"
 @onready var audio = $AudioStreamPlayer2D

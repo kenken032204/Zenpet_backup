@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://djqd080iq0kwq"
+path="res://.godot/imported/rne Perc.wav-1c4955e082f6182d6c3bb9a0b3a73924.sample"
+
+[deps]
+
+source_file="res://Audio/rne Perc.wav"
+dest_files=["res://.godot/imported/rne Perc.wav-1c4955e082f6182d6c3bb9a0b3a73924.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

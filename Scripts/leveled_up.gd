@@ -29,7 +29,6 @@ func show_level_up(new_level: int):
 	save_level(new_level)
 	visible = true
 
-
 func save_level(level_val: int):
 	var data = {
 		"level": level_val,
@@ -40,4 +39,4 @@ func save_level(level_val: int):
 	file.close()
 
 func hide_popup():
-	visible = false
+	queue_free()

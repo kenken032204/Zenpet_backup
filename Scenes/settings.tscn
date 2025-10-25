@@ -1,18 +1,12 @@
-[gd_scene load_steps=17 format=3 uid="uid://csgjkfsuh7dpu"]
+[gd_scene load_steps=18 format=3 uid="uid://csgjkfsuh7dpu"]
 
 [ext_resource type="Texture2D" uid="uid://cxge6pknpl6gx" path="res://Sprite/GUI/dog.png" id="1_4geyq"]
 [ext_resource type="Script" uid="uid://bro8xq41ggo85" path="res://Scripts/settings.gd" id="1_lhmql"]
 [ext_resource type="Texture2D" uid="uid://b5ice2x4m76dg" path="res://Sprite/GUI/back-svgrepo-com.svg" id="2_i44u3"]
+[ext_resource type="FontFile" uid="uid://b7qvl2gpk3y26" path="res://Fonts/Super Trend.ttf" id="3_j2dne"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i44u3"]
 bg_color = Color(1, 1, 1, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4geyq"]
-bg_color = Color(0, 0, 0, 1)
-expand_margin_left = 1.0
-expand_margin_top = 1.0
-expand_margin_right = 1.0
-expand_margin_bottom = 1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i44u3"]
 
@@ -30,10 +24,10 @@ content_margin_top = 5.0
 content_margin_right = 5.0
 content_margin_bottom = 5.0
 bg_color = Color(1, 1, 1, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
 border_color = Color(0.498814, 0.305125, 0.236477, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
@@ -45,12 +39,12 @@ content_margin_left = 5.0
 content_margin_top = 5.0
 content_margin_right = 5.0
 content_margin_bottom = 5.0
-bg_color = Color(1, 0.298039, 0.141176, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.498814, 0.305125, 0.236477, 1)
+bg_color = Color(1, 0.831373, 0.172549, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.341176, 0.207843, 0.0627451, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -63,6 +57,8 @@ corner_radius_bottom_left = 5
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j2dne"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6kysc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f60ng"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -106,32 +102,36 @@ theme_override_constants/separation = 20
 
 [node name="Label2" type="Label" parent="CanvasLayer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.984314, 0.815686, 0.168627, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("3_j2dne")
 theme_override_font_sizes/font_size = 26
 text = "Settings"
 
-[node name="Panel" type="Panel" parent="CanvasLayer"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_4geyq")
-
 [node name="Label4" type="Label" parent="CanvasLayer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.578316, 0.507134, 0.507685, 1)
+theme_override_colors/font_color = Color(1, 0.831373, 0.172549, 1)
+theme_override_fonts/font = ExtResource("3_j2dne")
+theme_override_font_sizes/font_size = 19
 text = "General Questions"
 
 [node name="LinkButton" type="LinkButton" parent="CanvasLayer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.984314, 0.815686, 0.168627, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("3_j2dne")
 theme_override_font_sizes/font_size = 26
 text = "How to play?"
 underline = 2
 
 [node name="Label" type="Label" parent="CanvasLayer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.578316, 0.507134, 0.507685, 1)
+theme_override_colors/font_color = Color(1, 0.831373, 0.172549, 1)
+theme_override_fonts/font = ExtResource("3_j2dne")
+theme_override_font_sizes/font_size = 19
 text = "Accessibility"
 
 [node name="CheckButton" type="CheckButton" parent="CanvasLayer"]
@@ -147,9 +147,11 @@ theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 0.831373, 0.172549, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("3_j2dne")
 theme_override_font_sizes/font_size = 26
 theme_override_styles/focus = SubResource("StyleBoxEmpty_i44u3")
 theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_bismi")
@@ -170,9 +172,11 @@ theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 0.831373, 0.172549, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("3_j2dne")
 theme_override_font_sizes/font_size = 26
 theme_override_styles/focus = SubResource("StyleBoxEmpty_i44u3")
 theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_bismi")
@@ -182,12 +186,16 @@ text = "Sound"
 
 [node name="Label3" type="Label" parent="CanvasLayer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.578316, 0.507134, 0.507685, 1)
+theme_override_colors/font_color = Color(1, 0.831373, 0.172549, 1)
+theme_override_fonts/font = ExtResource("3_j2dne")
+theme_override_font_sizes/font_size = 19
 text = "Account Settings"
 
 [node name="Button" type="Button" parent="CanvasLayer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 0.831373, 0.172549, 1)
+theme_override_fonts/font = ExtResource("3_j2dne")
+theme_override_font_sizes/font_size = 19
 theme_override_styles/focus = SubResource("StyleBoxEmpty_lhmql")
 theme_override_styles/normal = SubResource("StyleBoxFlat_aaqfp")
 text = "Change Pet Name"
@@ -195,6 +203,8 @@ text = "Change Pet Name"
 [node name="logout_btn" type="Button" parent="CanvasLayer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_j2dne")
+theme_override_font_sizes/font_size = 19
 theme_override_styles/focus = SubResource("StyleBoxEmpty_lhmql")
 theme_override_styles/normal = SubResource("StyleBoxFlat_j2dne")
 text = "Logout"
@@ -224,3 +234,22 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_j2dne")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_6kysc")
 icon = ExtResource("2_i44u3")
 icon_alignment = 1
+
+[node name="feedback_btn" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -61.0
+offset_right = 160.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 0.831373, 0.172549, 1)
+theme_override_fonts/font = ExtResource("3_j2dne")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_f60ng")
+text = "Support the game? Provide us feedback!"
+flat = true

@@ -1,10 +1,11 @@
 extends Node
 
 var User = {}
+var current_zenbody_level: Dictionary = {}
 
-func _ready():
-	if Global.User.is_empty():
-		get_tree().change_scene_to_file("res://Scenes/login.tscn")
+#func _ready():
+	#if Global.User.is_empty():
+		#get_tree().change_scene_to_file("res://Scenes/login.tscn")
 
 var total_exp: int = 0
 
@@ -85,3 +86,45 @@ func load_stats():
 	else:
 		energy = 100
 		cleanliness = 100
+		
+func add_button_effects(button: Button) -> void:
+	if not button:
+		return
+	
+	# Center pivot so scaling happens from the middle
+	button.pivot_offset = button.size / 2
+
+	# Ensure it updates pivot dynamically if resized
+	button.resized.connect(func():
+		button.pivot_offset = button.size / 2
+	)
+
+	# Connect signals safely (no duplicates)
+	if not button.is_connected("mouse_entered", Callable(self, "_on_button_hover")):
+		button.mouse_entered.connect(_on_button_hover.bind(button))
+	if not button.is_connected("mouse_exited", Callable(self, "_on_button_exit")):
+		button.mouse_exited.connect(_on_button_exit.bind(button))
+	if not button.is_connected("pressed", Callable(self, "_on_button_pressed")):
+		button.pressed.connect(_on_button_pressed.bind(button))
+	if not button.is_connected("button_up", Callable(self, "_on_button_released")):
+		button.button_up.connect(_on_button_released.bind(button))
+
+# === EFFECT ANIMATIONS ===
+func _on_button_hover(button: Button) -> void:
+	var tween = button.create_tween()
+	tween.tween_property(button, "scale", Vector2(1.1, 1.1), 0.15).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+
+func _on_button_exit(button: Button) -> void:
+	var tween = button.create_tween()
+	tween.tween_property(button, "scale", Vector2(1.0, 1.0), 0.1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
+
+func _on_button_pressed(button: Button) -> void:
+	var tween = button.create_tween()
+	tween.tween_property(button, "modulate", Color(0.85, 0.85, 0.85, 0.5), 0.05)
+	
+	var click_sound: AudioStream = preload("res://Audio/bubble_iMw0wu6.mp3")
+	play_sound(click_sound, -5) 
+	
+func _on_button_released(button: Button) -> void:
+	var tween = button.create_tween()
+	tween.tween_property(button, "modulate", Color(1, 1, 1, 1), 0.05)
