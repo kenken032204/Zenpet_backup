@@ -1,0 +1,87 @@
+[gd_scene load_steps=7 format=3 uid="uid://bsqais425lb8t"]
+
+[ext_resource type="Texture2D" uid="uid://b6o8p1gaaw8jk" path="res://Sprite/sun-307189_640.png" id="1_iau67"]
+[ext_resource type="Script" uid="uid://dhexko6o515hf" path="res://Scenes/minigame_complete.gd" id="1_ut6vc"]
+[ext_resource type="FontFile" uid="uid://b7qvl2gpk3y26" path="res://Fonts/Super Trend.ttf" id="2_ut6vc"]
+
+[sub_resource type="Animation" id="Animation_8kfpj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_fsgy8"]
+resource_name = "sunrays"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.5708]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_smo17"]
+_data = {
+&"RESET": SubResource("Animation_8kfpj"),
+&"sunrays": SubResource("Animation_fsgy8")
+}
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(195, 422)
+script = ExtResource("1_ut6vc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0.960784, 0.811765, 0.152941)
+position = Vector2(194, 420)
+scale = Vector2(1.30313, 1.325)
+texture = ExtResource("1_iau67")
+
+[node name="Label3" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -143.0
+offset_top = -27.0
+offset_right = 151.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.831373, 0.172549, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.341176, 0.207843, 0.0627451, 1)
+theme_override_constants/outline_size = 12
+theme_override_constants/shadow_outline_size = 33
+theme_override_fonts/font = ExtResource("2_ut6vc")
+theme_override_font_sizes/font_size = 39
+text = "Level Complete!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_smo17")
+}

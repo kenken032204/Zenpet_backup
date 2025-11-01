@@ -1,5 +1,8 @@
 extends Node
 
+const SERVER_IP = "192.168.254.128"
+const BASE_URL = "http://%s/zenpet/" % SERVER_IP
+
 var User = {}
 var current_zenbody_level: Dictionary = {}
 

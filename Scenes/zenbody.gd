@@ -3,8 +3,9 @@
 # ========================================
 extends Control
 
-const LEVELS_API_URL := "http://192.168.254.111/zenpet/get_zenbody_levels.php"
-const USER_LEVEL_API_URL := "http://192.168.254.111/zenpet/get_user_level.php"
+var LEVELS_API_URL: String = ""
+var USER_LEVEL_API_URL: String = ""
+@onready var font: FontFile = preload("res://Fonts/Super Trend.ttf")
 
 @onready var http_request_levels: HTTPRequest = $HTTPRequestLevels
 @onready var http_request_user: HTTPRequest = $HTTPRequestUser
@@ -18,6 +19,8 @@ var user_id: int = 0
 
 func _ready() -> void:
 	#print("📡 Initializing ZenBody Levels...")
+	LEVELS_API_URL = "%sget_zenbody_levels.php" % [Global.BASE_URL]
+	USER_LEVEL_API_URL  = "%sget_user_level.php" % [Global.BASE_URL]
 	
 	http_request_user.request_completed.connect(_on_user_level_response)
 	http_request_levels.request_completed.connect(_on_levels_response)
@@ -101,32 +104,62 @@ func _create_level_buttons(levels: Array) -> void:
 	for level_data in levels:
 		if typeof(level_data) != TYPE_DICTIONARY:
 			continue
-		
+
 		var btn: Button = Button.new()
-		var level_name = level_data.get("level_name", "Unknown Level")
-		var description = level_data.get("description", "")
+		var level_num: int = int(level_data.get("level_number", 1))
 		var exp_gain = level_data.get("exp_gain", 0)
 		var duration = level_data.get("duration_seconds", 0)
-		
-		btn.text = "%s\n%s" % [level_name, description]
+
+		btn.text = "Level %d" % level_num
 		btn.tooltip_text = "EXP: %s | Duration: %ss" % [exp_gain, duration]
-		btn.custom_minimum_size = Vector2(300, 80)
+
+		btn.tooltip_text = "EXP: %s | Duration: %ss" % [exp_gain, duration]
+		
+		btn.custom_minimum_size = Vector2(100, 100)
+		
+		btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		btn.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		
 		btn.autowrap_mode = TextServer.AUTOWRAP_WORD
 		btn.add_theme_color_override("font_color", Color.WHITE)
-		btn.add_theme_stylebox_override("normal", _create_stylebox(Color("#2c3e50")))
-		btn.add_theme_stylebox_override("hover", _create_stylebox(Color("#3498db")))
-		btn.add_theme_stylebox_override("pressed", _create_stylebox(Color("#2980b9")))
-
-		var level_num: int = int(level_data.get("level_number", 1))
+		btn.add_theme_font_override("font", font)
+		btn.add_theme_font_size_override("font_size", 25)
+		
+		# 🟦 Create styleboxes for states
+		var normal_box = _create_button_style(Color("#2d77ff"), Color("#573510"))
+		var hover_box = _create_button_style(Color("#1a5edb"), Color("#573510"))
+		var pressed_box = _create_button_style(Color("#144aa8"), Color("#573510"))
+		var disabled_box = _create_button_style(Color("#494e59"), Color("#573510"))
+		
+		btn.add_theme_stylebox_override("normal", normal_box)
+		btn.add_theme_stylebox_override("hover", hover_box)
+		btn.add_theme_stylebox_override("pressed", pressed_box)
+		btn.add_theme_stylebox_override("disabled", disabled_box)
+		
 		btn.set_meta("level_data", level_data)
 
 		if level_num > user_level:
 			btn.disabled = true
-			btn.add_theme_stylebox_override("disabled", _create_stylebox(Color("#7f8c8d")))
 			btn.text += "\n🔒 Locked"
 
 		btn.pressed.connect(_on_level_selected.bind(btn))
 		level_list.add_child(btn)
+
+
+func _create_button_style(bg_color: Color, border_color: Color) -> StyleBoxFlat:
+	var style = StyleBoxFlat.new()
+	style.bg_color = bg_color
+	style.border_color = border_color
+	style.border_width_left = 5
+	style.border_width_right = 5
+	style.border_width_top = 5
+	style.border_width_bottom = 5
+	style.corner_radius_top_left = 10
+	style.corner_radius_top_right = 10
+	style.corner_radius_bottom_left = 10
+	style.corner_radius_bottom_right = 10
+	return style
+
 
 func _on_level_selected(btn: Button) -> void:
 	var level_data: Dictionary = btn.get_meta("level_data")

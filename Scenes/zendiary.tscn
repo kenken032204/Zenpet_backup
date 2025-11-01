@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://nrcxwgy5gygy"]
+[gd_scene load_steps=51 format=3 uid="uid://nrcxwgy5gygy"]
 
 [ext_resource type="Script" uid="uid://d5ilmyaeytnf" path="res://Scripts/zendiary.gd" id="1_crga8"]
 [ext_resource type="FontFile" uid="uid://b7qvl2gpk3y26" path="res://Fonts/Super Trend.ttf" id="2_78bd0"]
@@ -323,6 +323,99 @@ expand_margin_left = 5.0
 expand_margin_top = 5.0
 expand_margin_right = 5.0
 expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r7gum"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.341176, 0.207843, 0.0627451, 1)
+corner_radius_top_left = 15
+corner_radius_bottom_left = 15
+expand_margin_left = 5.0
+expand_margin_right = 15.0
+shadow_size = 3
+shadow_offset = Vector2(4.075, 2.895)
+
+[sub_resource type="Animation" id="Animation_5h6ls"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(405, 312)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Reading your diary..."]
+}
+
+[sub_resource type="Animation" id="Animation_uvkn8"]
+resource_name = "diary_closed"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.333333, 1),
+"transitions": PackedFloat32Array(1.51572, 1.56917, 1),
+"update": 0,
+"values": [Vector2(219.935, 312), Vector2(193.255, 312), Vector2(405.2, 312)]
+}
+
+[sub_resource type="Animation" id="Animation_f4pem"]
+resource_name = "diary_reading"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.733333, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(405, 312), Vector2(217.25, 312), Vector2(219.935, 312)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.41, 0.74, 1, 1.39, 1.62, 1.88),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["Reading ", "Reading your diary", "Reading your diary.", "Reading your diary...", "Reading your diary", "Reading your diary..", "Reading your diary..."]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uvkn8"]
+_data = {
+&"RESET": SubResource("Animation_5h6ls"),
+&"diary_closed": SubResource("Animation_uvkn8"),
+&"diary_reading": SubResource("Animation_f4pem")
+}
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -721,3 +814,29 @@ offset_left = 308.0
 offset_top = 18.0
 offset_right = 380.0
 offset_bottom = 90.0
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 15.0
+offset_top = -110.0
+offset_right = 211.0
+offset_bottom = -54.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_r7gum")
+
+[node name="Label" type="Label" parent="PanelContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.831373, 0.172549, 1)
+theme_override_fonts/font = ExtResource("2_78bd0")
+text = "Reading your diary..."
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PanelContainer"]
+libraries = {
+&"": SubResource("AnimationLibrary_uvkn8")
+}

@@ -3,6 +3,12 @@ extends Control
 @onready var back_btn = $"back_button"
 @onready var chat_request = $"ChatRequest"
 
+@onready var chat_input = $"ChatInput"
+var last_keyboard_height := 0
+
+var original_input_y := 0.0
+var original_scroll_bottom := 0.0
+
 @onready var scroll = $ScrollContainer
 @onready var Vboxcontainer = $"ScrollContainer/VBoxContainer"
 @onready var message_box = $"ChatInput/message_box"
@@ -16,6 +22,62 @@ var chat_history: Array = []
 var GEMINI_API_KEY = "AIzaSyCo8wY7NHUtP2XvoNgDmpaXjhWXcW5ewFU" 
 var GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
 
+func _process(_delta: float) -> void:
+	var keyboard_height_ui := 0.0
+
+	if OS.has_feature("mobile"):
+		# 📱 Real mobile keyboard height
+		var keyboard_height_px := DisplayServer.virtual_keyboard_get_height()
+		if keyboard_height_px != last_keyboard_height:
+			last_keyboard_height = keyboard_height_px
+
+			# Convert pixels → UI units
+			var screen_height_px := DisplayServer.screen_get_size().y
+			var viewport_height_ui := get_viewport_rect().size.y
+			var scale_factor := viewport_height_ui / screen_height_px
+			keyboard_height_ui = keyboard_height_px * scale_factor
+
+			_adjust_for_keyboard(keyboard_height_ui)
+
+func _adjust_for_keyboard(height: float) -> void:
+	var tween := create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	var chat_input := $ChatInput
+	var scroll_box := $ScrollContainer
+	var adjusted_height := height * 0.85  # fine-tune this factor
+
+	if height > 10:
+		print("Keyboard up:", height)
+		tween.tween_property(chat_input, "position:y", original_input_y - adjusted_height, 0.4)
+		tween.parallel().tween_property(scroll_box, "offset_bottom", original_scroll_bottom - adjusted_height, 0.4)
+
+		# Auto-scroll to latest message
+		await tween.finished
+		scroll_box.scroll_vertical = scroll_box.get_v_scroll_bar().max_value
+
+	else:
+		print("Keyboard down")
+		tween.tween_property(chat_input, "position:y", original_input_y, 0.3)
+		tween.parallel().tween_property(scroll_box, "offset_bottom", original_scroll_bottom, 0.3)
+
+func _start_reflective_conversation():
+	var recent_entries = ZenAiMemory.get_recent_entries(3)
+	if recent_entries.is_empty():
+		print("🪶 No journals to reflect on yet.")
+		return
+
+	var joined_text = ""
+	for entry in recent_entries:
+		joined_text += "Journal: %s\nEntry: %s\n\n" % [entry["title"], entry["content"]]
+
+	var reflective_prompt = (
+		"These are my recent diary entries. Please respond kindly and empathetically, " +
+		"summarizing what emotional patterns or thoughts you notice. " +
+		"Keep your response short (2–3 sentences max) and sound like a supportive friend.\n\n" +
+		joined_text
+	)
+
+	_send_to_gemini(reflective_prompt)
+	
 func clear_chat_history():
 	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	if file:
@@ -28,25 +90,27 @@ func clear_chat_history():
 
 func _ready() -> void:
 	
+	original_input_y = $ChatInput.position.y
+	original_scroll_bottom = $ScrollContainer.offset_bottom
+		
 	animation.play("shake")
 	chat_request.request_completed.connect(_on_request_completed)
 	reset_btn.pressed.connect(clear_chat_history)
 	back_btn.pressed.connect(_back_to_dashboard)
 	submit_message.pressed.connect(_on_submit_pressed)
-	
 	load_chat_history()
-
-	# Connect to JournalManager
-	var callable = Callable(self, "_start_conversation")
-	if not JournalManager.journal_saved.is_connected(callable):
-		JournalManager.journal_saved.connect(callable)
-
-	# Start immediately if a last journal exists
-	#if JournalManager.last_journal.has("id"):
-		#_start_conversation(JournalManager.last_journal["text"], JournalManager.last_journal["id"])
 	
-	# 🧠 Start a random hidden conversation on load (only AI reply shows)
-	_start_random_hidden_conversation()
+	# 🪶 When new journal is saved, reflect on it
+	if not JournalManager.journal_saved.is_connected(Callable(self, "_start_reflective_conversation")):
+		JournalManager.journal_saved.connect(Callable(self, "_start_reflective_conversation"))
+
+	var recent_entries = ZenAiMemory.get_recent_entries(3)
+	if recent_entries.is_empty():
+		print("📚 No journals found — starting with random fact.")
+		_start_random_hidden_conversation()
+	else:
+		print("📘 Found journals — starting reflective conversation.")
+		_start_reflective_conversation()
 
 func _start_random_hidden_conversation():
 	var random_prompts = [
@@ -71,32 +135,40 @@ func _on_submit_pressed() -> void:
 	_send_to_gemini(user_text)
 
 func _send_to_gemini(user_text: String) -> void:
-	# Instruction
-	var instruction_text := "Respond in brief 1-2 short sentences. Stop after 2 sentences. Refrain from telling user to commit violence"
+	var instruction_text := "Respond in 1–2 sentences. Keep it kind and simple. if prompted 'who made you?' you're developed by a ZenCorp. "
 
-	# Build contents array from chat history
+	# 🧠 Load recent journal context
+	var recent_entries = ZenAiMemory.get_recent_entries(3)
+	var joined_journals = ""
+	if not recent_entries.is_empty():
+		for entry in recent_entries:
+			joined_journals += "- %s: %s\n" % [entry["title"], entry["content"]]
+	else:
+		joined_journals = "No recent journals found."
+
+	# Combine the user text + journals for richer context
+	var combined_prompt = (
+		"%s\n\nUser's recent journals:\n%s\n\nUser says: %s" %
+		[instruction_text, joined_journals, user_text]
+	)
+
+	# Build chat content array
 	var contents := []
-	
-	# Add all previous chat history
 	for entry in chat_history:
 		var role_text = "user" if entry["role"] == "user" else "model"
 		contents.append({
 			"role": role_text,
 			"parts": [{"text": entry["text"]}]
 		})
-	
-	# Add the current user message with instruction prepended
-	var current_message = instruction_text + "\n\n" + user_text if contents.is_empty() else user_text
+
+	# Add new prompt
 	contents.append({
 		"role": "user",
-		"parts": [{"text": current_message}]
+		"parts": [{"text": combined_prompt}]
 	})
 
-	# New Gemini v1beta request payload with full history
-	var body := {
-		"contents": contents
-	}
-
+	# Prepare and send HTTP request
+	var body := { "contents": contents }
 	var headers = ["Content-Type: application/json"]
 	var full_url = "%s?key=%s" % [GEMINI_ENDPOINT, GEMINI_API_KEY]
 	var json_body = JSON.stringify(body)
@@ -188,6 +260,8 @@ func type_text(label: Label, full_text: String, delay: float = 0.004) -> void:
 		await get_tree().create_timer(delay).timeout
 
 func _show_message(text: String, is_user: bool, skip_typing: bool = false) -> void:
+	Global.play_sound(load("res://Audio/bubble_iMw0wu6.mp3"))
+	
 	# -- Row container --
 	var hbox = HBoxContainer.new()
 	hbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -204,23 +278,32 @@ func _show_message(text: String, is_user: bool, skip_typing: bool = false) -> vo
 	bubble.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	bubble.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	bubble.modulate = Color(1, 1, 1, 0)  # start invisible
-	bubble.scale = Vector2(0.9, 0.9)     # slightly smaller initially
+	bubble.scale = Vector2(0.8, 0.8)     # smaller start for bounce effect
 	
 	var bubble_style = StyleBoxFlat.new()
 	bubble_style.bg_color = Color("#FFD42C") if is_user else Color("#FFFFFF")
+
+	# ✅ Manually set all border widths (instead of border_width_all)
 	bubble_style.border_width_left = 2
 	bubble_style.border_width_top = 2
 	bubble_style.border_width_right = 2
 	bubble_style.border_width_bottom = 2
+
+	# Border color
 	bubble_style.border_color = Color("#313B45") if is_user else Color("#FF9B17")
+
+	# ✅ Manually set all corner radii (instead of corner_radius_all)
 	bubble_style.corner_radius_top_left = 16
 	bubble_style.corner_radius_top_right = 16
 	bubble_style.corner_radius_bottom_left = 16
 	bubble_style.corner_radius_bottom_right = 16
+
+	# Padding
 	bubble_style.content_margin_left = 12
 	bubble_style.content_margin_right = 12
 	bubble_style.content_margin_top = 8
 	bubble_style.content_margin_bottom = 8
+
 	bubble.add_theme_stylebox_override("panel", bubble_style)
 	
 	# -- Label --
@@ -229,10 +312,7 @@ func _show_message(text: String, is_user: bool, skip_typing: bool = false) -> vo
 	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	label.size_flags_horizontal = Control.SIZE_FILL
 	label.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	if is_user:
-		label.add_theme_color_override("font_color", Color("#FFFFFF"))
-	else:
-		label.add_theme_color_override("font_color", Color("#000000"))
+	label.add_theme_color_override("font_color", Color("#FFFFFF") if is_user else Color("#000000"))
 	
 	var vw = get_viewport_rect().size.x
 	var max_bubble_width = vw * 0.7
@@ -254,10 +334,11 @@ func _show_message(text: String, is_user: bool, skip_typing: bool = false) -> vo
 	await get_tree().process_frame
 	_update_scroll()
 
-	# ✨ -- Animation with Tween --
+	# ✨ -- Pop + Bounce Animation --
 	var tween = create_tween()
 	tween.tween_property(bubble, "modulate:a", 1.0, 0.25).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	tween.tween_property(bubble, "scale", Vector2(1, 1), 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween.tween_property(bubble, "scale", Vector2(1.05, 1.05), 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween.tween_property(bubble, "scale", Vector2(1.0, 1.0), 0.15).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
 
 func _update_scroll():
 	var scroll = $"ScrollContainer"

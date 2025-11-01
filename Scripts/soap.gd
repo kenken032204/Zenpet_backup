@@ -5,8 +5,7 @@ var dragging := false
 var start_position := Vector2.ZERO
 var is_bathing = false
 var bubble_cooldown := 0.0
-var reward_given := false   # ✅ reward only once per bath
-var can_pick_up := true     # ✅ cooldown for soap pickup
+var can_pick_up := true  # cooldown for soap pickup
 
 func _ready():
 	start_position = global_position
@@ -29,20 +28,6 @@ func _process(delta):
 					bubble_cooldown = 1
 
 				is_bathing = true
-	
-	if is_bathing:
-		if Global.cleanliness <= 100:
-			Global.cleanliness = clamp(Global.cleanliness + 20 * delta, 0, 100)  
-			Global.is_dirty = Global.cleanliness < 30  
-
-			# ✅ Reward once per bath when pet reaches full cleanliness
-			if Global.cleanliness >= 99.9 and !reward_given:
-				reward_given = true
-				is_bathing = false
-				get_tree().call_group("petmain", "on_bath_completed")
-		else:
-			# Too clean → stop bathing
-			is_bathing = false
 
 func _on_input_event(viewport, event, _shape_idx):
 	if !can_pick_up:
@@ -61,8 +46,5 @@ func _on_input_event(viewport, event, _shape_idx):
 
 			# 🚫 Disable pickup until cooldown ends
 			can_pick_up = false
-			await get_tree().create_timer(2.5).timeout
+			await get_tree().create_timer(1).timeout
 			can_pick_up = true
-
-			# ✅ Reset reward so next bath can give EXP again
-			reward_given = false

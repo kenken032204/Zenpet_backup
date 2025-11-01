@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dpb7snqh016wd"]
+
+[ext_resource type="Script" uid="uid://5cv1dmg58bf7" path="res://Scenes/rigid_body_2d.gd" id="1_5mkji"]
+[ext_resource type="Texture2D" uid="uid://hiyg5nnr7y23" path="res://Sprite/GUI/500351.png" id="2_vd8au"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0xc4j"]
+radius = 58.0
+height = 122.0
+
+[node name="RigidBody2D" type="RigidBody2D"]
+script = ExtResource("1_5mkji")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.246094, 0.246094)
+texture = ExtResource("2_vd8au")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_0xc4j")

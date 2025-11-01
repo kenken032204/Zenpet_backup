@@ -6,7 +6,6 @@ signal mood_submit_cancel(mood_cancelled: bool)
 @onready var mood_slider = $"PanelContainer/VBoxContainer/HSlider"
 @onready var mood_value = $"PanelContainer/VBoxContainer/assessment_scale"
 @onready var animation = $"AnimationPlayer"
-
 @onready var close_btn = $"PanelContainer/VBoxContainer/HBoxContainer/cancel_btn"
 @onready var submit_btn = $"PanelContainer/VBoxContainer/HBoxContainer/submit_btn"
 
@@ -20,7 +19,9 @@ var mood_labels = {
 }
 
 func _ready() -> void:
-	animation.play("pop")
+	# Start hidden and pop in animation when summoned
+	visible = false
+	modulate.a = 0.0
 
 	mood_slider.min_value = 0
 	mood_slider.max_value = 4
@@ -38,16 +39,26 @@ func _ready() -> void:
 	_update_mood_label(int(mood_slider.value))
 
 
+# 🧩 Called when you want to show it
+func summon() -> void:
+	visible = true
+	var tween = create_tween()
+	tween.tween_property(self, "modulate:a", 1.0, 0.25)
+	animation.play("pop")
+
+
+# ❌ Close / Cancel
 func _close_pressed() -> void:
-	
 	emit_signal("mood_submit_cancel", true)
-	
+
 	var tween = create_tween()
 	tween.tween_property(close_btn, "scale", Vector2(0.8, 0.8), 0.08)
 	tween.tween_property(close_btn, "scale", Vector2(1.0, 1.0), 0.1)
-	tween.finished.connect(func(): queue_free()) # only closes via cancel
+	tween.tween_property(self, "modulate:a", 0.0, 0.2)
+	tween.tween_callback(Callable(self, "queue_free"))
 
 
+# 🎚️ Slider behavior
 func _on_mood_slider_changed(value: float) -> void:
 	var click_sound: AudioStream = preload("res://Audio/rne Perc.wav")
 	Global.play_sound(click_sound, -20)
@@ -56,10 +67,8 @@ func _on_mood_slider_changed(value: float) -> void:
 
 
 func _update_mood_label(value: int) -> void:
-	if value in mood_labels:
-		mood_value.text = mood_labels[value]
-	else:
-		mood_value.text = "Unknown 🤔"
+	mood_value.text = mood_labels.get(value, "🤔 Unknown")
+
 
 func _animate_label() -> void:
 	var tween = create_tween()
@@ -68,8 +77,12 @@ func _animate_label() -> void:
 	tween.tween_property(mood_value, "scale", Vector2(1.0, 1.0), 0.12) \
 		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
 
+
+# ✅ When user submits
 func _on_submit_pressed() -> void:
 	var mood_value_int = int(mood_slider.value)
 	emit_signal("mood_submitted", mood_value_int)
 
-	queue_free()  # Now it closes only after submit
+	var tween = create_tween()
+	tween.tween_property(self, "modulate:a", 0.0, 0.25)
+	tween.tween_callback(Callable(self, "queue_free"))

@@ -12,6 +12,7 @@ signal journal_saved(journal_text: String, journal_id: String)
 @onready var back_button = $back_button
 @onready var cards_container = $"Journal_window/GridContainer"
 @onready var animation = $AnimationPlayer
+@onready var diary_animation = $PanelContainer/AnimationPlayer
 @onready var back_to_journal = $"Add_Journal_window/back_zendiary"
 @onready var add_new_journal = $"add_new_journal_btn"
 @onready var save_btn = $"Add_Journal_window/journal-settings/save-btn"
@@ -25,12 +26,15 @@ signal journal_saved(journal_text: String, journal_id: String)
 @onready var journal_window = $"Journal_window"
 @onready var toast_notif = $"toast_notification"
 
+@onready var go_zenai = $"go_to_zenai"
+
+
 @onready var red_button = $"Add_Journal_window/HBoxContainer/red_btn"
 @onready var blue_button = $"Add_Journal_window/HBoxContainer/blue_btn"
 @onready var green_button = $"Add_Journal_window/HBoxContainer/green_btn"
 @onready var orange_button = $"Add_Journal_window/HBoxContainer/orange_btn"
 
-const API_URL = "http://192.168.254.111/zenpet"
+var API_URL = Global.BASE_URL
 const MIN_TITLE_LENGTH = 5
 const MIN_CONTENT_LENGTH = 5
 
@@ -46,6 +50,7 @@ func _ready():
 	animation.play("intro_fade")
 	
 func _connect_signals() -> void:
+	go_zenai.pressed.connect(_go_zenai_pressed)
 	back_button.pressed.connect(_on_back_pressed)
 	back_to_journal.pressed.connect(_on_back_to_journal_pressed)
 	cancel_btn.pressed.connect(_on_back_to_journal_pressed)
@@ -56,6 +61,24 @@ func _connect_signals() -> void:
 	blue_button.pressed.connect(func(): _select_color("#3498DB"))
 	green_button.pressed.connect(func(): _select_color("#2ECC71"))
 	orange_button.pressed.connect(func(): _select_color("#F39C12"))
+
+func _go_zenai_pressed() -> void:
+	# Optional: Play a button click sound
+	var click_sound: AudioStream = preload("res://Audio/rne Perc.wav")
+	Global.play_sound(click_sound, -15)
+
+	var tween = create_tween()
+	tween.tween_property($"zenai_btn", "scale", Vector2(0.9, 0.9), 0.08)
+	tween.tween_property($"zenai_btn", "scale", Vector2(1.0, 1.0), 0.1)
+	
+	var zenai_scene = preload("res://Scenes/zenai.tscn").instantiate()
+	get_tree().root.add_child(zenai_scene)
+	
+	# Optionally free current scene if needed
+	get_tree().current_scene.queue_free()
+
+	# Set the new scene as current
+	get_tree().current_scene = zenai_scene
 
 # 📥 Fetch journals from PHP backend
 func load_journals_from_php() -> void:
@@ -292,12 +315,30 @@ func _on_save_journal_pressed() -> void:
 	save_in_progress = true
 	save_btn.disabled = true
 	
-	var success = await add_journal_to_php(journal_title.text.strip_edges(), journal_text.text.strip_edges())
+	var title: String = journal_title.text.strip_edges()
+	var content: String = journal_text.text.strip_edges()
+
+	var success = await add_journal_to_php(title, content)
 	
 	if success:
+		show_message("Journal saved!")
+		
+		# store in ZenAi memory
+		var new_entry = {
+			"title": title,
+			"text": content,
+			"date": Time.get_datetime_string_from_system()
+		}
+		ZenAiMemory.add_entry(new_entry)
+	
+		# 🧠 Play ZenAi reading effect
+		await _zenai_read_journal(content)
+		
+		# 💬 Then trigger emotional reflection
+		# _trigger_zenai_reflection(content)
+
 		journal_title.text = ""
 		journal_text.text = ""
-		show_message("Journal saved!")
 		_refresh_journal_cards()
 	else:
 		show_message("Failed to save")
@@ -305,6 +346,13 @@ func _on_save_journal_pressed() -> void:
 	save_btn.disabled = false
 	save_in_progress = false
 
+func _zenai_read_journal(entry_text: String) -> void:
+	show_message("ZenAi is reading your diary entry...")
+	
+	diary_animation.play("diary_reading")
+	await get_tree().create_timer(3.0).timeout  # simulate “reading time”
+	diary_animation.play("diary_closed")
+	
 # 🔙 Navigation
 func _on_back_to_journal_pressed() -> void:
 	add_journal_window.visible = false

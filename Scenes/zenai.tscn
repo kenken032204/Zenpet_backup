@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://5ph415n6ffj5"]
+[gd_scene load_steps=23 format=3 uid="uid://5ph415n6ffj5"]
 
 [ext_resource type="Texture2D" uid="uid://b5ice2x4m76dg" path="res://Sprite/GUI/back-svgrepo-com.svg" id="1_e68g8"]
 [ext_resource type="Script" uid="uid://bv7qktqjs2vob" path="res://Scenes/zenai.gd" id="1_miorb"]
@@ -35,7 +35,7 @@ corner_radius_bottom_left = 20
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nu3pb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_otbd0"]
-bg_color = Color(1, 1, 1, 0.462745)
+bg_color = Color(1, 1, 1, 1)
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5
@@ -113,6 +113,22 @@ _data = {
 &"shake": SubResource("Animation_vttb2")
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gh88f"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.341176, 0.207843, 0.0627451, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+expand_margin_left = 5.0
+expand_margin_right = 15.0
+
 [node name="Control" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -121,7 +137,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_miorb")
-metadata/_edit_horizontal_guides_ = [32.0]
+metadata/_edit_horizontal_guides_ = [32.0, 161.0, 136.0]
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -152,7 +168,7 @@ icon_alignment = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -175,11 +191,17 @@ size_flags_horizontal = 3
 theme_override_constants/separation = 20
 
 [node name="ChatInput" type="HBoxContainer" parent="."]
-layout_mode = 0
-offset_left = 29.0
-offset_top = 740.0
-offset_right = 369.0
-offset_bottom = 779.0
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 31.0
+offset_top = -107.0
+offset_right = -31.0
+offset_bottom = -69.0
+grow_horizontal = 2
+grow_vertical = 0
 theme_override_constants/separation = 16
 alignment = 1
 
@@ -213,8 +235,8 @@ expand_icon = true
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_top = 94.0
-offset_bottom = 128.0
+offset_top = 82.0
+offset_bottom = 118.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(1, 0.831373, 0.172549, 1)
 theme_override_colors/font_outline_color = Color(0.341176, 0.207843, 0.0627451, 1)
@@ -258,3 +280,19 @@ offset_left = 300.0
 offset_top = 19.0
 offset_right = 372.0
 offset_bottom = 91.0
+
+[node name="chat_history" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.0
+offset_top = -240.0
+offset_right = 165.0
+offset_bottom = 253.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gh88f")

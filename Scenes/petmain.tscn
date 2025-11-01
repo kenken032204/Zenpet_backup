@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://bmnrmm2ulhvo5"]
+[gd_scene load_steps=64 format=3 uid="uid://bmnrmm2ulhvo5"]
 
 [ext_resource type="Script" uid="uid://clwl4gtisaa5h" path="res://Scripts/petmain.gd" id="1_fl2ai"]
 [ext_resource type="Texture2D" uid="uid://buxj36tfsmjx5" path="res://Sprite/empty-room-with-black-floor-pink-walls_1308-65874.png" id="2_fl2ai"]
@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://c8jaqtosvg8i5" path="res://Sprite/Cat/Tail.png" id="5_hstsw"]
 [ext_resource type="StyleBox" uid="uid://de8tfguaqm7oi" path="res://Styles/wardrobe_button.tres" id="6_a1u7p"]
 [ext_resource type="Texture2D" uid="uid://3py7xc60tusj" path="res://Sprite/Cat/Asset 7.png" id="6_cbjx0"]
-[ext_resource type="Texture2D" uid="uid://yd1rcbgl0qhr" path="res://Sprite/image (1).png" id="7_6j26i"]
 [ext_resource type="Texture2D" uid="uid://c1oltlu86qry8" path="res://Sprite/Cat/Asset 4.png" id="7_svu6p"]
 [ext_resource type="Texture2D" uid="uid://b5g58ho4rnijw" path="res://Sprite/Cat/Face.png" id="8_7lb8n"]
 [ext_resource type="Texture2D" uid="uid://d2laplt8tasbo" path="res://Sprite/solid-soap-for-washing-clipart-design-illustration-free-png.png" id="8_r4q3e"]
@@ -31,9 +30,13 @@
 [ext_resource type="Texture2D" uid="uid://xa724e1ffpk8" path="res://Sprite/GUI/spoon-silhouette-svgrepo-com.svg" id="23_8spvl"]
 [ext_resource type="Texture2D" uid="uid://cbb0008hdy1qd" path="res://Sprite/GUI/check-svgrepo-com.svg" id="24_affev"]
 [ext_resource type="Texture2D" uid="uid://bvanqrm2gx1tv" path="res://Sprite/GUI/arrow-path-20-solid.svg" id="27_ltmtx"]
+[ext_resource type="Texture2D" uid="uid://0wdu6qb63eqg" path="res://Sprite/Outifts/BATHTUB.png" id="30_4nt5i"]
 [ext_resource type="AudioStream" uid="uid://ymfu31kw8856" path="res://Audio/comedy_pop_finger_in_mouth_001.mp3" id="32_1lydj"]
+[ext_resource type="Script" uid="uid://c2v5u8a4p6jpk" path="res://Scenes/shower.gd" id="33_4nt5i"]
 [ext_resource type="AudioStream" uid="uid://bxjy1mwastnv0" path="res://Audio/Happy Shopping 2.mp3" id="33_ltmtx"]
+[ext_resource type="Texture2D" uid="uid://chqq6futuoajm" path="res://Sprite/Outifts/SHOWERHEAD.png" id="34_4nt5i"]
 [ext_resource type="FontFile" uid="uid://b7qvl2gpk3y26" path="res://Fonts/Super Trend.ttf" id="34_ltmtx"]
+[ext_resource type="AudioStream" uid="uid://cjmmfkmyjcebh" path="res://Audio/shower_effect.ogg" id="35_b3qk8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fl2ai"]
 radius = 60.3944
@@ -792,33 +795,8 @@ expand_margin_bottom = 2.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a1u7p"]
 size = Vector2(96, 54)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4nt5i"]
-content_margin_left = 5.0
-content_margin_top = 5.0
-content_margin_right = 5.0
-content_margin_bottom = 5.0
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.341176, 0.207843, 0.0627451, 1)
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b3qk8"]
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.341176, 0.207843, 0.0627451, 1)
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
+[sub_resource type="CircleShape2D" id="CircleShape2D_raoba"]
+radius = 44.0454
 
 [node name="Petmain" type="Control" groups=["petmain"]]
 layout_mode = 3
@@ -1140,7 +1118,6 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="Kitchen_btn" type="Button" parent="UI/VBoxContainer2"]
-visible = false
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 41
@@ -1296,9 +1273,9 @@ position = Vector2(-18, -7)
 script = ExtResource("15_cbjx0")
 
 [node name="Sprite2D" type="Sprite2D" parent="Bath"]
-position = Vector2(0, 98)
-scale = Vector2(0.345, 0.345)
-texture = ExtResource("7_6j26i")
+position = Vector2(-11, 130.473)
+scale = Vector2(0.464768, 0.525441)
+texture = ExtResource("30_4nt5i")
 
 [node name="Area2D" type="Area2D" parent="Bath"]
 position = Vector2(80, 188)
@@ -1312,6 +1289,40 @@ texture = ExtResource("8_r4q3e")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bath/Area2D"]
 position = Vector2(3, -2)
 shape = SubResource("RectangleShape2D_a1u7p")
+
+[node name="Shower" type="Area2D" parent="Bath"]
+position = Vector2(96, -142)
+collision_mask = 2
+script = ExtResource("33_4nt5i")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Bath/Shower"]
+position = Vector2(-13, 13)
+lifetime = 0.44
+preprocess = 1.24
+speed_scale = 5.74
+explosiveness = 0.59
+randomness = 0.15
+emission_shape = 1
+emission_sphere_radius = 36.55
+spread = 18.34
+gravity = Vector2(-132.33, 331.025)
+damping_max = 5.556
+scale_amount_min = 18.0
+scale_amount_max = 18.52
+color = Color(0.564706, 0.913725, 1, 0.513726)
+
+[node name="Sprite2D" type="Sprite2D" parent="Bath/Shower"]
+scale = Vector2(0.405, 0.405)
+texture = ExtResource("34_4nt5i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bath/Shower"]
+position = Vector2(7, -7)
+shape = SubResource("CircleShape2D_raoba")
+
+[node name="shower_sound_fx" type="AudioStreamPlayer2D" parent="Bath/Shower"]
+stream = ExtResource("35_b3qk8")
+volume_db = 5.38
+pitch_scale = 1.21
 
 [node name="ChatRequest" type="HTTPRequest" parent="."]
 
@@ -1364,59 +1375,6 @@ theme_override_font_sizes/font_size = 21
 text = "Living Room"
 horizontal_alignment = 1
 
-[node name="Control" type="Control" parent="."]
-visible = false
-anchors_preset = 0
-offset_left = 242.0
-offset_top = 182.0
-offset_right = 381.0
-offset_bottom = 323.0
-
-[node name="Panel" type="Panel" parent="Control"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -47.0
-offset_top = -64.5
-offset_right = 53.0
-offset_bottom = 35.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_4nt5i")
-
-[node name="TextureRect" type="TextureRect" parent="Control/Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = 14.0
-offset_right = -8.0
-offset_bottom = -15.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("14_8spvl")
-expand_mode = 1
-
-[node name="Panel2" type="Panel" parent="Control"]
-custom_minimum_size = Vector2(20, 20)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -62.0
-offset_top = 39.5
-offset_right = -42.0
-offset_bottom = 59.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_b3qk8")
-
 [connection signal="input_event" from="Pet/PetArea" to="." method="_on_area_2d_input_event"]
 [connection signal="input_event" from="Bath/Area2D" to="Bath/Area2D" method="_on_input_event"]
+[connection signal="input_event" from="Bath/Shower" to="Bath/Shower" method="_on_input_event"]

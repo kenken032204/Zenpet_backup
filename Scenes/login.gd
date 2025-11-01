@@ -60,7 +60,7 @@ func _on_submit_pressed():
 	check_user(username, password)
 
 func check_user(username: String, password: String):
-	var url = "http://192.168.254.111/zenpet/login.php"
+	var url = "%slogin.php" % Global.BASE_URL
 	var form_data = "username=%s&password=%s" % [username, password]
 	var headers = ["Content-Type: application/x-www-form-urlencoded"]
 	http.request(url, headers, HTTPClient.METHOD_POST, form_data)
@@ -95,7 +95,7 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 # =========================
 
 func _sync_user_level_from_server(user_id: int) -> void:
-	var url: String = "http://192.168.254.111/zenpet/get_user_level.php?user_id=%d" % user_id
+	var url: String = "%sget_user_level.php?user_id=%d" % [Global.BASE_URL, user_id]
 	print("🔄 Syncing level and EXP from:", url)
 
 	var req: HTTPRequest = HTTPRequest.new()

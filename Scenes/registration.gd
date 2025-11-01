@@ -80,8 +80,8 @@ func _on_submit_pressed():
 func register_user(username: String, password: String):
 	current_request = "add_user"
 	
-	var url = "http://192.168.254.111/zenpet/register.php"  # adjust path
-	
+	var url = "%sregister.php" % [Global.BASE_URL]
+
 	# URL-encoded POST data
 	var form_data = "username=%s&password=%s" % [username, password]
 	var headers = ["Content-Type: application/x-www-form-urlencoded"]

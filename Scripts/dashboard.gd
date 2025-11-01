@@ -11,7 +11,6 @@ extends Control
 var hover_tweens: Dictionary = {}
 
 func _ready() -> void:
-	
 	animation.play("fade_out")
 	audio.stream.loop = true
 	audio.play()

@@ -107,8 +107,7 @@ func back_to_home():
 func load_wardrobe_items(category: String) -> Array:
 	var filtered_items: Array = []
 
-	var url = "http://192.168.254.111/zenpet/get_wardrobe_items.php?category=%s" % category
-	
+	var url = "%sget_wardrobe_items.php?category=%s" % [Global.BASE_URL, category]
 	var http := HTTPRequest.new()
 	add_child(http)
 
@@ -286,8 +285,7 @@ func load_equipped_outfits() -> void:
 		return
 
 	var user_id = int(Global.User["id"])
-	var url = "http://192.168.254.111/zenpet/get_equipped_outfits.php?user_id=%d" % user_id
-	
+	var url = "%sget_equipped_outfits.php?user_id=%d" % [Global.BASE_URL, user_id]
 	var http := HTTPRequest.new()
 	add_child(http)
 
@@ -346,7 +344,7 @@ func save_equipped_outfits(outfit_id: int, category: String):
 
 	var user_id = int(Global.User["id"])
 
-	var url = "http://192.168.254.111/zenpet/save_equipped_outfit.php"
+	var url = "%ssave_equipped_outfit.php" % Global.BASE_URL
 	var headers = ["Content-Type: application/json"]
 	var body = JSON.stringify({
 		"user_id": user_id,

@@ -1,0 +1,50 @@
+[gd_scene load_steps=4 format=3 uid="uid://7u2r258kjgx"]
+
+[ext_resource type="Script" uid="uid://bwkmu7ey325bt" path="res://Scenes/click_the_smiley.gd" id="1_7quea"]
+[ext_resource type="PackedScene" uid="uid://b7e6bjj0rbcnt" path="res://Scenes/smiley.tscn" id="2_5i7vm"]
+[ext_resource type="FontFile" uid="uid://b7qvl2gpk3y26" path="res://Fonts/Super Trend.ttf" id="2_7quea"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_7quea")
+
+[node name="TextureRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Label3" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.0
+offset_top = -378.0
+offset_right = 138.0
+offset_bottom = -332.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.341176, 0.207843, 0.0627451, 1)
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = ExtResource("2_7quea")
+theme_override_font_sizes/font_size = 25
+text = "Click the smileys!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Area2D" parent="." instance=ExtResource("2_5i7vm")]
+visible = false
+position = Vector2(203, 172)

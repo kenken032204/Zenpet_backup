@@ -1,11 +1,11 @@
-[gd_scene load_steps=25 format=3 uid="uid://seaaico7nhkr"]
+[gd_scene load_steps=24 format=3 uid="uid://seaaico7nhkr"]
 
 [ext_resource type="Texture2D" uid="uid://b5ice2x4m76dg" path="res://Sprite/GUI/back-svgrepo-com.svg" id="1_7e23w"]
 [ext_resource type="Script" uid="uid://b2t03sivxs71s" path="res://Scenes/zenbody.gd" id="1_pok1w"]
+[ext_resource type="Texture2D" uid="uid://jyf1f2ojpkyw" path="res://Sprite/star-svgrepo-com.svg" id="2_il5n6"]
 [ext_resource type="Texture2D" uid="uid://cxge6pknpl6gx" path="res://Sprite/GUI/dog.png" id="2_pok1w"]
 [ext_resource type="FontFile" uid="uid://b7qvl2gpk3y26" path="res://Fonts/Super Trend.ttf" id="4_lojgk"]
 [ext_resource type="Script" uid="uid://dnij2abmv1ff6" path="res://Scenes/scroll_container.gd" id="4_ocp8v"]
-[ext_resource type="Texture2D" uid="uid://8revhcpkl6gj" path="res://Sprite/closed-golden-padlock-game-icon-block-and-security-png.png" id="6_2lv6m"]
 [ext_resource type="Texture2D" uid="uid://c3nm0o1gl8uh0" path="res://Sprite/GUI/settings-svgrepo-com.svg" id="7_2lv6m"]
 [ext_resource type="Script" uid="uid://ud1iuobw7npf" path="res://Scenes/settings_btn.gd" id="8_il5n6"]
 
@@ -31,18 +31,6 @@ shadow_offset = Vector2(0, 5.64)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tvlsw"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0qeya"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ocp8v"]
-bg_color = Color(0.176471, 0.466667, 1, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.341176, 0.207843, 0.0627451, 1)
-corner_radius_top_left = 60
-corner_radius_top_right = 60
-corner_radius_bottom_right = 60
-corner_radius_bottom_left = 60
 
 [sub_resource type="Animation" id="Animation_lojgk"]
 length = 0.001
@@ -99,7 +87,7 @@ corner_radius_bottom_left = 20
 corner_detail = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eao6r"]
-bg_color = Color(0.176471, 0.466667, 1, 1)
+bg_color = Color(0.284478, 0.307795, 0.350649, 1)
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5
@@ -159,6 +147,51 @@ offset_bottom = 81.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_lojgk")
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="."]
+position = Vector2(390, 364)
+texture = ExtResource("2_il5n6")
+lifetime = 5.1
+speed_scale = 0.2
+direction = Vector2(1, 13.065)
+spread = 68.33
+gravity = Vector2(0, 999.2)
+initial_velocity_max = 287.66
+angular_velocity_min = -345.66
+angular_velocity_max = -345.66
+scale_amount_min = 0.1
+scale_amount_max = 0.1
+color = Color(1, 0.0470588, 0.172549, 0.207843)
+
+[node name="CPUParticles2D3" type="CPUParticles2D" parent="."]
+position = Vector2(-12, 364)
+texture = ExtResource("2_il5n6")
+lifetime = 5.1
+speed_scale = 0.2
+direction = Vector2(1, 13.065)
+spread = 68.33
+gravity = Vector2(0, 999.2)
+initial_velocity_max = 287.66
+angular_velocity_min = -345.66
+angular_velocity_max = -345.66
+scale_amount_min = 0.1
+scale_amount_max = 0.1
+color = Color(1, 0.0470588, 0.172549, 0.207843)
+
+[node name="CPUParticles2D4" type="CPUParticles2D" parent="."]
+position = Vector2(193, 255)
+texture = ExtResource("2_il5n6")
+lifetime = 5.1
+speed_scale = 0.2
+direction = Vector2(1, 13.065)
+spread = 68.33
+gravity = Vector2(0, 999.2)
+initial_velocity_max = 287.66
+angular_velocity_min = -345.66
+angular_velocity_max = -345.66
+scale_amount_min = 0.1
+scale_amount_max = 0.1
+color = Color(1, 0.0470588, 0.172549, 0.207843)
 
 [node name="ColorRect" type="Panel" parent="."]
 layout_mode = 1
@@ -226,38 +259,10 @@ script = ExtResource("4_ocp8v")
 custom_minimum_size = Vector2(0, 1000)
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 20
-
-[node name="level_1" type="Button" parent="ScrollContainer/Levellist"]
-visible = false
-clip_contents = true
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-theme_override_colors/font_outline_color = Color(0, 0.293875, 0.780063, 1)
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 18
-theme_override_fonts/font = ExtResource("4_lojgk")
-theme_override_font_sizes/font_size = 64
-theme_override_styles/focus = SubResource("StyleBoxFlat_ocp8v")
-theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_ocp8v")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_ocp8v")
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_ocp8v")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_ocp8v")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_ocp8v")
-theme_override_styles/hover = SubResource("StyleBoxFlat_ocp8v")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_ocp8v")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_ocp8v")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_ocp8v")
-theme_override_styles/normal = SubResource("StyleBoxFlat_ocp8v")
-text = "1"
-
-[node name="Sprite2D" type="Sprite2D" parent="ScrollContainer/Levellist/level_1"]
-visible = false
-position = Vector2(50, 50)
-rotation = 0.235619
-scale = Vector2(0.18, 0.18)
-texture = ExtResource("6_2lv6m")
+columns = 2
 
 [node name="fade_out_rect" type="ColorRect" parent="."]
 visible = false

@@ -255,7 +255,6 @@ theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_vsr18")
 theme_override_styles/hover = SubResource("StyleBoxFlat_vsr18")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_vsr18")
 theme_override_styles/normal = SubResource("StyleBoxFlat_vsr18")
-disabled = true
 text = "Confirm"
 
 [node name="level" type="Label" parent="Panel"]

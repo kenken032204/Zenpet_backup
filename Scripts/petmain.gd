@@ -116,7 +116,7 @@ func check_user_pet():
 		return
 	
 	current_request = "get_pet"
-	var url = "http://192.168.254.111/zenpet/check_user_pet.php?user_id=%d" % user_id
+	var url = "%scheck_user_pet.php?user_id=%d" % [Global.BASE_URL, user_id]
 	http_pet.request(url, [], HTTPClient.METHOD_GET)
 
 # ========== UNIFIED HTTP HANDLERS ==========
@@ -234,16 +234,16 @@ func _on_http_outfit_completed(result, response_code, headers, body):
 
 func load_pet_data_from_server():
 	current_request = "load_level"
-	var url = "http://192.168.254.111/zenpet/get_user_level.php?user_id=" + str(Global.User["id"])
+	var url = "%sget_user_level.php?user_id=%s" % [Global.BASE_URL, str(Global.User["id"])]
 	http_pet.request(url, [], HTTPClient.METHOD_GET)
 
 func load_equipped_outfits(user_id: int):
-	var url = "http://192.168.254.111/zenpet/get_equipped_outfits.php?user_id=%d" % user_id
+	var url = "%sget_equipped_outfits.php?user_id=%d" % [Global.BASE_URL, user_id]
 	http_outfit.request(url, [], HTTPClient.METHOD_GET)
 
 func save_pet_data_to_server():
 	current_request = "save_pet"
-	var url = "http://192.168.254.111/zenpet/update_exp.php"
+	var url = "%supdate_exp.php" % Global.BASE_URL
 	var body = {
 		"user_id": Global.User["id"],
 		"level": Global.User["level"],

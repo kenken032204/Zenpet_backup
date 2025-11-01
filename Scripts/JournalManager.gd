@@ -5,7 +5,7 @@ signal journal_saved(journal_text: String, journal_id: String)
 var journals: Array = []
 var last_journal: Dictionary = {}
 
-const API_URL = "http://192.168.254.111/zenpet"
+var API_URL = Global.BASE_URL
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
 func _ready() -> void:

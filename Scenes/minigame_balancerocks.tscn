@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://beam5dy0v3uyd"]
+
+[ext_resource type="Script" uid="uid://epttr4lvk0rh" path="res://Scenes/minigame_balancerocks.gd" id="1_c1fam"]
+[ext_resource type="Texture2D" uid="uid://l1obqkj7sxs4" path="res://Sprite/GUI/ocean-coastline-vector-illustration-summer-600nw-2416547799.png" id="1_p0ihh"]
+[ext_resource type="PackedScene" uid="uid://dpb7snqh016wd" path="res://Scenes/rock.tscn" id="3_0xc4j"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_0xc4j"]
+bounce = 0.18
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lr7wn"]
+size = Vector2(490, 135)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_c1fam")
+
+[node name="ColorRect" type="TextureRect" parent="."]
+texture_filter = 5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -779.0
+offset_top = -91.0
+offset_right = 778.0
+offset_bottom = 91.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_p0ihh")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(186, 723)
+physics_material_override = SubResource("PhysicsMaterial_0xc4j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, 57.5)
+shape = SubResource("RectangleShape2D_lr7wn")
+
+[node name="RigidBody2D" parent="." instance=ExtResource("3_0xc4j")]
+position = Vector2(186, 135)
+
+[node name="Timer" type="Timer" parent="."]

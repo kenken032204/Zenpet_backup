@@ -39,4 +39,5 @@ func save_level(level_val: int):
 	file.close()
 
 func hide_popup():
+	visible = false
 	queue_free()

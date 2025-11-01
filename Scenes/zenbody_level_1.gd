@@ -12,6 +12,8 @@ var old_level = Global.User.get("level", 1)
 @onready var progress_bar: ProgressBar = $"Control/ProgressBar"
 @onready var animation: AnimationPlayer = $AnimationPlayer
 
+@onready var pose_image: TextureRect = $"Control/Yoga_Sprite"
+
 var http_request: HTTPRequest
 var exp_request_completed: bool = false
 
@@ -25,18 +27,14 @@ var total_duration: float = 60.0
 var steps: int = 100
 
 var messages: Array[String] = [
-	"Take a deep breath...",
-	"Relax your shoulders...",
-	"Find your balance...",
 	"Ready...",
 	"Set...",
 	"Go!"
 ]
 
 func _ready() -> void:
-	
 	print("🎮 ZenBody Level Starting...")
-	
+
 	if Global.current_zenbody_level.size() > 0:
 		level_data = Global.current_zenbody_level
 		_load_level_from_data()
@@ -57,16 +55,22 @@ func _ready() -> void:
 	print("✅ HTTPRequest node created and signal connected")
 
 func _load_level_from_data() -> void:
-	number = level_data.get("level_number", "1")
+	number = level_data.get("level_number", 1)
 	title = level_data.get("level_name", "Zen Session")
 	exp_gain = int(level_data.get("exp_gain", 20))
 	total_duration = float(level_data.get("duration_seconds", 60))
-
 	var description = level_data.get("description", "")
-	if description != "":
-		messages[0] = description
-	
+	var sprite_url = level_data.get("sprite_url", "")
+
+	# 🧘 Load sprite if available
+	if sprite_url != "":
+		if sprite_url.begins_with("res://"):
+			pose_image.texture = load(sprite_url)
+	else:
+		push_warning("⚠️ No sprite_url provided for this level")
+
 	print("📋 Loaded: %s | EXP: %d | Duration: %ds" % [title, exp_gain, int(total_duration)])
+
 
 func _back_to_zenbody() -> void:
 	_load_next_scene(next_scene_path)
@@ -104,23 +108,34 @@ func _show_messages(msgs: Array[String]) -> void:
 	for text in msgs:
 		yogadescription.text = text
 		yogadescription.modulate.a = 0.0
+		yogadescription.scale = Vector2(0.8, 0.8)  # start smaller for a pop-in effect
+		yogadescription.pivot_offset = yogadescription.size / 2
 
-		var fade_in: Tween = create_tween()
-		fade_in.tween_property(yogadescription, "modulate:a", 1.0, 0.5)
-		await fade_in.finished
+		# ✨ Tween for pop + fade-in
+		var pop_in = create_tween()
+		pop_in.set_trans(Tween.TRANS_BACK)
+		pop_in.set_ease(Tween.EASE_OUT)
+		pop_in.tween_property(yogadescription, "scale", Vector2(1, 1), 0.4)
+		pop_in.parallel().tween_property(yogadescription, "modulate:a", 1.0, 0.4)
+		await pop_in.finished
 
-		await get_tree().create_timer(1.0).timeout
+		await get_tree().create_timer(1.0).timeout  # hold message briefly
 
-		var fade_out: Tween = create_tween()
-		fade_out.tween_property(yogadescription, "modulate:a", 0.0, 0.5)
+		# 🌙 Tween for fade-out + shrink
+		var fade_out = create_tween()
+		fade_out.set_trans(Tween.TRANS_SINE)
+		fade_out.set_ease(Tween.EASE_IN)
+		fade_out.tween_property(yogadescription, "modulate:a", 0.0, 0.3)
+		fade_out.parallel().tween_property(yogadescription, "scale", Vector2(0.9, 0.9), 0.3)
 		await fade_out.finished
+
 
 func _add_exp_to_user(amount: int, user_id: int) -> void:
 	print("\n🧘‍♀️ [ZenBody] --- EXP ADD START ---")
 	print("🧩 Request EXP Gain:", amount)
 	print("🧍 User ID:", user_id)
 
-	var url = "http://192.168.254.111/zenpet/update_exp.php"
+	var url = "%supdate_exp.php" % [Global.BASE_URL]
 
 	var current_exp = float(Global.User.get("exp", 0))
 	var current_level = int(Global.User.get("level", 1))
@@ -145,10 +160,8 @@ func _add_exp_to_user(amount: int, user_id: int) -> void:
 	var payload = JSON.stringify(body)
 	print("📦 JSON Payload:", payload)
 
-	# Reset flag
 	exp_request_completed = false
 
-	# Send request
 	var error = http_request.request(url, headers, HTTPClient.METHOD_POST, payload)
 	if error != OK:
 		print("❌ HTTP Request Error:", error)
@@ -156,7 +169,6 @@ func _add_exp_to_user(amount: int, user_id: int) -> void:
 	
 	print("📡 Request sent to:", url)
 	
-	# ✅ Wait for the response
 	while not exp_request_completed:
 		await get_tree().process_frame
 	
@@ -184,7 +196,6 @@ func _on_exp_response(result: int, response_code: int, headers: PackedStringArra
 	else:
 		print("❌ HTTP Error Code:", response_code)
 	
-	# ✅ Set flag to continue execution
 	exp_request_completed = true
 
 func _show_level_complete() -> void:
@@ -199,35 +210,29 @@ func _show_level_complete() -> void:
 	var level_complete: Node = level_complete_scene.instantiate()
 	get_tree().root.add_child(level_complete)
 
-	# Wait a bit for the level complete animation or effect
-	await get_tree().create_timer(2.0).timeout
+	# Wait a bit for the level complete animation
+	await get_tree().create_timer(1.0).timeout
 
-	# 🧩 Show mood assessment
+	# 🧩 Summon mood assessment popup
 	var mood_scene: PackedScene = load("res://Scenes/mood_assessment.tscn")
 	if mood_scene:
 		var mood_assessment = mood_scene.instantiate()
 		get_tree().root.add_child(mood_assessment)
+		mood_assessment.summon()  # 👈 triggers fade-in + pop animation
 
-		# 🧠 When the player submits, go to level selection
-		mood_assessment.connect("mood_submitted", Callable(self, "_on_mood_assessment_submitted"))
-		mood_assessment.connect("mood_submit_cancel", Callable(self, "_on_mood_assessment_cancelled"))
+		mood_assessment.mood_submitted.connect(_on_mood_assessment_submitted)
+		mood_assessment.mood_submit_cancel.connect(_on_mood_assessment_cancelled)
 	else:
 		push_warning("⚠️ Mood assessment scene not found!")
 		_load_next_scene("res://Scenes/zenbody.tscn")
 
-
 func _on_mood_assessment_submitted(mood_value: int) -> void:
-	
 	print("🧘 Mood submitted:", mood_value)
-	
-	## Optional: Save mood to database or global var
-	#Global.last_mood_value = mood_value
-	
-	# 🎯 Go to level selection
+	# Optionally trigger AI reflection here later
 	_load_next_scene("res://Scenes/zenbody.tscn")
 
 func _on_mood_assessment_cancelled(mood_cancelled: bool):
-	print("🧘 Mood Cancelled:")
+	print("🧘 Mood Cancelled")
 	_load_next_scene("res://Scenes/zenbody.tscn")
 	
 func _load_next_scene(scene_path: String) -> void:
