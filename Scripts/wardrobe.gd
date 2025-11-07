@@ -203,19 +203,19 @@ func _render_single_item():
 			if hat_sprite:
 				hat_sprite.texture = texture
 				hat_sprite.visible = texture != null
-				hat_sprite.modulate = Color(1,1,1, 1 if player_level >= required_level else 0.3)
+				hat_sprite.modulate = Color(1,1,1,1) if player_level >= required_level else Color(0,0,0,1)
 		"Dress":
 			var dress_sprite = PetStore.pet_node.get_node_or_null("PetArea/ChestSprite")
 			if dress_sprite:
 				dress_sprite.texture = texture
 				dress_sprite.visible = texture != null
-				dress_sprite.modulate = Color(1,1,1, 1 if player_level >= required_level else 0.3)
+				dress_sprite.modulate = Color(1,1,1,1) if player_level >= required_level else Color(0,0,0,1)
 		"Boots":
 			var boots_sprite = PetStore.pet_node.get_node_or_null("PetArea/ArmSprite")
 			if boots_sprite:
 				boots_sprite.texture = texture
 				boots_sprite.visible = texture != null
-				boots_sprite.modulate = Color(1,1,1, 1 if player_level >= required_level else 0.3)
+				boots_sprite.modulate = Color(1,1,1,1) if player_level >= required_level else Color(0,0,0,1)
 
 	prev_btn.disabled = current_index == 0
 	next_btn.disabled = current_index >= current_items.size() - 1

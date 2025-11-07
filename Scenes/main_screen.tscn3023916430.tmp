@@ -1,0 +1,274 @@
+[gd_scene load_steps=14 format=3 uid="uid://qbkoqiqtb116"]
+
+[ext_resource type="Texture2D" uid="uid://jyf1f2ojpkyw" path="res://Sprite/star-svgrepo-com.svg" id="1_b1vw1"]
+[ext_resource type="Script" uid="uid://42iwkno2xqty" path="res://Scenes/main_screen.gd" id="1_wi85j"]
+[ext_resource type="FontFile" uid="uid://b7qvl2gpk3y26" path="res://Fonts/Super Trend.ttf" id="2_wi85j"]
+[ext_resource type="Texture2D" uid="uid://0vbyxnb333sj" path="res://Sprite/GUI/loading-svgrepo-com (1).svg" id="4_y1wm0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y1wm0"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b1vw1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wi85j"]
+bg_color = Color(1, 0.831373, 0.172549, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.341176, 0.207843, 0.0627451, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qm5cq"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_y1wm0"]
+resource_name = "loading_roll"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 6.28319, 12.5664]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../HBoxContainer/fun_loading_info:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": ["Loading.", "Loading..", "Loading..."]
+}
+
+[sub_resource type="Animation" id="Animation_qm5cq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../HBoxContainer/fun_loading_info:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Loading..."]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_salsw"]
+_data = {
+&"RESET": SubResource("Animation_qm5cq"),
+&"loading_roll": SubResource("Animation_y1wm0")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_salsw"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.905882, 0.866667, 0.8, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_heolw"]
+bg_color = Color(0.905882, 0.866667, 0.8, 1)
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wi85j")
+metadata/_edit_vertical_guides_ = [191.0]
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_y1wm0")
+
+[node name="CPUParticles2D4" type="CPUParticles2D" parent="PanelContainer"]
+position = Vector2(191, 402)
+amount = 10
+texture = ExtResource("1_b1vw1")
+lifetime = 5.27
+speed_scale = 0.2
+spread = 101.84
+gravity = Vector2(0, 0)
+initial_velocity_max = 568.36
+angular_velocity_min = -345.66
+angular_velocity_max = -345.66
+scale_amount_min = 0.1
+scale_amount_max = 0.1
+color = Color(1, 0.637506, 0.0470588, 0.0980392)
+
+[node name="Control" type="Control" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/Control"]
+layout_mode = 2
+offset_left = 74.0
+offset_top = 369.0
+offset_right = 315.0
+offset_bottom = 486.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 5
+
+[node name="Label" type="Label" parent="PanelContainer/Control/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.341176, 0.207843, 0.0627451, 1)
+theme_override_constants/outline_size = 25
+theme_override_fonts/font = ExtResource("2_wi85j")
+theme_override_font_sizes/font_size = 71
+text = "ZENPET"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="PanelContainer/Control/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 0.831373, 0.172549, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("2_wi85j")
+theme_override_font_sizes/font_size = 20
+text = "your stress companion"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+offset_left = 48.0
+offset_top = 528.0
+offset_right = 342.0
+offset_bottom = 579.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="register_btn" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_wi85j")
+theme_override_font_sizes/font_size = 19
+theme_override_styles/focus = SubResource("StyleBoxEmpty_b1vw1")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_wi85j")
+theme_override_styles/hover = SubResource("StyleBoxFlat_wi85j")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_wi85j")
+theme_override_styles/normal = SubResource("StyleBoxFlat_wi85j")
+text = "Register"
+
+[node name="login_btn" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_wi85j")
+theme_override_font_sizes/font_size = 19
+theme_override_styles/focus = SubResource("StyleBoxEmpty_b1vw1")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_wi85j")
+theme_override_styles/hover = SubResource("StyleBoxFlat_wi85j")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_wi85j")
+theme_override_styles/normal = SubResource("StyleBoxFlat_wi85j")
+text = "Login"
+
+[node name="loading_menu_screen" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qm5cq")
+
+[node name="CenterContainer" type="CenterContainer" parent="loading_menu_screen"]
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="loading_menu_screen/CenterContainer"]
+modulate = Color(0.984314, 1, 0, 1)
+position = Vector2(191, 369)
+scale = Vector2(0.402367, 0.402367)
+texture = ExtResource("4_y1wm0")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="loading_menu_screen/CenterContainer"]
+libraries = {
+&"": SubResource("AnimationLibrary_salsw")
+}
+
+[node name="HBoxContainer" type="Control" parent="loading_menu_screen"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="fun_loading_info" type="Label" parent="loading_menu_screen/HBoxContainer"]
+layout_mode = 2
+offset_top = 334.0
+offset_right = 390.0
+offset_bottom = 357.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.846044, 0.846044, 0.846044, 1)
+text = "Loading..."
+horizontal_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="loading_menu_screen/HBoxContainer"]
+custom_minimum_size = Vector2(200, 10)
+layout_mode = 2
+offset_left = 69.0
+offset_top = 312.0
+offset_right = 319.0
+offset_bottom = 322.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(125, 10)
+theme_override_colors/font_color = Color(1, 0.831373, 0.172549, 1)
+theme_override_colors/font_outline_color = Color(0.341176, 0.207843, 0.0627451, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("2_wi85j")
+theme_override_styles/background = SubResource("StyleBoxFlat_salsw")
+theme_override_styles/fill = SubResource("StyleBoxFlat_heolw")
+show_percentage = false

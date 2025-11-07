@@ -1,6 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://cnurmvpfh7mkf"]
+[gd_scene load_steps=17 format=3 uid="uid://cnurmvpfh7mkf"]
 
 [ext_resource type="Script" uid="uid://ca4qtkmichrbs" path="res://Scenes/registration.gd" id="1_m0h6d"]
+[ext_resource type="Texture2D" uid="uid://jyf1f2ojpkyw" path="res://Sprite/star-svgrepo-com.svg" id="2_1jmvk"]
 [ext_resource type="Texture2D" uid="uid://0vbyxnb333sj" path="res://Sprite/GUI/loading-svgrepo-com (1).svg" id="2_m0h6d"]
 [ext_resource type="FontFile" uid="uid://b7qvl2gpk3y26" path="res://Fonts/Super Trend.ttf" id="3_45hwp"]
 
@@ -24,7 +25,7 @@ content_margin_left = 10.0
 content_margin_top = 3.0
 content_margin_right = 3.0
 content_margin_bottom = 3.0
-draw_center = false
+bg_color = Color(1, 1, 1, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
@@ -139,6 +140,54 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="CPUParticles2D5" type="CPUParticles2D" parent="."]
+position = Vector2(-92, 91)
+amount = 10
+texture = ExtResource("2_1jmvk")
+lifetime = 5.27
+speed_scale = 0.2
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 789.47
+initial_velocity_max = 813.97
+angular_velocity_min = 285.92
+angular_velocity_max = 462.76
+scale_amount_min = 0.1
+scale_amount_max = 0.1
+color = Color(1, 0.637506, 0.0470588, 0.0980392)
+
+[node name="CPUParticles2D6" type="CPUParticles2D" parent="."]
+position = Vector2(-453, 734)
+amount = 10
+texture = ExtResource("2_1jmvk")
+lifetime = 5.27
+speed_scale = 0.2
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 789.47
+initial_velocity_max = 813.97
+angular_velocity_min = 285.92
+angular_velocity_max = 462.76
+scale_amount_min = 0.1
+scale_amount_max = 0.1
+color = Color(1, 0.637506, 0.0470588, 0.0980392)
+
+[node name="CPUParticles2D7" type="CPUParticles2D" parent="."]
+position = Vector2(-243, 403)
+amount = 10
+texture = ExtResource("2_1jmvk")
+lifetime = 5.27
+speed_scale = 0.2
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 789.47
+initial_velocity_max = 813.97
+angular_velocity_min = 285.92
+angular_velocity_max = 462.76
+scale_amount_min = 0.1
+scale_amount_max = 0.1
+color = Color(1, 0.637506, 0.0470588, 0.0980392)
 
 [node name="Register_Window" type="Control" parent="."]
 layout_mode = 1

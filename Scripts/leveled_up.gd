@@ -3,11 +3,14 @@ extends Control
 @onready var label = $"Panel/level"
 @onready var confirm = $"Panel/confirm_btn"
 @onready var animation = $AnimationPlayer
+@onready var sun = $Sun
 
 var pet_data_path := "user://pet_data.json"
 
 func _ready():
 	animation.play("leveled_up")
+	await animation.animation_finished
+	sun.play("sun_rotate")
 	Global.play_sound(preload("res://Audio/999-level-up.mp3"))
 	visible = true
 	confirm.pressed.connect(hide_popup)

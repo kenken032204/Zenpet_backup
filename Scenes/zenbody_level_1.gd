@@ -9,10 +9,13 @@ var old_level = Global.User.get("level", 1)
 @onready var level_title: Label = $"Control/level_title"
 @onready var timer_label: Label = $"Control/TimerLabel"
 @onready var yogadescription: Label = $"Control/YogaDescription"
+
 @onready var progress_bar: ProgressBar = $"Control/ProgressBar"
 @onready var animation: AnimationPlayer = $AnimationPlayer
 
 @onready var pose_image: TextureRect = $"Control/Yoga_Sprite"
+
+@onready var yoga_instruction: Label = $"Control/yoga_instruction"
 
 var http_request: HTTPRequest
 var exp_request_completed: bool = false
@@ -59,8 +62,10 @@ func _load_level_from_data() -> void:
 	title = level_data.get("level_name", "Zen Session")
 	exp_gain = int(level_data.get("exp_gain", 20))
 	total_duration = float(level_data.get("duration_seconds", 60))
-	var description = level_data.get("description", "")
+	
+	var description = level_data.get("session_intro", "")
 	var sprite_url = level_data.get("sprite_url", "")
+	var instructions = level_data.get("instructions", "")
 
 	# 🧘 Load sprite if available
 	if sprite_url != "":
@@ -69,8 +74,11 @@ func _load_level_from_data() -> void:
 	else:
 		push_warning("⚠️ No sprite_url provided for this level")
 
-	print("📋 Loaded: %s | EXP: %d | Duration: %ds" % [title, exp_gain, int(total_duration)])
+	# 🩵 Set text content - show the session intro in yogadescription initially
+	yogadescription.text = description
+	yoga_instruction.text = ""  # Start empty, will be filled during progress
 
+	print("📋 Loaded: %s | EXP: %d | Duration: %ds" % [title, exp_gain, int(total_duration)])
 
 func _back_to_zenbody() -> void:
 	_load_next_scene(next_scene_path)
@@ -80,7 +88,17 @@ func _start_level() -> void:
 	start_btn.disabled = true
 	progress_bar.value = 0
 
+	# 🩵 Show session intro before countdown (if not empty)
+	var session_intro = level_data.get("session_intro", "")
+	if session_intro != "":
+		await _show_messages([session_intro])
+
+	# Countdown after intro
 	await _show_messages(messages)
+	
+	# Hide yogadescription after countdown, keep yoga_instruction visible
+	yogadescription.visible = false
+
 	await _increase_progress()
 
 	var user_id: int = Global.User.get("id", 0)
@@ -95,20 +113,100 @@ func _increase_progress() -> void:
 	var step_time: float = total_duration / float(steps)
 	var increment: float = (progress_bar.max_value - progress_bar.min_value) / float(steps)
 
-	for i in range(steps):
-		progress_bar.value += increment
-		var time_left: float = max(0.0, total_duration - (i * step_time))
-		timer_label.text = str(int(time_left))
-		await get_tree().create_timer(step_time).timeout
+	# Split yoga instructions into parts
+	var all_instructions = level_data.get("instructions", "")
+	print("🔹 Raw instructions:", all_instructions)
+	
+	var instruction_parts_raw = all_instructions.split("|")
+	
+	# Remove empty or whitespace-only strings
+	var instruction_parts: Array = []
+	for part in instruction_parts_raw:
+		var p = part.strip_edges()
+		if p != "":
+			instruction_parts.append(p)
+	print("🔹 Parsed instruction parts:", instruction_parts)
+			
+	var part_count = instruction_parts.size()
+	print("🔹 Total instruction parts:", part_count)
+	
+	if part_count == 0:
+		push_warning("⚠️ No instructions found!")
+		# Continue with timer anyway
+		for i in range(steps):
+			progress_bar.value += increment
+			var time_left: float = max(0.0, total_duration - (i * step_time))
+			timer_label.text = str(int(time_left))
+			print("⏱ Step", i, "Time left:", time_left, "Progress:", progress_bar.value)
+			await get_tree().create_timer(step_time).timeout
+	else:
+		var steps_per_part = steps / float(part_count)
+		var part_index = 0
+
+		# Set first instruction immediately
+		_show_instruction_with_bounce(instruction_parts[0])
+		part_index = 1
+			
+		for i in range(steps):
+			progress_bar.value += increment
+			var time_left: float = max(0.0, total_duration - (i * step_time))
+			timer_label.text = str(int(time_left))
+
+			# Update instruction based on step count
+			if part_index < part_count and i >= int(steps_per_part * part_index):
+				# Wait a short pause before showing next instruction
+				await get_tree().create_timer(2.0).timeout
+				_show_instruction_with_bounce(instruction_parts[part_index])
+				part_index += 1
+
+
+			await get_tree().create_timer(step_time).timeout
 
 	progress_bar.value = progress_bar.max_value
 	timer_label.text = "0"
+	print("✅ Progress complete, timer done")
+
+# --- Helper function to show instruction with centered bounce + sound ---
+func _show_instruction_with_bounce(text: String) -> void:
+	print("▶ _show_instruction_with_bounce called with:", text)
+
+	# set text & ensure visible / opaque
+	yoga_instruction.text = text
+	yoga_instruction.visible = true
+	yoga_instruction.modulate.a = 1.0
+
+	# wait one frame so Control layout updates (safe & reliable)
+	await get_tree().process_frame
+
+	# center pivot for a true center-scale bounce (use size in Godot 4)
+	var size_vec = yoga_instruction.size
+	yoga_instruction.pivot_offset = size_vec * 0.5
+
+	# Start smaller and slightly transparent for a combined pop+fade (optional)
+	yoga_instruction.scale = Vector2(0.8, 0.8)
+	yoga_instruction.modulate.a = 0.0
+
+	# create tween: fade in + bounce in parallel
+	var tween = create_tween()
+	tween.set_trans(Tween.TRANS_BACK)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.parallel().tween_property(yoga_instruction, "scale", Vector2(1, 1), 0.38)
+	tween.parallel().tween_property(yoga_instruction, "modulate:a", 1.0, 0.28)
+
+	# play click sound (debug print to confirm)
+	print("▶ Requesting sound play")
+	Global.play_sound(load("res://Audio/dog-clicker_IygBqAk.mp3"), -6.0)
+
+	# optionally wait until tween finishes before returning (prevents overlaps)
+	await tween.finished
+	print("◀ instruction shown (tween finished)")
 
 func _show_messages(msgs: Array[String]) -> void:
 	for text in msgs:
+		yogadescription.visible = true
 		yogadescription.text = text
 		yogadescription.modulate.a = 0.0
-		yogadescription.scale = Vector2(0.8, 0.8)  # start smaller for a pop-in effect
+		yogadescription.scale = Vector2(0.8, 0.8)
 		yogadescription.pivot_offset = yogadescription.size / 2
 
 		# ✨ Tween for pop + fade-in
@@ -119,7 +217,7 @@ func _show_messages(msgs: Array[String]) -> void:
 		pop_in.parallel().tween_property(yogadescription, "modulate:a", 1.0, 0.4)
 		await pop_in.finished
 
-		await get_tree().create_timer(1.0).timeout  # hold message briefly
+		await get_tree().create_timer(1.0).timeout
 
 		# 🌙 Tween for fade-out + shrink
 		var fade_out = create_tween()
@@ -218,7 +316,7 @@ func _show_level_complete() -> void:
 	if mood_scene:
 		var mood_assessment = mood_scene.instantiate()
 		get_tree().root.add_child(mood_assessment)
-		mood_assessment.summon()  # 👈 triggers fade-in + pop animation
+		mood_assessment.summon()
 
 		mood_assessment.mood_submitted.connect(_on_mood_assessment_submitted)
 		mood_assessment.mood_submit_cancel.connect(_on_mood_assessment_cancelled)
@@ -228,7 +326,6 @@ func _show_level_complete() -> void:
 
 func _on_mood_assessment_submitted(mood_value: int) -> void:
 	print("🧘 Mood submitted:", mood_value)
-	# Optionally trigger AI reflection here later
 	_load_next_scene("res://Scenes/zenbody.tscn")
 
 func _on_mood_assessment_cancelled(mood_cancelled: bool):

@@ -98,7 +98,7 @@ func _ready() -> void:
 	reset_btn.pressed.connect(clear_chat_history)
 	back_btn.pressed.connect(_back_to_dashboard)
 	submit_message.pressed.connect(_on_submit_pressed)
-	load_chat_history()
+	load_chat_from_server()
 	
 	# 🪶 When new journal is saved, reflect on it
 	if not JournalManager.journal_saved.is_connected(Callable(self, "_start_reflective_conversation")):
@@ -244,9 +244,46 @@ func add_message(text: String, is_user: bool, save: bool = true) -> void:
 	if save:
 		chat_history.append(entry)
 		save_chat_history()
+		_send_to_server(role, text) # ✅ Send to PHP + SQL
 
 	_show_message(text, is_user)
 
+func _send_to_server(role: String, message: String) -> void:
+	var http := HTTPRequest.new()
+	add_child(http)
+
+	var url := "%ssave_chat.php" % Global.BASE_URL
+
+	var data := {
+		"user_id": Global.User.get("id"),
+		"role": role,
+		"message": message
+	}
+
+	var headers := ["Content-Type: application/x-www-form-urlencoded"]
+	var body := ""
+
+	for key in data.keys():
+		body += "%s=%s&" % [key, str(data[key]).uri_encode()]
+
+	http.request(url, headers, HTTPClient.METHOD_POST, body)
+
+func load_chat_from_server():
+	var http := HTTPRequest.new()
+	add_child(http)
+	
+	var user_id = Global.User.get("id")
+	var url = "%sload_chat.php?user_id=%s" % [Global.BASE_URL, str(user_id)]
+	
+	http.request(url)
+	http.request_completed.connect(_on_load_chat_completed)
+	
+func _on_load_chat_completed(result, response_code, headers, body):
+	if response_code == 200:
+		var response = JSON.parse_string(body.get_string_from_utf8())
+		if response and response.has("messages"):
+			for msg in response["messages"]:
+				add_message(msg["text"], msg["role"] == "user", false)
 
 func type_text(label: Label, full_text: String, delay: float = 0.004) -> void:
 	label.text = ""

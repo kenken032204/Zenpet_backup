@@ -53,11 +53,11 @@ func _on_user_level_response(result: int, response_code: int, headers: PackedStr
 	if typeof(json) == TYPE_DICTIONARY:
 		if json.has("status") and json["status"] == "success":
 			user_level = int(json["data"].get("level", 0))
-			level_label.text = "Level %d" % user_level
+			level_label.text = str(user_level)
 			exp_bar.value = float(json["data"].get("exp", 0))
 		elif json.has("level"):
 			user_level = int(json.get("level", 0))
-			level_label.text = "Level %d" % user_level
+			level_label.text = str(user_level)
 			exp_bar.value = float(json.get("exp", 0))
 	
 	#print("✅ User level set to:", user_level)

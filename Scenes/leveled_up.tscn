@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://c4xkm47vbsvqb"]
+[gd_scene load_steps=14 format=3 uid="uid://c4xkm47vbsvqb"]
 
 [ext_resource type="Script" uid="uid://kif8jd41prdr" path="res://Scripts/leveled_up.gd" id="1_toxjh"]
 [ext_resource type="Texture2D" uid="uid://v7etvxb5qbli" path="res://Sprite/GUI/502375681699003dea428f4d3383c03a-group-of-stars-flat.png" id="2_iq17m"]
 [ext_resource type="Texture2D" uid="uid://cxge6pknpl6gx" path="res://Sprite/GUI/dog.png" id="2_kkqii"]
+[ext_resource type="Texture2D" uid="uid://b6o8p1gaaw8jk" path="res://Sprite/sun-307189_640.png" id="3_mn2q6"]
 [ext_resource type="FontFile" uid="uid://b7qvl2gpk3y26" path="res://Fonts/Super Trend.ttf" id="4_mn2q6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_khsmy"]
@@ -70,6 +71,18 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector2(1, 1)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Panel/Label2:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_toxjh"]
 resource_name = "leveled_up"
@@ -93,7 +106,7 @@ tracks/1/path = NodePath("Panel/Label:scale")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.233333, 0.366667, 0.5),
+"times": PackedFloat32Array(0, 0.166667, 0.366667, 0.8),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1.215, 1.215), Vector2(0.87, 0.87), Vector2(1, 1)]
@@ -122,11 +135,85 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector2(1.2, 1.2), Vector2(0.805, 0.805), Vector2(1, 1)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Panel/Label2:scale")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1.285, 1.285), Vector2(0.91, 0.91), Vector2(1, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_iq17m"]
 _data = {
 &"RESET": SubResource("Animation_kkqii"),
 &"leveled_up": SubResource("Animation_toxjh")
+}
+
+[sub_resource type="Animation" id="Animation_7waal"]
+resource_name = "sun_rotate"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel/Sprite2D2:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel/level:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2.36, 2.5, 2.67),
+"transitions": PackedFloat32Array(1, 1, 0.732043, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1), Vector2(1.135, 1.135), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_xoeky"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel/Sprite2D2:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel/level:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dfx8r"]
+_data = {
+&"RESET": SubResource("Animation_xoeky"),
+&"sun_rotate": SubResource("Animation_7waal")
 }
 
 [node name="Control" type="Control"]
@@ -190,6 +277,12 @@ scale_amount_min = 0.3
 scale_amount_max = 0.3
 color = Color(1, 0.560784, 0.0313726, 0.215686)
 
+[node name="Sprite2D2" type="Sprite2D" parent="Panel"]
+modulate = Color(1, 1, 1, 0.145098)
+position = Vector2(198, 443)
+scale = Vector2(1.50937, 1.50937)
+texture = ExtResource("3_mn2q6")
+
 [node name="Sprite2D" type="Sprite2D" parent="Panel"]
 modulate = Color(1, 0.315333, 0.21, 0.0784314)
 self_modulate = Color(1, 0.813727, 0.780998, 0.411765)
@@ -216,6 +309,29 @@ theme_override_fonts/font = ExtResource("4_mn2q6")
 theme_override_font_sizes/font_size = 31
 text = "Congratulations
 You've leveled up!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -147.0
+offset_top = 317.0
+offset_right = 147.0
+offset_bottom = 362.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(148, 26)
+theme_override_colors/font_color = Color(1, 0.831373, 0.172549, 1)
+theme_override_colors/font_outline_color = Color(0.418713, 0.21939, 1.92523e-07, 1)
+theme_override_constants/outline_size = 14
+theme_override_fonts/font = ExtResource("4_mn2q6")
+theme_override_font_sizes/font_size = 26
+text = "New outfit unlocked!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -286,3 +402,9 @@ vertical_alignment = 1
 libraries = {
 &"": SubResource("AnimationLibrary_iq17m")
 }
+
+[node name="Sun" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_dfx8r")
+}
+speed_scale = 0.5
